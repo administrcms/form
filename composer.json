@@ -1,0 +1,19 @@
+{
+    "name": "mirovit/administr",
+    "description": "Administration package that allows for fast and flexible admin pages",
+    "authors": [
+        {
+            "name": "Miroslav Vitanov",
+            "email": "mvvitanov@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": "5.2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Administr\\": "src/"
+        }
+    }
+}
