@@ -16,14 +16,10 @@ class AbstractFieldTypeTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue('1'));
 
         $stub->expects($this->any())
-            ->method('renderLabel')
-            ->will($this->returnValue('2'));
-
-        $stub->expects($this->any())
             ->method('renderErrors')
             ->will($this->returnValue('3'));
 
-        $this->assertSame('213', $stub->render());
+        $this->assertSame('<label for="test">Test</label>13', $stub->render());
     }
 
     /**
@@ -46,5 +42,16 @@ class AbstractFieldTypeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(AbstractType::class, $field);
         $this->assertSame(' test="miro"', $field->renderAttributes(['test' => 'miro']));
+    }
+
+    /**
+     * @test
+     */
+    public function it_renders_the_correct_label_html()
+    {
+        $field = new Text('test', 'Test');
+
+        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertSame('<label for="test">Test</label>', $field->renderLabel());
     }
 }
