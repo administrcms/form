@@ -62,4 +62,16 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertCount(1, $formBuilder->getFields());
         $this->assertInternalType('array', $formBuilder->getFields());
     }
+    
+    /**
+     * @test
+     */
+    public function it_renders_a_basic_form()
+    {
+
+        $formBuilder = new FormBuilder;
+        $formBuilder->text('test', 'Test');
+
+        $this->assertSame('<label for="test">Test</label><input type="text" id="test" name="test">', $formBuilder->render());
+    }
 }
