@@ -3,6 +3,7 @@
 namespace Administr\Form;
 
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Radio;
 use Administr\Form\Field\Text;
 use Administr\Form\Field\Textarea;
 
@@ -50,6 +51,19 @@ class FormBuilder
     public function textarea($fieldName, $fieldLabel, $options = [])
     {
         return $this->add(new Textarea($fieldName, $fieldLabel, $options));
+    }
+
+    /**
+     * Add a radio field.
+     *
+     * @param $fieldName
+     * @param $fieldLabel
+     * @param array $options
+     * @return FormBuilder
+     */
+    public function radio($fieldName, $fieldLabel, $options = [])
+    {
+        return $this->add(new Radio($fieldName, $fieldLabel, $options));
     }
 
     /**

@@ -8,7 +8,13 @@ class Radio extends AbstractType
 
     public function renderField($attributes = [])
     {
-        // TODO: Implement renderField() method.
+        $attrs = array_merge([
+            'type'  => 'radio',
+            'id'    => $this->name,
+            'name'  => $this->name,
+        ], $this->options, $attributes);
+
+        return '<input' . $this->renderAttributes($attrs) . '>';
     }
 
     public function renderErrors()

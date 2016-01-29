@@ -1,5 +1,6 @@
 <?php
 
+use Administr\Form\Field\Radio;
 use Administr\Form\Field\Text;
 use Administr\Form\Field\Textarea;
 use Administr\Form\FormBuilder;
@@ -63,6 +64,20 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $field = $formBuilder->getFields()[0];
 
         $this->assertInstanceOf(Textarea::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /**
+     * @test
+     */
+    public function it_adds_a_radio_field_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->radio('test', 'Test');
+
+        $field = $formBuilder->getFields()[0];
+
+        $this->assertInstanceOf(Radio::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
     }
 
