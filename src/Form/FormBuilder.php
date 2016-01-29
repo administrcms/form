@@ -4,6 +4,7 @@ namespace Administr\Form;
 
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Text;
+use Administr\Form\Field\Textarea;
 
 class FormBuilder
 {
@@ -36,6 +37,19 @@ class FormBuilder
     public function text($fieldName, $fieldLabel, $options = [])
     {
         return $this->add(new Text($fieldName, $fieldLabel, $options));
+    }
+
+    /**
+     * Add a textarea field.
+     *
+     * @param $fieldName
+     * @param $fieldLabel
+     * @param array $options
+     * @return FormBuilder
+     */
+    public function textarea($fieldName, $fieldLabel, $options = [])
+    {
+        return $this->add(new Textarea($fieldName, $fieldLabel, $options));
     }
 
     /**

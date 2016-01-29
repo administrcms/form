@@ -1,6 +1,7 @@
 <?php
 
 use Administr\Form\Field\Text;
+use Administr\Form\Field\Textarea;
 use Administr\Form\FormBuilder;
 
 class FormBuilderTest extends PHPUnit_Framework_TestCase
@@ -48,6 +49,20 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $field = $formBuilder->getFields()[0];
 
         $this->assertInstanceOf(Text::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /**
+     * @test
+     */
+    public function it_adds_a_textarea_field_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->textarea('test', 'Test');
+
+        $field = $formBuilder->getFields()[0];
+
+        $this->assertInstanceOf(Textarea::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
     }
 
