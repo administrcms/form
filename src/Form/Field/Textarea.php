@@ -15,11 +15,6 @@ class Textarea extends AbstractType
         return '<textarea' . $this->renderAttributes($attrs) . '></textarea>';
     }
 
-    public function renderLabel()
-    {
-        return '<label for="'.$this->name.'">' . $this->label . '</label>';
-    }
-
     public function renderErrors()
     {
         // TODO: Implement renderErrors() method.

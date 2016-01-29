@@ -36,7 +36,11 @@ abstract class AbstractType
         return $this->renderLabel() . $this->renderField() . $this->renderErrors();
     }
 
+    public function renderLabel()
+    {
+        return '<label for="'.$this->name.'">' . $this->label . '</label>';
+    }
+
     abstract public function renderField($attributes = []);
-    abstract public function renderLabel();
     abstract public function renderErrors();
 }
