@@ -18,6 +18,7 @@ abstract class Form
      */
     public function render()
     {
+        return $this->form->render();
     }
 
     /**
