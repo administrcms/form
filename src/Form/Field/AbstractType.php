@@ -18,7 +18,7 @@ abstract class AbstractType
         $this->rules = $rules;
     }
 
-    public function renderAttributes(array $attrs)
+    public function renderAttributes(array $attrs = [])
     {
         if(count($attrs) === 0)
         {
