@@ -8,14 +8,12 @@ abstract class AbstractType
     protected $name;
     protected $label;
     protected $options = [];
-    protected $rules = [];
 
-    public function __construct($name, $label, $options = [], $rules = [])
+    public function __construct($name, $label, $options = [])
     {
         $this->name = $name;
         $this->label = $label;
         $this->options = $options;
-        $this->rules = $rules;
     }
 
     public function renderAttributes(array $attrs = [])

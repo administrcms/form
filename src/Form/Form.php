@@ -5,7 +5,6 @@ namespace Administr\Form;
 abstract class Form
 {
     protected $form;
-    protected $rules;
 
     public function __construct(FormBuilder $form)
     {
