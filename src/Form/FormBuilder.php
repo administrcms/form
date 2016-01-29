@@ -3,6 +3,7 @@
 namespace Administr\Form;
 
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Checkbox;
 use Administr\Form\Field\Radio;
 use Administr\Form\Field\Text;
 use Administr\Form\Field\Textarea;
@@ -67,6 +68,17 @@ class FormBuilder
     }
 
     /**
+     * Add a checkbox field.
+     *
+     * @param $fieldName
+     * @param $fieldLabel
+     * @param array $options
+     * @return FormBuilder
+     */
+    public function checkbox($fieldName, $fieldLabel, $options = [])
+    {
+        return $this->add(new Checkbox($fieldName, $fieldLabel, $options));
+    }
      * Basic rendering of the form.
      *
      * @return string

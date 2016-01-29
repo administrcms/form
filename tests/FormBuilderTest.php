@@ -1,6 +1,9 @@
 <?php
 
+use Administr\Form\Field\Checkbox;
+use Administr\Form\Field\Option;
 use Administr\Form\Field\Radio;
+use Administr\Form\Field\Select;
 use Administr\Form\Field\Text;
 use Administr\Form\Field\Textarea;
 use Administr\Form\FormBuilder;
@@ -78,6 +81,64 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $field = $formBuilder->getFields()[0];
 
         $this->assertInstanceOf(Radio::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /**
+     * @test
+     */
+    public function it_adds_a_checkbox_field_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->checkbox('test', 'Test');
+
+        $field = $formBuilder->getFields()[0];
+
+        $this->assertInstanceOf(Checkbox::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /**
+     * @test
+     */
+    public function it_adds_a_select_field_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->select('test', 'Test');
+
+        $field = $formBuilder->getFields()[0];
+
+        $this->assertInstanceOf(Select::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /**
+     * @test
+     */
+    public function it_adds_a_select_with_options_field_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->select('test', 'Test', [
+            'value' => ['test' => 'Test']
+        ]);
+
+        $field = $formBuilder->getFields()[0];
+
+        $this->assertInstanceOf(Select::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /**
+     * @test
+     */
+    public function it_adds_an_option_field_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->option('test', 'Test');
+
+        $field = $formBuilder->getFields()[0];
+
+        $this->assertInstanceOf(Option::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
     }
 
