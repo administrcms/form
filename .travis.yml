@@ -25,3 +25,6 @@ install:
 
 script:
   - phpunit --bootstrap vendor/autoload.php --coverage-clover build/logs/clover.xml tests/
+
+after_script:
+  - vendor/bin/test-reporter
