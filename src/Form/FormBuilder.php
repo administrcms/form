@@ -4,7 +4,9 @@ namespace Administr\Form;
 
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Checkbox;
+use Administr\Form\Field\Option;
 use Administr\Form\Field\Radio;
+use Administr\Form\Field\Select;
 use Administr\Form\Field\Text;
 use Administr\Form\Field\Textarea;
 
@@ -79,6 +81,34 @@ class FormBuilder
     {
         return $this->add(new Checkbox($fieldName, $fieldLabel, $options));
     }
+
+    /**
+     * Add a select field.
+     *
+     * @param $fieldName
+     * @param $fieldLabel
+     * @param array $options
+     * @return FormBuilder
+     */
+    public function select($fieldName, $fieldLabel, $options = [])
+    {
+        return $this->add(new Select($fieldName, $fieldLabel, $options));
+    }
+
+    /**
+     * Add a option field.
+     *
+     * @param $fieldName
+     * @param $fieldLabel
+     * @param array $options
+     * @return FormBuilder
+     */
+    public function option($fieldName, $fieldLabel, $options = [])
+    {
+        return $this->add(new Option($fieldName, $fieldLabel, $options));
+    }
+
+    /**
      * Basic rendering of the form.
      *
      * @return string
