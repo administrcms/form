@@ -25,12 +25,7 @@ abstract class Form
      *
      * @return array
      */
-    public function rules()
-    {
-        return [
-
-        ];
-    }
+    abstract public function rules();
 
     /**
      * Define the fields of the form
