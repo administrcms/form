@@ -24,4 +24,4 @@ install:
   - composer install --no-interaction
 
 script:
-  - phpunit --bootstrap --coverage-clover build/logs/clover.xml vendor/autoload.php tests/
+  - phpunit --bootstrap vendor/autoload.php --coverage-clover build/logs/clover.xml tests/
