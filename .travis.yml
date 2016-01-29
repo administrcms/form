@@ -6,6 +6,10 @@ php:
   - 7
   - nightly
   - hhvm
+  
+addons:
+    code_climate:
+        repo_token: 9809d47c1966763efba0e4b167d2708267e9c767d953ce9e71918032c381d72c
 
 sudo: false
 
