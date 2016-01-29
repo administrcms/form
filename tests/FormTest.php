@@ -22,4 +22,37 @@ class FormTest extends PHPUnit_Framework_TestCase
         $constructor = $reflectedClass->getConstructor();
         $constructor->invoke($form, new FormBuilder);
     }
+    /**
+     * @test
+     */
+    public function it_renders_the_form()
+    {
+        $form = new TestForm(new FormBuilder);
+
+        $this->assertSame('<label for="test">Test</label><input type="text" id="test" name="test">', $form->render());
+    }
+}
+
+class TestForm extends Form
+{
+
+    /**
+     * Define the validation rules for the form.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        // TODO: Implement rules() method.
+    }
+
+    /**
+     * Define the fields of the form
+     *
+     * @param FormBuilder $form
+     */
+    public function form(FormBuilder $form)
+    {
+        $form->text('test', 'Test');
+    }
 }
