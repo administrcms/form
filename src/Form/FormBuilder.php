@@ -9,6 +9,7 @@ use Administr\Form\Field\Radio;
 use Administr\Form\Field\Select;
 use Administr\Form\Field\Text;
 use Administr\Form\Field\Textarea;
+use Administr\Form\Exceptions\InvalidField;
 
 class FormBuilder
 {
@@ -133,5 +134,20 @@ class FormBuilder
     public function getFields()
     {
         return $this->fields;
+    }
+
+    public function get($fieldName)
+    {
+        if( array_key_exists($fieldName, $this->fields) )
+        {
+            return $this->fields[$fieldName];
+        }
+
+        throw new InvalidField("The requested field index [{$fieldName}] has not been defined.");
+    }
+
+    public function __get($name)
+    {
+        return $this->get($name);
     }
 }
