@@ -16,15 +16,18 @@ class FormTest extends PHPUnit_Framework_TestCase
         $form->expects($this->once())
             ->method('form');
 
+        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+
         $reflectedClass = new ReflectionClass(Form::class);
         $constructor = $reflectedClass->getConstructor();
-        $constructor->invoke($form, new FormBuilder);
+        $constructor->invoke($form, new FormBuilder, $stub);
     }
 
     /** @test */
     public function it_renders_the_form()
     {
-        $form = new TestForm(new FormBuilder);
+        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+        $form = new TestForm(new FormBuilder, $stub);
 
         $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
     }
@@ -32,7 +35,8 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_sets_form_option()
     {
-        $form = new TestForm(new FormBuilder);
+        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+        $form = new TestForm(new FormBuilder, $stub);
         $form->method = 'post';
 
         $this->assertSame('<form method="post">' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
@@ -41,7 +45,8 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_form_option()
     {
-        $form = new TestForm(new FormBuilder);
+        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+        $form = new TestForm(new FormBuilder, $stub);
         $form->method = 'post';
 
         $this->assertSame('post', $form->method);
@@ -50,7 +55,8 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_null_for_nonexisting_form_option()
     {
-        $form = new TestForm(new FormBuilder);
+        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+        $form = new TestForm(new FormBuilder, $stub);
 
         $this->assertNull($form->method);
     }
