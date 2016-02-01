@@ -2,6 +2,9 @@
 
 namespace Administr\Form;
 
+use Validator;
+use Illuminate\Http\Request;
+
 abstract class Form
 {
     use RenderAttributesTrait;
@@ -9,10 +12,15 @@ abstract class Form
     protected $options = [];
 
     protected $form;
+    /**
+     * @var Request
+     */
+    private $request;
 
-    public function __construct(FormBuilder $form)
+    public function __construct(FormBuilder $form, Request $request)
     {
         $this->form = $form;
+        $this->request = $request;
         $this->form($this->form);
     }
 
@@ -27,6 +35,18 @@ abstract class Form
         $form .= "</form>\n";
 
         return $form;
+    }
+
+    public function isValid()
+    {
+        if(!is_array($this->rules()) || count($this->rules()) === 0)
+        {
+            return true;
+        }
+
+        $v = Validator::make($this->request->all(), $this->rules());
+
+        return $v->passes();
     }
 
     public function __set($name, $value)
