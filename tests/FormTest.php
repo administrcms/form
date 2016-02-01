@@ -29,7 +29,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     {
         $form = new TestForm(new FormBuilder);
 
-        $this->assertSame('<label for="test">Test</label><input type="text" id="test" name="test">', $form->render());
+        $this->assertSame('<form><label for="test">Test</label><input type="text" id="test" name="test"></form>', $form->render());
     }
 }
 

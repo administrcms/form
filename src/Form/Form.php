@@ -5,6 +5,9 @@ namespace Administr\Form;
 abstract class Form
 {
     use RenderAttributesTrait;
+
+    protected $options = [];
+
     protected $form;
 
     public function __construct(FormBuilder $form)
@@ -19,7 +22,26 @@ abstract class Form
      */
     public function render()
     {
-        return $this->form->render();
+        $form = "<form{$this->renderAttributes($this->options)}>";
+        $form .= $this->form->render();
+        $form .= '</form>';
+
+        return $form;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->options[$name] = $value;
+    }
+
+    public function __get($name)
+    {
+        if( !array_key_exists($name, $this->options) )
+        {
+            return null;
+        }
+
+        return $this->options[$name];
     }
 
     /**
