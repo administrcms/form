@@ -6,6 +6,7 @@ use Administr\Form\Field\Option;
 use Administr\Form\Field\Password;
 use Administr\Form\Field\Radio;
 use Administr\Form\Field\Select;
+use Administr\Form\Field\Submit;
 use Administr\Form\Field\Text;
 use Administr\Form\Field\Textarea;
 use Administr\Form\FormBuilder;
@@ -148,6 +149,18 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Password::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /** @test */
+    public function it_adds_a_submit_button_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->submit('test', 'Test');
+
+        $field = $formBuilder->getFields()['test'];
+
+        $this->assertInstanceOf(Submit::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
     }
 

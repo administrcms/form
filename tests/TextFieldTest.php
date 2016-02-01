@@ -4,9 +4,7 @@ use Administr\Form\Field\Text;
 
 class TextFieldTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_renders_the_correct_field_html()
     {
         $field = new Text('test', 'Test');

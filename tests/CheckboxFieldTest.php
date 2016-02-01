@@ -4,9 +4,7 @@ use Administr\Form\Field\Checkbox;
 
 class CheckboxFieldTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_renders_the_full_html()
     {
         $field = new Checkbox('test', 'Test');

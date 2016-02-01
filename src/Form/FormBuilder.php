@@ -9,6 +9,7 @@ use Administr\Form\Field\Option;
 use Administr\Form\Field\Password;
 use Administr\Form\Field\Radio;
 use Administr\Form\Field\Select;
+use Administr\Form\Field\Submit;
 use Administr\Form\Field\Text;
 use Administr\Form\Field\Textarea;
 use Administr\Form\Exceptions\InvalidField;
@@ -135,6 +136,19 @@ class FormBuilder
     public function password($fieldName, $fieldLabel, $options = [])
     {
         return $this->add(new Password($fieldName, $fieldLabel, $options));
+    }
+
+    /**
+     * Add a submit button.
+     *
+     * @param $fieldName
+     * @param $fieldLabel
+     * @param array $options
+     * @return FormBuilder
+     */
+    public function submit($fieldName, $fieldLabel, $options = [])
+    {
+        return $this->add(new Submit($fieldName, $fieldLabel, $options));
     }
 
     /**

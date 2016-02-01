@@ -5,9 +5,7 @@ use Administr\Form\FormBuilder;
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_calls_the_form_method_after_construction()
     {
         $form = $this->getMockBuilder(Form::class)
@@ -22,9 +20,8 @@ class FormTest extends PHPUnit_Framework_TestCase
         $constructor = $reflectedClass->getConstructor();
         $constructor->invoke($form, new FormBuilder);
     }
-    /**
-     * @test
-     */
+
+    /** @test */
     public function it_renders_the_form()
     {
         $form = new TestForm(new FormBuilder);

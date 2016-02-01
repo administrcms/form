@@ -2,15 +2,15 @@
 
 namespace Administr\Form\Field;
 
-
-class Password extends AbstractType
+class Submit extends AbstractType
 {
     public function renderField($attributes = [])
     {
         $attrs = array_merge([
-            'type'  => 'password',
+            'type'  => 'submit',
             'id'    => $this->name,
             'name'  => $this->name,
+            'value' => $this->label,
         ], $this->options, $attributes);
 
         return '<input' . $this->renderAttributes($attrs) . '>';

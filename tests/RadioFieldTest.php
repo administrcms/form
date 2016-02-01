@@ -4,9 +4,7 @@ use Administr\Form\Field\Radio;
 
 class RadioFieldTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_renders_the_full_html()
     {
         $field = new Radio('test', 'Test');

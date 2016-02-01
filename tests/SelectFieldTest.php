@@ -4,9 +4,7 @@ use Administr\Form\Field\Select;
 
 class SelectFieldTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function it_renders_the_full_html()
     {
         $field = new Select('test', 'Test');
@@ -14,9 +12,7 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
         $this->assertSame('<label for="test">Test</label><select id="test" name="test"></select>', $field->render());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_renders_with_options_the_full_html()
     {
         $field = new Select('test', 'Test', [

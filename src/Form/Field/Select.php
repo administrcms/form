@@ -5,7 +5,6 @@ namespace Administr\Form\Field;
 
 class Select extends AbstractType
 {
-
     public function renderField($attributes = [])
     {
         $attrs = array_merge([

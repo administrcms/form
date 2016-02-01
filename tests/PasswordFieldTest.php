@@ -4,10 +4,7 @@ use Administr\Form\Field\Password;
 
 class PasswordFieldTest extends PHPUnit_Framework_TestCase
 {
-
-    /**
-     * @test
-     */
+    /** @test */
     public function it_renders_the_correct_field_html()
     {
         $field = new Password('test', 'Test');
