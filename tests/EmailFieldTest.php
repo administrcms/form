@@ -9,6 +9,6 @@ class EmailFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Email('test', 'Test');
 
-        $this->assertSame('<input type="email" id="test" name="test">', $field->renderField());
+        $this->assertSame('<label for="test">Test</label><input type="email" id="test" name="test">', $field->render());
     }
 }

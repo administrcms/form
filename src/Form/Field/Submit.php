@@ -16,6 +16,11 @@ class Submit extends AbstractType
         return '<input' . $this->renderAttributes($attrs) . '>';
     }
 
+    public function renderLabel()
+    {
+        return null;
+    }
+
     public function renderErrors()
     {
         // TODO: Implement renderErrors() method.

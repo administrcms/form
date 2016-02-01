@@ -9,6 +9,6 @@ class SubmitFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Submit('test', 'Test');
 
-        $this->assertSame('<input type="submit" id="test" name="test" value="Test">', $field->renderField());
+        $this->assertSame('<input type="submit" id="test" name="test" value="Test">', $field->render());
     }
 }
