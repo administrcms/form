@@ -26,7 +26,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     {
         $form = new TestForm(new FormBuilder);
 
-        $this->assertSame('<form><label for="test">Test</label><input type="text" id="test" name="test"></form>', $form->render());
+        $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
     }
 
     /** @test */
@@ -35,7 +35,7 @@ class FormTest extends PHPUnit_Framework_TestCase
         $form = new TestForm(new FormBuilder);
         $form->method = 'post';
 
-        $this->assertSame('<form method="post"><label for="test">Test</label><input type="text" id="test" name="test"></form>', $form->render());
+        $this->assertSame('<form method="post">' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
     }
 
     /** @test */

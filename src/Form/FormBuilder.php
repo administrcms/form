@@ -162,7 +162,7 @@ class FormBuilder
 
         foreach($this->fields as $field)
         {
-            $form .= $field->render();
+            $form .= $field->render() . "\n";
         }
 
         return $form;

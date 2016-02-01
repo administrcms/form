@@ -9,6 +9,6 @@ class CheckboxFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Checkbox('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label><input type="checkbox" id="test" name="test">', $field->render());
+        $this->assertSame('<label for="test">Test</label>' . "\n" . '<input type="checkbox" id="test" name="test">', $field->render());
     }
 }

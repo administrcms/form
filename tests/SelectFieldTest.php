@@ -9,7 +9,7 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Select('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label><select id="test" name="test"></select>', $field->render());
+        $this->assertSame('<label for="test">Test</label>' . "\n" . '<select id="test" name="test"></select>', $field->render());
     }
 
     /** @test */
@@ -19,6 +19,6 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
             'value' => ['miro' => 'test']
         ]);
 
-        $this->assertSame('<label for="test">Test</label><select id="test" name="test"><option value="miro">test</option></select>', $field->render());
+        $this->assertSame('<label for="test">Test</label>' . "\n" . '<select id="test" name="test"><option value="miro">test</option></select>', $field->render());
     }
 }

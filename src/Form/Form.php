@@ -22,9 +22,9 @@ abstract class Form
      */
     public function render()
     {
-        $form = "<form{$this->renderAttributes($this->options)}>";
+        $form = "<form{$this->renderAttributes($this->options)}>\n";
         $form .= $this->form->render();
-        $form .= '</form>';
+        $form .= "</form>\n";
 
         return $form;
     }

@@ -29,7 +29,7 @@ abstract class AbstractType
 
     public function renderLabel()
     {
-        return '<label for="'.$this->name.'">' . $this->label . '</label>';
+        return "<label for=\"{$this->name}\">{$this->label}</label>\n";
     }
 
     /**
