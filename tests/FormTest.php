@@ -2,6 +2,7 @@
 
 use Administr\Form\Form;
 use Administr\Form\FormBuilder;
+use Illuminate\Http\Request;
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
@@ -16,7 +17,7 @@ class FormTest extends PHPUnit_Framework_TestCase
         $form->expects($this->once())
             ->method('form');
 
-        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+        $stub = $this->getMock(Request::class, null);
 
         $reflectedClass = new ReflectionClass(Form::class);
         $constructor = $reflectedClass->getConstructor();
@@ -26,7 +27,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_renders_the_form()
     {
-        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+        $stub = $this->getMock(Request::class, null);
         $form = new TestForm(new FormBuilder, $stub);
 
         $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
@@ -35,7 +36,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_sets_form_option()
     {
-        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+        $stub = $this->getMock(Request::class, null);
         $form = new TestForm(new FormBuilder, $stub);
         $form->method = 'post';
 
@@ -45,7 +46,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_form_option()
     {
-        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+        $stub = $this->getMock(Request::class, null);
         $form = new TestForm(new FormBuilder, $stub);
         $form->method = 'post';
 
@@ -55,11 +56,34 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_null_for_nonexisting_form_option()
     {
-        $stub = $this->getMock(\Illuminate\Http\Request::class, null);
+        $stub = $this->getMock(Request::class, null);
         $form = new TestForm(new FormBuilder, $stub);
 
         $this->assertNull($form->method);
     }
+
+    /** @test */
+    public function it_validates_when_no_rules_are_added()
+    {
+        $stub = $this->getMock(Request::class, null);
+        $form = new TestForm(new FormBuilder, $stub);
+
+        $this->assertTrue($form->isValid());
+    }
+
+//    /** @test */
+//    public function it_does_not_validate()
+//    {
+//        $stub = $this->getMock(Request::class, ['all']);
+//
+//        $stub->expects($this->once())
+//            ->method('all')
+//            ->willReturn(['email' => '']);
+//
+//        $form = new TestWithRulesForm(new FormBuilder, $stub);
+//
+//        $this->assertFalse($form->isValid());
+//    }
 }
 
 class TestForm extends Form
@@ -72,7 +96,7 @@ class TestForm extends Form
      */
     public function rules()
     {
-        // TODO: Implement rules() method.
+        return [];
     }
 
     /**
@@ -85,3 +109,29 @@ class TestForm extends Form
         $form->text('test', 'Test');
     }
 }
+
+//class TestWithRulesForm extends Form
+//{
+//
+//    /**
+//     * Define the validation rules for the form.
+//     *
+//     * @return array
+//     */
+//    public function rules()
+//    {
+//        return [
+//            'test'  => 'required',
+//        ];
+//    }
+//
+//    /**
+//     * Define the fields of the form
+//     *
+//     * @param FormBuilder $form
+//     */
+//    public function form(FormBuilder $form)
+//    {
+//        $form->text('test', 'Test');
+//    }
+//}
