@@ -50,7 +50,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder;
         $builder = $formBuilder->text('test', 'Test');
 
-        $field = $formBuilder->getFields()[0];
+        $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Text::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -64,7 +64,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder;
         $builder = $formBuilder->textarea('test', 'Test');
 
-        $field = $formBuilder->getFields()[0];
+        $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Textarea::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -78,7 +78,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder;
         $builder = $formBuilder->radio('test', 'Test');
 
-        $field = $formBuilder->getFields()[0];
+        $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Radio::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -92,7 +92,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder;
         $builder = $formBuilder->checkbox('test', 'Test');
 
-        $field = $formBuilder->getFields()[0];
+        $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Checkbox::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -106,7 +106,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder;
         $builder = $formBuilder->select('test', 'Test');
 
-        $field = $formBuilder->getFields()[0];
+        $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Select::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -122,7 +122,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
             'value' => ['test' => 'Test']
         ]);
 
-        $field = $formBuilder->getFields()[0];
+        $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Select::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -136,7 +136,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder;
         $builder = $formBuilder->option('test', 'Test');
 
-        $field = $formBuilder->getFields()[0];
+        $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Option::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);

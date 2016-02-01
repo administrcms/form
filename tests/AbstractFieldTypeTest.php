@@ -54,4 +54,31 @@ class AbstractFieldTypeTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(AbstractType::class, $field);
         $this->assertSame('<label for="test">Test</label>', $field->renderLabel());
     }
+
+    /** @test */
+    public function it_gets_field_name()
+    {
+        $field = new Text('test', 'Test');
+
+        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertSame('test', $field->getName());
+    }
+
+    /** @test */
+    public function it_gets_field_label()
+    {
+        $field = new Text('test', 'Test');
+
+        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertSame('Test', $field->getLabel());
+    }
+
+    /** @test */
+    public function it_gets_field_options()
+    {
+        $field = new Text('test', 'Test');
+
+        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertSame([], $field->getOptions());
+    }
 }
