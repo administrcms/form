@@ -2,9 +2,12 @@
 
 namespace Administr\Form\Field;
 
+use Administr\Form\RenderAttributesTrait;
 
 abstract class AbstractType
 {
+    use RenderAttributesTrait;
+
     protected $name;
     protected $label;
     protected $options = [];
@@ -18,21 +21,6 @@ abstract class AbstractType
 
     abstract public function renderField($attributes = []);
     abstract public function renderErrors();
-
-    public function renderAttributes(array $attrs = [])
-    {
-        if(count($attrs) === 0)
-        {
-            return '';
-        }
-
-        $attributes = "";
-        foreach ($attrs as $attr => $value) {
-            $attributes .= " {$attr}=\"{$value}\"";
-        }
-
-        return $attributes;
-    }
 
     public function render()
     {

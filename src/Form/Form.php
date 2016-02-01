@@ -4,6 +4,7 @@ namespace Administr\Form;
 
 abstract class Form
 {
+    use RenderAttributesTrait;
     protected $form;
 
     public function __construct(FormBuilder $form)
