@@ -26,7 +26,7 @@ class FormBuilder
      */
     public function add(AbstractType $field)
     {
-        $this->fields[] = $field;
+        $this->fields[$field->getName()] = $field;
         return $this;
     }
 
