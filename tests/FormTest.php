@@ -28,6 +28,32 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('<form><label for="test">Test</label><input type="text" id="test" name="test"></form>', $form->render());
     }
+
+    /** @test */
+    public function it_sets_form_option()
+    {
+        $form = new TestForm(new FormBuilder);
+        $form->method = 'post';
+
+        $this->assertSame('<form method="post"><label for="test">Test</label><input type="text" id="test" name="test"></form>', $form->render());
+    }
+
+    /** @test */
+    public function it_gets_form_option()
+    {
+        $form = new TestForm(new FormBuilder);
+        $form->method = 'post';
+
+        $this->assertSame('post', $form->method);
+    }
+
+    /** @test */
+    public function it_gets_null_for_nonexisting_form_option()
+    {
+        $form = new TestForm(new FormBuilder);
+
+        $this->assertNull($form->method);
+    }
 }
 
 class TestForm extends Form
