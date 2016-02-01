@@ -16,6 +16,9 @@ abstract class AbstractType
         $this->options = $options;
     }
 
+    abstract public function renderField($attributes = []);
+    abstract public function renderErrors();
+
     public function renderAttributes(array $attrs = [])
     {
         if(count($attrs) === 0)
@@ -41,6 +44,27 @@ abstract class AbstractType
         return '<label for="'.$this->name.'">' . $this->label . '</label>';
     }
 
-    abstract public function renderField($attributes = []);
-    abstract public function renderErrors();
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
 }
