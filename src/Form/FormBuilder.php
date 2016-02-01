@@ -4,7 +4,9 @@ namespace Administr\Form;
 
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Checkbox;
+use Administr\Form\Field\Email;
 use Administr\Form\Field\Option;
+use Administr\Form\Field\Password;
 use Administr\Form\Field\Radio;
 use Administr\Form\Field\Select;
 use Administr\Form\Field\Text;
@@ -107,6 +109,32 @@ class FormBuilder
     public function option($fieldName, $fieldLabel, $options = [])
     {
         return $this->add(new Option($fieldName, $fieldLabel, $options));
+    }
+
+    /**
+     * Add an email field.
+     *
+     * @param $fieldName
+     * @param $fieldLabel
+     * @param array $options
+     * @return FormBuilder
+     */
+    public function email($fieldName, $fieldLabel, $options = [])
+    {
+        return $this->add(new Email($fieldName, $fieldLabel, $options));
+    }
+
+    /**
+     * Add a password field.
+     *
+     * @param $fieldName
+     * @param $fieldLabel
+     * @param array $options
+     * @return FormBuilder
+     */
+    public function password($fieldName, $fieldLabel, $options = [])
+    {
+        return $this->add(new Password($fieldName, $fieldLabel, $options));
     }
 
     /**

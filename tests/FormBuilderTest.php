@@ -1,7 +1,9 @@
 <?php
 
 use Administr\Form\Field\Checkbox;
+use Administr\Form\Field\Email;
 use Administr\Form\Field\Option;
+use Administr\Form\Field\Password;
 use Administr\Form\Field\Radio;
 use Administr\Form\Field\Select;
 use Administr\Form\Field\Text;
@@ -122,6 +124,30 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Option::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /** @test */
+    public function it_adds_an_email_field_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->email('test', 'Test');
+
+        $field = $formBuilder->getFields()['test'];
+
+        $this->assertInstanceOf(Email::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /** @test */
+    public function it_adds_a_password_field_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->password('test', 'Test');
+
+        $field = $formBuilder->getFields()['test'];
+
+        $this->assertInstanceOf(Password::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
     }
 
