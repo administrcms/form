@@ -2,10 +2,11 @@
 
 namespace Administr\Form;
 
+use Administr\Form\Exceptions\FormValidationException;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Request;
 
-abstract class Form
+abstract class Form implements ValidatesWhenSubmitted
 {
     use RenderAttributesTrait;
 
@@ -21,6 +22,11 @@ abstract class Form
      * @var Factory
      */
     private $validator;
+
+    /**
+     * @var Factory
+     */
+    protected $validatorInstance;
 
     public function __construct(FormBuilder $form, Request $request, Factory $validator)
     {
@@ -50,9 +56,24 @@ abstract class Form
             return true;
         }
 
-        $v = $this->validator->make($this->request->all(), $this->rules());
+        $this->validatorInstance = $this->validator->make($this->request->all(), $this->rules());
 
-        return $v->passes();
+        return $this->validatorInstance->passes();
+    }
+
+    public function submitted()
+    {
+        return strtolower($this->request->getMethod()) !== 'get';
+    }
+
+    public function validate()
+    {
+        if($this->isValid())
+        {
+            return;
+        }
+
+        throw new FormValidationException($this->validatorInstance);
     }
 
     public function __set($name, $value)

@@ -1,0 +1,28 @@
+<?php
+
+namespace Administr\Form;
+
+
+use Illuminate\Support\ServiceProvider;
+
+class FormServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        $this->app->afterResolving(function(ValidatesWhenSubmitted $form){
+            $form->validate();
+            if($form->submitted()) {
+            }
+        });
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        // TODO: Implement register() method.
+    }
+}
