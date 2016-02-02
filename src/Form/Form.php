@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\MessageBag;
+use Illuminate\Support\ViewErrorBag;
 
 abstract class Form implements ValidatesWhenSubmitted
 {
@@ -98,7 +98,7 @@ abstract class Form implements ValidatesWhenSubmitted
 
         if(empty($errors))
         {
-            return new MessageBag;
+            return new ViewErrorBag;
         }
 
         return $errors;

@@ -5,7 +5,7 @@ namespace Administr\Form;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Text;
 use Administr\Form\Exceptions\InvalidField;
-use Illuminate\Contracts\Support\MessageBag;
+use Illuminate\Support\ViewErrorBag;
 
 class FormBuilder
 {
@@ -53,15 +53,16 @@ class FormBuilder
     /**
      * Basic rendering of the form.
      *
+     * @param ViewErrorBag $errors
      * @return string
      */
-    public function render(MessageBag $errors = null)
+    public function render(ViewErrorBag $errors = null)
     {
         $form = '';
 
         foreach($this->fields as $name => $field)
         {
-            $error = !empty($errors) && $errors->has($name) ? $errors->get($key) : [];
+            $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
             $form .= $field->render($error) . "\n";
         }
 
