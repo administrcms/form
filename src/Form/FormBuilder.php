@@ -9,11 +9,15 @@ use Illuminate\Support\ViewErrorBag;
 
 class FormBuilder
 {
+    /*
+     * @var \Administr\Form\Presenters\Presenter
+     */
+    public $presenter = \Administr\Form\Presenters\BootstrapPresenter::class;
+
     /**
      * @var array
      */
     private $fields = [];
-
 
     /**
      * Add a field to the form.
@@ -63,10 +67,21 @@ class FormBuilder
         foreach($this->fields as $name => $field)
         {
             $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
-            $form .= $field->render($error) . "\n";
+            $form .= $this->present($field, $error);
         }
 
         return $form;
+    }
+
+    protected function present(AbstractType $field, array $error)
+    {
+        if( empty($this->presenter) || !class_exists($this->presenter) )
+        {
+            return $field->render($error) . "\n";
+        }
+
+        $presenter = new $this->presenter;
+        return $presenter->render($field, $error);
     }
 
     /**

@@ -1,0 +1,38 @@
+<?php
+
+namespace Administr\Form\Presenters;
+
+use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Submit;
+use Administr\Form\RenderAttributesTrait;
+
+class BootstrapPresenter implements Presenter
+{
+    use RenderAttributesTrait;
+
+    public function render(AbstractType $field, array $error)
+    {
+        $attrs = [
+            'class' => 'form-group'
+        ];
+        $fieldAttrs = [
+            'class' => 'form-control'
+        ];
+
+        if( count($error) > 0 )
+        {
+            $attrs['class'] .= ' has-success';
+        }
+
+        if( $field instanceof Submit )
+        {
+            $fieldAttrs['class'] = 'btn btn-primary';
+        }
+
+        return "<div class=\"{$this->renderAttributes($attrs)}\">" .
+        "{$field->renderLabel()}" .
+        "{$field->renderField($fieldAttrs)}" .
+        "<span class=\"help-block\">{$field->renderErrors($error)}</span>" .
+        "</div>";
+    }
+}

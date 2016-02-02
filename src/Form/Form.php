@@ -88,11 +88,27 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function render()
     {
-        $form = "<form{$this->renderAttributes($this->options)}>\n";
+        $form = $this->getFormOpen();
         $form .= $this->form->render($this->errors());
-        $form .= "</form>\n";
+        $form .= $this->getFormClose();
 
         return $form;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormOpen()
+    {
+        return "<form{$this->renderAttributes($this->options)}>\n";
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormClose()
+    {
+        return "</form>\n";
     }
 
     public function field($name)
@@ -141,7 +157,10 @@ abstract class Form implements ValidatesWhenSubmitted
             return;
         }
 
-        throw new FormValidationException($this->validatorInstance, $this->response($this->validatorInstance->getMessageBag()->toArray()));
+        throw new FormValidationException(
+            $this->validatorInstance,
+            $this->response($this->validatorInstance->getMessageBag()->toArray())
+        );
     }
 
     /**
