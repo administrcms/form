@@ -83,6 +83,11 @@ class FormTest extends PHPUnit_Framework_TestCase
     {
         $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
 
+        $this->request
+            ->shouldReceive('get')
+            ->once()
+            ->andReturn(null);
+
         $this->assertNull($form->method);
     }
 
