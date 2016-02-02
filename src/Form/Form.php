@@ -15,6 +15,9 @@ abstract class Form implements ValidatesWhenSubmitted
 
     protected $options = [];
 
+    /**
+     * @var FormBuilder
+     */
     protected $form;
 
     /**
@@ -90,6 +93,16 @@ abstract class Form implements ValidatesWhenSubmitted
         $form .= "</form>\n";
 
         return $form;
+    }
+
+    public function field($name)
+    {
+        return $this->form->get($name);
+    }
+
+    public function fields()
+    {
+        return $this->form->getFields();
     }
 
     public function errors()
