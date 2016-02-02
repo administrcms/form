@@ -64,4 +64,9 @@ abstract class AbstractType
     {
         return $this->options;
     }
+
+    public function __toString()
+    {
+        return $this->render();
+    }
 }
