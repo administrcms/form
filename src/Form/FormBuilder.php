@@ -3,15 +3,7 @@
 namespace Administr\Form;
 
 use Administr\Form\Field\AbstractType;
-use Administr\Form\Field\Checkbox;
-use Administr\Form\Field\Email;
-use Administr\Form\Field\Option;
-use Administr\Form\Field\Password;
-use Administr\Form\Field\Radio;
-use Administr\Form\Field\Select;
-use Administr\Form\Field\Submit;
 use Administr\Form\Field\Text;
-use Administr\Form\Field\Textarea;
 use Administr\Form\Exceptions\InvalidField;
 
 class FormBuilder
@@ -35,120 +27,26 @@ class FormBuilder
     }
 
     /**
-     * Add a text field.
+     * Add a field of given type. Example - text, email, password, etc.
      *
-     * @param $fieldName
-     * @param $fieldLabel
-     * @param array $options
-     * @return FormBuilder
+     * @param $name
+     * @param array $args
+     * @return $this
      */
-    public function text($fieldName, $fieldLabel, $options = [])
+    public function __call($name, array $args)
     {
-        return $this->add(new Text($fieldName, $fieldLabel, $options));
-    }
+        $class = 'Administr\\Form\\Field\\' . studly_case($name);
 
-    /**
-     * Add a textarea field.
-     *
-     * @param $fieldName
-     * @param $fieldLabel
-     * @param array $options
-     * @return FormBuilder
-     */
-    public function textarea($fieldName, $fieldLabel, $options = [])
-    {
-        return $this->add(new Textarea($fieldName, $fieldLabel, $options));
-    }
+        if( !class_exists($class) )
+        {
+            $class = Text::class;
+        }
 
-    /**
-     * Add a radio field.
-     *
-     * @param $fieldName
-     * @param $fieldLabel
-     * @param array $options
-     * @return FormBuilder
-     */
-    public function radio($fieldName, $fieldLabel, $options = [])
-    {
-        return $this->add(new Radio($fieldName, $fieldLabel, $options));
-    }
+        $reflector = new \ReflectionClass($class);
 
-    /**
-     * Add a checkbox field.
-     *
-     * @param $fieldName
-     * @param $fieldLabel
-     * @param array $options
-     * @return FormBuilder
-     */
-    public function checkbox($fieldName, $fieldLabel, $options = [])
-    {
-        return $this->add(new Checkbox($fieldName, $fieldLabel, $options));
-    }
+        $this->add( $reflector->newInstanceArgs($args) );
 
-    /**
-     * Add a select field.
-     *
-     * @param $fieldName
-     * @param $fieldLabel
-     * @param array $options
-     * @return FormBuilder
-     */
-    public function select($fieldName, $fieldLabel, $options = [])
-    {
-        return $this->add(new Select($fieldName, $fieldLabel, $options));
-    }
-
-    /**
-     * Add a option field.
-     *
-     * @param $fieldName
-     * @param $fieldLabel
-     * @param array $options
-     * @return FormBuilder
-     */
-    public function option($fieldName, $fieldLabel, $options = [])
-    {
-        return $this->add(new Option($fieldName, $fieldLabel, $options));
-    }
-
-    /**
-     * Add an email field.
-     *
-     * @param $fieldName
-     * @param $fieldLabel
-     * @param array $options
-     * @return FormBuilder
-     */
-    public function email($fieldName, $fieldLabel, $options = [])
-    {
-        return $this->add(new Email($fieldName, $fieldLabel, $options));
-    }
-
-    /**
-     * Add a password field.
-     *
-     * @param $fieldName
-     * @param $fieldLabel
-     * @param array $options
-     * @return FormBuilder
-     */
-    public function password($fieldName, $fieldLabel, $options = [])
-    {
-        return $this->add(new Password($fieldName, $fieldLabel, $options));
-    }
-
-    /**
-     * Add a submit button.
-     *
-     * @param $fieldName
-     * @param $fieldLabel
-     * @param array $options
-     * @return FormBuilder
-     */
-    public function submit($fieldName, $fieldLabel, $options = [])
-    {
-        return $this->add(new Submit($fieldName, $fieldLabel, $options));
+        return $this;
     }
 
     /**
