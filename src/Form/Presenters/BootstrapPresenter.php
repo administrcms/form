@@ -21,7 +21,7 @@ class BootstrapPresenter implements Presenter
 
         if( count($error) > 0 )
         {
-            $attrs['class'] .= ' has-success';
+            $attrs['class'] .= ' has-error';
         }
 
         if( $field instanceof Submit )
