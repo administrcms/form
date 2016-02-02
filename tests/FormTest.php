@@ -30,7 +30,7 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['form'])
             ->getMockForAbstractClass();
-        
+
         $form->expects($this->once())
             ->method('form');
 
@@ -81,19 +81,28 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($form->isValid());
     }
 
-//    /** @test */
-//    public function it_does_not_validate()
-//    {
-//        $stub = $this->getMock(Request::class, ['all']);
-//
-//        $stub->expects($this->once())
-//            ->method('all')
-//            ->willReturn(['email' => '']);
-//
-//        $form = new TestWithRulesForm(new FormBuilder, $stub);
-//
-//        $this->assertFalse($form->isValid());
-//    }
+    /** @test */
+    public function it_does_not_validate()
+    {
+        $form = new TestWithRulesForm(new FormBuilder, $this->request, $this->validator);
+
+        $this->request
+            ->shouldReceive('all')
+            ->once()
+            ->andReturn(['email' => '']);
+
+        $this->validator
+            ->shouldReceive('make')
+            ->once()
+            ->andReturn($this->validator);
+
+        $this->validator
+            ->shouldReceive('passes')
+            ->once()
+            ->andReturn(false);
+
+        $this->assertFalse($form->isValid());
+    }
 }
 
 class TestForm extends Form
@@ -120,28 +129,28 @@ class TestForm extends Form
     }
 }
 
-//class TestWithRulesForm extends Form
-//{
-//
-//    /**
-//     * Define the validation rules for the form.
-//     *
-//     * @return array
-//     */
-//    public function rules()
-//    {
-//        return [
-//            'test'  => 'required',
-//        ];
-//    }
-//
-//    /**
-//     * Define the fields of the form
-//     *
-//     * @param FormBuilder $form
-//     */
-//    public function form(FormBuilder $form)
-//    {
-//        $form->text('test', 'Test');
-//    }
-//}
+class TestWithRulesForm extends Form
+{
+
+    /**
+     * Define the validation rules for the form.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'test'  => 'required',
+        ];
+    }
+
+    /**
+     * Define the fields of the form
+     *
+     * @param FormBuilder $form
+     */
+    public function form(FormBuilder $form)
+    {
+        $form->text('test', 'Test');
+    }
+}
