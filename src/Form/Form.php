@@ -157,7 +157,7 @@ abstract class Form implements ValidatesWhenSubmitted
     {
         if( !array_key_exists($name, $this->options) )
         {
-            return null;
+            return $this->request->get($name);
         }
 
         return $this->options[$name];
