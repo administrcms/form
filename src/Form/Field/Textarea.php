@@ -10,6 +10,7 @@ class Textarea extends AbstractType
         $attrs = array_merge([
             'id'    => $this->name,
             'name'  => $this->name,
+            'value' => old($this->name),
         ], $this->options, $attributes);
 
         return '<textarea' . $this->renderAttributes($attrs) . '></textarea>';

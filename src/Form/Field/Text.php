@@ -11,6 +11,7 @@ class Text extends AbstractType
             'type'  => 'text',
             'id'    => $this->name,
             'name'  => $this->name,
+            'value' => old($this->name),
         ], $this->options, $attributes);
 
         return '<input' . $this->renderAttributes($attrs) . '>';

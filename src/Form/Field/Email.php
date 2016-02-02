@@ -11,6 +11,7 @@ class Email extends AbstractType
             'type'  => 'email',
             'id'    => $this->name,
             'name'  => $this->name,
+            'value' => old($this->name),
         ], $this->options, $attributes);
 
         return '<input' . $this->renderAttributes($attrs) . '>';
