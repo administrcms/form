@@ -29,10 +29,10 @@ class BootstrapPresenter implements Presenter
             $fieldAttrs['class'] = 'btn btn-primary';
         }
 
-        return "<div class=\"{$this->renderAttributes($attrs)}\">" .
-        "{$field->renderLabel()}" .
-        "{$field->renderField($fieldAttrs)}" .
-        "<span class=\"help-block\">{$field->renderErrors($error)}</span>" .
+        return "<div class=\"{$this->renderAttributes($attrs)}\">" . "\n" .
+        "{$field->renderLabel()}" . "\n" .
+        "{$field->renderField($fieldAttrs)}" . "\n" .
+        "<span class=\"help-block\">{$field->renderErrors($error)}</span>" . "\n" .
         "</div>";
     }
 }
