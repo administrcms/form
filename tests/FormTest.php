@@ -45,7 +45,15 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_renders_the_form()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
+        $formBuilder = new FormBuilder;
+        $formBuilder->presenter = null;
+
+        $form = new TestForm(
+            $formBuilder,
+            $this->request,
+            $this->validator,
+            $this->redirector
+        );
 
         $this->request
             ->shouldReceive('session')
@@ -58,7 +66,15 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_sets_form_option()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
+        $formBuilder = new FormBuilder;
+        $formBuilder->presenter = null;
+
+        $form = new TestForm(
+            $formBuilder,
+            $this->request,
+            $this->validator,
+            $this->redirector
+        );
         $form->method = 'post';
 
         $this->request

@@ -178,6 +178,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
     public function it_renders_a_basic_form()
     {
         $formBuilder = new FormBuilder;
+        $formBuilder->presenter = null;
         $formBuilder->text('test', 'Test');
 
         $this->assertSame('<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">' . "\n", $formBuilder->render());
