@@ -1,34 +1,48 @@
 <?php
 
+use Mockery as m;
+
 use Administr\Form\Form;
 use Administr\Form\FormBuilder;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Factory;
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
+    private $request;
+    private $validator;
+
+    public function setUp()
+    {
+        $this->request = m::mock(Request::class);
+        $this->validator = m::mock(Factory::class);
+    }
+
+    public function tearDown()
+    {
+        m::close();
+    }
+
     /** @test */
     public function it_calls_the_form_method_after_construction()
     {
         $form = $this->getMockBuilder(Form::class)
-                    ->disableOriginalConstructor()
-                    ->setMethods(['form'])
-                    ->getMockForAbstractClass();
-
+            ->disableOriginalConstructor()
+            ->setMethods(['form'])
+            ->getMockForAbstractClass();
+        
         $form->expects($this->once())
             ->method('form');
 
-        $stub = $this->getMock(Request::class, null);
-
-        $reflectedClass = new ReflectionClass(Form::class);
+        $reflectedClass = new ReflectionClass($form);
         $constructor = $reflectedClass->getConstructor();
-        $constructor->invoke($form, new FormBuilder, $stub);
+        $constructor->invoke($form, new FormBuilder, $this->request, $this->validator);
     }
 
     /** @test */
     public function it_renders_the_form()
     {
-        $stub = $this->getMock(Request::class, null);
-        $form = new TestForm(new FormBuilder, $stub);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
 
         $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
     }
@@ -36,8 +50,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_sets_form_option()
     {
-        $stub = $this->getMock(Request::class, null);
-        $form = new TestForm(new FormBuilder, $stub);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
         $form->method = 'post';
 
         $this->assertSame('<form method="post">' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
@@ -46,8 +59,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_form_option()
     {
-        $stub = $this->getMock(Request::class, null);
-        $form = new TestForm(new FormBuilder, $stub);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
         $form->method = 'post';
 
         $this->assertSame('post', $form->method);
@@ -56,8 +68,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_null_for_nonexisting_form_option()
     {
-        $stub = $this->getMock(Request::class, null);
-        $form = new TestForm(new FormBuilder, $stub);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
 
         $this->assertNull($form->method);
     }
@@ -65,8 +76,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_validates_when_no_rules_are_added()
     {
-        $stub = $this->getMock(Request::class, null);
-        $form = new TestForm(new FormBuilder, $stub);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
 
         $this->assertTrue($form->isValid());
     }

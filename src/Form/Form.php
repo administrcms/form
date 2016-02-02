@@ -2,7 +2,7 @@
 
 namespace Administr\Form;
 
-use Validator;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Request;
 
 abstract class Form
@@ -12,15 +12,21 @@ abstract class Form
     protected $options = [];
 
     protected $form;
+
     /**
      * @var Request
      */
     private $request;
+    /**
+     * @var Factory
+     */
+    private $validator;
 
-    public function __construct(FormBuilder $form, Request $request)
+    public function __construct(FormBuilder $form, Request $request, Factory $validator)
     {
         $this->form = $form;
         $this->request = $request;
+        $this->validator = $validator;
         $this->form($this->form);
     }
 
@@ -44,7 +50,7 @@ abstract class Form
             return true;
         }
 
-        $v = Validator::make($this->request->all(), $this->rules());
+        $v = $this->validator->make($this->request->all(), $this->rules());
 
         return $v->passes();
     }
