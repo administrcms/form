@@ -6,16 +6,19 @@ use Administr\Form\Form;
 use Administr\Form\FormBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Factory;
+use Illuminate\Routing\Redirector;
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
     private $request;
     private $validator;
+    private $redirector;
 
     public function setUp()
     {
         $this->request = m::mock(Request::class);
         $this->validator = m::mock(Factory::class);
+        $this->redirector = m::mock(Redirector::class);
     }
 
     public function tearDown()
@@ -36,13 +39,13 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $reflectedClass = new ReflectionClass($form);
         $constructor = $reflectedClass->getConstructor();
-        $constructor->invoke($form, new FormBuilder, $this->request, $this->validator);
+        $constructor->invoke($form, new FormBuilder, $this->request, $this->validator, $this->redirector);
     }
 
     /** @test */
     public function it_renders_the_form()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
 
         $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
     }
@@ -50,7 +53,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_sets_form_option()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
         $form->method = 'post';
 
         $this->assertSame('<form method="post">' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
@@ -59,7 +62,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_form_option()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
         $form->method = 'post';
 
         $this->assertSame('post', $form->method);
@@ -68,7 +71,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_null_for_nonexisting_form_option()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
 
         $this->assertNull($form->method);
     }
@@ -76,7 +79,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_validates_when_no_rules_are_added()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator);
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
 
         $this->assertTrue($form->isValid());
     }
@@ -84,7 +87,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_does_not_validate()
     {
-        $form = new TestWithRulesForm(new FormBuilder, $this->request, $this->validator);
+        $form = new TestWithRulesForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
 
         $this->request
             ->shouldReceive('all')

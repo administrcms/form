@@ -4,7 +4,9 @@ namespace Administr\Form;
 
 use Administr\Form\Exceptions\FormValidationException;
 use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 abstract class Form implements ValidatesWhenSubmitted
 {
@@ -17,22 +19,62 @@ abstract class Form implements ValidatesWhenSubmitted
     /**
      * @var Request
      */
-    private $request;
+    protected $request;
     /**
      * @var Factory
      */
-    private $validator;
+    protected $validator;
+    /**
+     * The redirector instance.
+     *
+     * @var Redirector
+     */
+    protected $redirector;
 
     /**
      * @var Factory
      */
     protected $validatorInstance;
+    /**
+     * The URI to redirect to if validation fails.
+     *
+     * @var string
+     */
+    protected $redirect;
 
-    public function __construct(FormBuilder $form, Request $request, Factory $validator)
+    /**
+     * The route to redirect to if validation fails.
+     *
+     * @var string
+     */
+    protected $redirectRoute;
+
+    /**
+     * The controller action to redirect to if validation fails.
+     *
+     * @var string
+     */
+    protected $redirectAction;
+    /**
+     * The key to be used for the view error bag.
+     *
+     * @var string
+     */
+    protected $errorBag = 'default';
+
+    /**
+     * The input keys that should not be flashed on redirect.
+     *
+     * @var array
+     */
+    protected $dontFlash = ['password', 'password_confirmation'];
+
+    public function __construct(FormBuilder $form, Request $request, Factory $validator, Redirector $redirector)
     {
         $this->form = $form;
         $this->request = $request;
         $this->validator = $validator;
+        $this->redirector = $redirector;
         $this->form($this->form);
     }
 
@@ -73,7 +115,24 @@ abstract class Form implements ValidatesWhenSubmitted
             return;
         }
 
-        throw new FormValidationException($this->validatorInstance);
+        return $this->response($this->validator->getMessageBag()->toArray());
+    }
+
+    /**
+     * Get the proper failed validation response for the request.
+     *
+     * @param  array  $errors
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function response(array $errors)
+    {
+        if ($this->request->ajax() || $this->request->wantsJson()) {
+            return new JsonResponse($errors, 422);
+        }
+
+        return $this->redirector->to($this->getRedirectUrl())
+            ->withInput($this->except($this->dontFlash))
+            ->withErrors($errors, $this->errorBag);
     }
 
     public function __set($name, $value)
@@ -89,6 +148,26 @@ abstract class Form implements ValidatesWhenSubmitted
         }
 
         return $this->options[$name];
+    }
+
+    /**
+     * Get the URL to redirect to on a validation error.
+     *
+     * @return string
+     */
+    protected function getRedirectUrl()
+    {
+        $url = $this->redirector->getUrlGenerator();
+
+        if ($this->redirect) {
+            return $url->to($this->redirect);
+        } elseif ($this->redirectRoute) {
+            return $url->route($this->redirectRoute);
+        } elseif ($this->redirectAction) {
+            return $url->action($this->redirectAction);
+        }
+
+        return $url->previous();
     }
 
     /**
