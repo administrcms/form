@@ -13,11 +13,7 @@ class AbstractFieldTypeTest extends PHPUnit_Framework_TestCase
             ->method('renderField')
             ->will($this->returnValue('1'));
 
-        $stub->expects($this->any())
-            ->method('renderErrors')
-            ->will($this->returnValue('3'));
-
-        $this->assertSame('<label for="test">Test</label>' . "\n" . '13', $stub->render());
+        $this->assertSame('<label for="test">Test</label>' . "\n" . '1', $stub->render());
     }
 
     /** @test */

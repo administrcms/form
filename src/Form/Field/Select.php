@@ -26,9 +26,4 @@ class Select extends AbstractType
 
         return '<select' . $this->renderAttributes($attrs) . '>' . $options . '</select>';
     }
-
-    public function renderErrors()
-    {
-        // TODO: Implement renderErrors() method.
-    }
 }

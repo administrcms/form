@@ -47,6 +47,11 @@ class FormTest extends PHPUnit_Framework_TestCase
     {
         $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
 
+        $this->request
+            ->shouldReceive('session')
+            ->once()
+            ->andReturn(new SessionMock);
+
         $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
     }
 
@@ -55,6 +60,11 @@ class FormTest extends PHPUnit_Framework_TestCase
     {
         $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
         $form->method = 'post';
+
+        $this->request
+            ->shouldReceive('session')
+            ->once()
+            ->andReturn(new SessionMock);
 
         $this->assertSame('<form method="post">' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
     }
@@ -155,5 +165,12 @@ class TestWithRulesForm extends Form
     public function form(FormBuilder $form)
     {
         $form->text('test', 'Test');
+    }
+}
+
+class SessionMock {
+    public function get()
+    {
+        return null;
     }
 }

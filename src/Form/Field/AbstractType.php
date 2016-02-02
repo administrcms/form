@@ -20,16 +20,25 @@ abstract class AbstractType
     }
 
     abstract public function renderField($attributes = []);
-    abstract public function renderErrors();
 
-    public function render()
+    public function render(array $errors = [])
     {
-        return $this->renderLabel() . $this->renderField() . $this->renderErrors();
+        return $this->renderLabel() . $this->renderField() . $this->renderErrors($errors);
     }
 
     public function renderLabel()
     {
         return "<label for=\"{$this->name}\">{$this->label}</label>\n";
+    }
+
+    public function renderErrors(array $errors = [])
+    {
+        if(count($errors) === 0)
+        {
+            return '';
+        }
+
+        return implode("\n", $errors);
     }
 
     /**

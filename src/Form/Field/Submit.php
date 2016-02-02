@@ -20,9 +20,4 @@ class Submit extends AbstractType
     {
         return null;
     }
-
-    public function renderErrors()
-    {
-        // TODO: Implement renderErrors() method.
-    }
 }

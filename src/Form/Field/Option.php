@@ -19,8 +19,8 @@ class Option extends AbstractType
         return '';
     }
 
-    public function renderErrors()
+    public function renderErrors(array $errors = [])
     {
-        // TODO: Implement renderErrors() method.
+        return '';
     }
 }

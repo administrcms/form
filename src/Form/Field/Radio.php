@@ -15,9 +15,4 @@ class Radio extends AbstractType
 
         return '<input' . $this->renderAttributes($attrs) . '>';
     }
-
-    public function renderErrors()
-    {
-        // TODO: Implement renderErrors() method.
-    }
 }

@@ -11,8 +11,6 @@ class FormServiceProvider extends ServiceProvider
     {
         $this->app->afterResolving(function(ValidatesWhenSubmitted $form){
             $form->validate();
-            if($form->submitted()) {
-            }
         });
     }
 

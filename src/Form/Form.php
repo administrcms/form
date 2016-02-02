@@ -7,6 +7,7 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\MessageBag;
 
 abstract class Form implements ValidatesWhenSubmitted
 {
@@ -85,10 +86,22 @@ abstract class Form implements ValidatesWhenSubmitted
     public function render()
     {
         $form = "<form{$this->renderAttributes($this->options)}>\n";
-        $form .= $this->form->render();
+        $form .= $this->form->render($this->errors());
         $form .= "</form>\n";
 
         return $form;
+    }
+
+    public function errors()
+    {
+        $errors = $this->request->session()->get('errors');
+
+        if(empty($errors))
+        {
+            return new MessageBag;
+        }
+
+        return $errors;
     }
 
     public function isValid()
@@ -110,12 +123,12 @@ abstract class Form implements ValidatesWhenSubmitted
 
     public function validate()
     {
-        if($this->isValid())
+        if($this->isValid() || !$this->submitted())
         {
             return;
         }
 
-        return $this->response($this->validator->getMessageBag()->toArray());
+        throw new FormValidationException($this->validatorInstance, $this->response($this->validatorInstance->getMessageBag()->toArray()));
     }
 
     /**
@@ -131,7 +144,7 @@ abstract class Form implements ValidatesWhenSubmitted
         }
 
         return $this->redirector->to($this->getRedirectUrl())
-            ->withInput($this->except($this->dontFlash))
+            ->withInput($this->request->except($this->dontFlash))
             ->withErrors($errors, $this->errorBag);
     }
 

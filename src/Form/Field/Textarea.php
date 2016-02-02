@@ -14,9 +14,4 @@ class Textarea extends AbstractType
 
         return '<textarea' . $this->renderAttributes($attrs) . '></textarea>';
     }
-
-    public function renderErrors()
-    {
-        // TODO: Implement renderErrors() method.
-    }
 }
