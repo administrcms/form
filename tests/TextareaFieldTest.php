@@ -1,6 +1,8 @@
 <?php
 
-use Administr\Form\Field\Textarea;
+namespace Administr\Form\Field;
+
+use PHPUnit_Framework_TestCase;
 
 class TextareaFieldTest extends PHPUnit_Framework_TestCase
 {

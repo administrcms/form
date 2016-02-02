@@ -180,7 +180,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder;
         $formBuilder->text('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n", $formBuilder->render());
+        $this->assertSame('<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">' . "\n", $formBuilder->render());
     }
     
     /** @test */

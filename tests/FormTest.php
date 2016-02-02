@@ -52,7 +52,7 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(new SessionMock);
 
-        $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
+        $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">' . "\n" . '</form>' . "\n", $form->render());
     }
 
     /** @test */
@@ -66,7 +66,7 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(new SessionMock);
 
-        $this->assertSame('<form method="post">' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test">' . "\n" . '</form>' . "\n", $form->render());
+        $this->assertSame('<form method="post">' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">' . "\n" . '</form>' . "\n", $form->render());
     }
 
     /** @test */
