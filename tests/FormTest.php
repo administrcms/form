@@ -142,10 +142,9 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_a_field_from_the_form_builder()
     {
-        $builder = new FormBuilder;
-        $form = new TestForm($builder, $this->request, $this->validator, $this->redirector);
-        $builder->text('test', 'Test');
-
+        $formBuilder = new FormBuilder;
+        $form = new TestForm($formBuilder, $this->request, $this->validator, $this->redirector);
+        
         $this->assertInstanceOf(AbstractType::class, $form->field('test'));
     }
     
@@ -155,6 +154,22 @@ class FormTest extends PHPUnit_Framework_TestCase
         $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
 
         $this->assertCount(1, $form->fields());
+    }
+
+    /** @test */
+    public function it_converts_the_form_to_string()
+    {
+        $formBuilder = new FormBuilder;
+        $formBuilder->presenter = null;
+
+        $form = new TestForm($formBuilder, $this->request, $this->validator, $this->redirector);
+
+        $this->request
+            ->shouldReceive('session')
+            ->once()
+            ->andReturn(new SessionMock);
+
+        $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">' . "\n" . '</form>' . "\n", (string)$form);
     }
 }
 

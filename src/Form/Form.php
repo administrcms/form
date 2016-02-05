@@ -226,6 +226,11 @@ abstract class Form implements ValidatesWhenSubmitted
         return $url->previous();
     }
 
+    public function __toString()
+    {
+        return $this->render();
+    }
+
     /**
      * Define the validation rules for the form.
      *
