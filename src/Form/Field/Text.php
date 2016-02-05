@@ -5,7 +5,7 @@ namespace Administr\Form\Field;
 
 class Text extends AbstractType
 {
-    public function renderField($attributes = [])
+    public function renderField(array $attributes = [])
     {
         $attrs = array_merge([
             'type'  => 'text',

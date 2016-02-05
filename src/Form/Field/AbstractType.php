@@ -19,7 +19,7 @@ abstract class AbstractType
         $this->options = $options;
     }
 
-    abstract public function renderField($attributes = []);
+    abstract public function renderField(array $attributes = []);
 
     public function render(array $errors = [])
     {

@@ -5,7 +5,7 @@ namespace Administr\Form\Field;
 
 class Option extends AbstractType
 {
-    public function renderField($attributes = [])
+    public function renderField(array $attributes = [])
     {
         $attrs = array_merge([
             'value' => $this->name

@@ -2,12 +2,13 @@
 
 namespace Administr\Form\Field;
 
-class Submit extends Text
+
+class Reset extends Text
 {
     public function renderField(array $attributes = [])
     {
         return parent::renderField(array_merge($attributes, [
-            'type' => 'submit',
+            'type' => 'reset',
             'value' => $this->label,
         ]));
     }
