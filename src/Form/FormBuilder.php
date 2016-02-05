@@ -73,7 +73,7 @@ class FormBuilder
         return $form;
     }
 
-    protected function present(AbstractType $field, array $error)
+    public function present(AbstractType $field, array $error = [])
     {
         if( empty($this->presenter) || !class_exists($this->presenter) )
         {

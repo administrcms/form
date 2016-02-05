@@ -1,5 +1,7 @@
 <?php
 
+use Administr\Form\Field\AbstractType;
+use Administr\Form\Presenters\Presenter;
 use Administr\Form\Field\Checkbox;
 use Administr\Form\Field\Email;
 use Administr\Form\Field\Option;
@@ -13,7 +15,6 @@ use Administr\Form\FormBuilder;
 
 class FormBuilderTest extends PHPUnit_Framework_TestCase
 {
-
     /** @test */
     public function it_has_zero_fields_after_init()
     {
@@ -210,5 +211,32 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
     {
         $formBuilder = new FormBuilder;
         $formBuilder->test;
+    }
+
+    /** @test */
+    public function it_uses_a_presenter_when_given()
+    {
+        $formBuilder = new FormBuilder;
+        $formBuilder->presenter = TestPresenter::class;
+        $formBuilder->text('test', 'Test present');
+
+        $this->assertNull($formBuilder->present($formBuilder->get('test')));
+    }
+
+    /** @test */
+    public function it_falls_back_to_text_field_when_a_non_existing_type_is_requested()
+    {
+        $formBuilder = new FormBuilder;
+        $formBuilder->qwerty('test', 'Test present');
+
+        $this->assertInstanceOf(Text::class, $formBuilder->test);
+    }
+}
+
+class TestPresenter implements Presenter
+{
+    public function render(AbstractType $field, array $error = [])
+    {
+        return null;
     }
 }
