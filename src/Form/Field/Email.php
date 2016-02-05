@@ -3,17 +3,12 @@
 namespace Administr\Form\Field;
 
 
-class Email extends AbstractType
+class Email extends Text
 {
     public function renderField($attributes = [])
     {
-        $attrs = array_merge([
-            'type'  => 'email',
-            'id'    => $this->name,
-            'name'  => $this->name,
-            'value' => old($this->name),
-        ], $this->options, $attributes);
-
-        return '<input' . $this->renderAttributes($attrs) . '>';
+        return parent::renderField(array_merge($attributes, [
+            'type' => 'email',
+        ]));
     }
 }

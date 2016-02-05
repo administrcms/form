@@ -3,16 +3,13 @@
 namespace Administr\Form\Field;
 
 
-class Password extends AbstractType
+class Password extends Text
 {
     public function renderField($attributes = [])
     {
-        $attrs = array_merge([
-            'type'  => 'password',
-            'id'    => $this->name,
-            'name'  => $this->name,
-        ], $this->options, $attributes);
-
-        return '<input' . $this->renderAttributes($attrs) . '>';
+        return parent::renderField(array_merge($attributes, [
+            'type' => 'password',
+            'value' => '',
+        ]));
     }
 }

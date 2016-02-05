@@ -3,16 +3,12 @@
 namespace Administr\Form\Field;
 
 
-class Checkbox extends AbstractType
+class Checkbox extends Text
 {
     public function renderField($attributes = [])
     {
-        $attrs = array_merge([
-            'type'  => 'checkbox',
-            'id'    => $this->name,
-            'name'  => $this->name,
-        ], $this->options, $attributes);
-
-        return '<input' . $this->renderAttributes($attrs) . '>';
+        return parent::renderField(array_merge($attributes, [
+            'type' => 'checkbox',
+        ]));
     }
 }

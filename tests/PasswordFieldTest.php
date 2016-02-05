@@ -9,6 +9,6 @@ class PasswordFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Password('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label>' . "\n" . '<input type="password" id="test" name="test">', $field->render());
+        $this->assertSame('<label for="test">Test</label>' . "\n" . '<input type="password" id="test" name="test" value="">', $field->render());
     }
 }

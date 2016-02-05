@@ -9,6 +9,6 @@ class RadioFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Radio('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label>' . "\n" . '<input type="radio" id="test" name="test">', $field->render());
+        $this->assertSame('<label for="test">Test</label>' . "\n" . '<input type="radio" id="test" name="test" value="">', $field->render());
     }
 }

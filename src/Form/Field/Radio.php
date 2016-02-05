@@ -3,16 +3,12 @@
 namespace Administr\Form\Field;
 
 
-class Radio extends AbstractType
+class Radio extends Text
 {
     public function renderField($attributes = [])
     {
-        $attrs = array_merge([
-            'type'  => 'radio',
-            'id'    => $this->name,
-            'name'  => $this->name,
-        ], $this->options, $attributes);
-
-        return '<input' . $this->renderAttributes($attrs) . '>';
+        return parent::renderField(array_merge($attributes, [
+            'type' => 'radio',
+        ]));
     }
 }
