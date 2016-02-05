@@ -1,5 +1,6 @@
 <?php
 
+use Administr\Form\Field\AbstractType;
 use Mockery as m;
 
 use Administr\Form\Form;
@@ -136,6 +137,24 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->andReturn(false);
 
         $this->assertFalse($form->isValid());
+    }
+    
+    /** @test */
+    public function it_gets_a_field_from_the_form_builder()
+    {
+        $builder = new FormBuilder;
+        $form = new TestForm($builder, $this->request, $this->validator, $this->redirector);
+        $builder->text('test', 'Test');
+
+        $this->assertInstanceOf(AbstractType::class, $form->field('test'));
+    }
+    
+    /** @test */
+    public function it_gets_an_array_of_the_fields_in_the_form_builder()
+    {
+        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
+
+        $this->assertCount(1, $form->fields());
     }
 }
 
