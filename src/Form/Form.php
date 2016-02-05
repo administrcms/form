@@ -129,8 +129,10 @@ abstract class Form implements ValidatesWhenSubmitted
         {
             return new ViewErrorBag;
         }
-
+        
+        // @codeCoverageIgnoreStart
         return $errors;
+        // @codeCoverageIgnoreEnd
     }
 
     public function isValid()
