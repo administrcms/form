@@ -6,5 +6,5 @@ use Administr\Form\Field\AbstractType;
 
 interface Presenter
 {
-    public function render(AbstractType $field, array $error);
+    public function render(AbstractType $field, array $error = []);
 }

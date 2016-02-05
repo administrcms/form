@@ -3,6 +3,7 @@
 namespace Administr\Form\Presenters;
 
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Reset;
 use Administr\Form\Field\Submit;
 use Administr\Form\RenderAttributesTrait;
 
@@ -10,7 +11,7 @@ class BootstrapPresenter implements Presenter
 {
     use RenderAttributesTrait;
 
-    public function render(AbstractType $field, array $error)
+    public function render(AbstractType $field, array $error = [])
     {
         $attrs = [
             'class' => 'form-group'
@@ -24,15 +25,27 @@ class BootstrapPresenter implements Presenter
             $attrs['class'] .= ' has-error';
         }
 
-        if( $field instanceof Submit )
+        if( $this->isButton($field) )
         {
             $fieldAttrs['class'] = 'btn btn-primary';
         }
 
-        return "<div{$this->renderAttributes($attrs)}>" . "\n" .
-        "{$field->renderLabel()}" . "\n" .
-        "{$field->renderField($fieldAttrs)}" . "\n" .
-        "<span class=\"help-block\">{$field->renderErrors($error)}</span>" . "\n" .
-        "</div>";
+        $presentation = "<div{$this->renderAttributes($attrs)}>" . "\n";
+        $presentation .= "{$field->renderLabel()}";
+        $presentation .= "{$field->renderField($fieldAttrs)}" . "\n";
+
+        if( !$this->isButton($field) )
+        {
+            $presentation .= "<span class=\"help-block\">{$field->renderErrors($error)}</span>" . "\n";
+        }
+
+        $presentation .= "</div>";
+
+        return $presentation;
+    }
+
+    protected function isButton(AbstractType $field)
+    {
+        return $field instanceof Submit || $field instanceof Reset;
     }
 }
