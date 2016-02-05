@@ -17,4 +17,9 @@ class Reset extends Text
     {
         return null;
     }
+
+    public function renderErrors(array $errors = [])
+    {
+        return null;
+    }
 }
