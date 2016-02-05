@@ -3,7 +3,7 @@
 namespace Administr\Form\Field;
 
 
-class Reset extends Text
+class Reset extends Submit
 {
     public function renderField(array $attributes = [])
     {
@@ -11,15 +11,5 @@ class Reset extends Text
             'type' => 'reset',
             'value' => $this->label,
         ]));
-    }
-
-    public function renderLabel()
-    {
-        return null;
-    }
-
-    public function renderErrors(array $errors = [])
-    {
-        return null;
     }
 }
