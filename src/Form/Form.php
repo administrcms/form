@@ -145,11 +145,18 @@ abstract class Form implements ValidatesWhenSubmitted
         return $this->validatorInstance->passes();
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function submitted()
     {
         return strtolower($this->request->getMethod()) !== 'get';
     }
 
+
+    /**
+     * @codeCoverageIgnore
+     */
     public function validate()
     {
         if($this->isValid() || !$this->submitted())
@@ -168,6 +175,7 @@ abstract class Form implements ValidatesWhenSubmitted
      *
      * @param  array  $errors
      * @return \Symfony\Component\HttpFoundation\Response
+     * @codeCoverageIgnore
      */
     public function response(array $errors)
     {
@@ -199,6 +207,7 @@ abstract class Form implements ValidatesWhenSubmitted
      * Get the URL to redirect to on a validation error.
      *
      * @return string
+     * @codeCoverageIgnore
      */
     protected function getRedirectUrl()
     {

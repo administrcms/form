@@ -5,6 +5,11 @@ namespace Administr\Form;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class FormServiceProvider
+ * @package Administr\Form
+ * @codeCoverageIgnore
+ */
 class FormServiceProvider extends ServiceProvider
 {
     public function boot()
