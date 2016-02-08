@@ -4,7 +4,6 @@ namespace Administr\Form\Field;
 
 use PHPUnit_Framework_TestCase;
 
-
 class TextFieldTest extends PHPUnit_Framework_TestCase
 {
     /** @test */
@@ -12,6 +11,6 @@ class TextFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Text('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">', $field->render());
+        $this->assertSame('<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">', $field->render());
     }
 }

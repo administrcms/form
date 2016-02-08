@@ -2,7 +2,6 @@
 
 namespace Administr\Form\Field;
 
-
 class Textarea extends AbstractType
 {
     public function renderField(array $attributes = [])
@@ -12,6 +11,6 @@ class Textarea extends AbstractType
             'name'  => $this->name,
         ], $this->options, $attributes);
 
-        return '<textarea' . $this->renderAttributes($attrs) . '>'. old($this->name) .'</textarea>';
+        return '<textarea'.$this->renderAttributes($attrs).'>'.old($this->name).'</textarea>';
     }
 }

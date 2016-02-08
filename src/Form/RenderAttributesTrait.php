@@ -2,17 +2,15 @@
 
 namespace Administr\Form;
 
-
 trait RenderAttributesTrait
 {
     public function renderAttributes(array $attrs = [])
     {
-        if(count($attrs) === 0)
-        {
+        if (count($attrs) === 0) {
             return '';
         }
 
-        $attributes = "";
+        $attributes = '';
         foreach ($attrs as $attr => $value) {
             $attributes .= " {$attr}=\"{$value}\"";
         }

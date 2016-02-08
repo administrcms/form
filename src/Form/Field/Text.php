@@ -2,7 +2,6 @@
 
 namespace Administr\Form\Field;
 
-
 class Text extends AbstractType
 {
     public function renderField(array $attributes = [])
@@ -14,6 +13,6 @@ class Text extends AbstractType
             'value' => old($this->name),
         ], $this->options, $attributes);
 
-        return '<input' . $this->renderAttributes($attrs) . '>';
+        return '<input'.$this->renderAttributes($attrs).'>';
     }
 }

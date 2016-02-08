@@ -2,19 +2,18 @@
 
 namespace Administr\Form;
 
-
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class FormServiceProvider
- * @package Administr\Form
+ * Class FormServiceProvider.
+ *
  * @codeCoverageIgnore
  */
 class FormServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->app->afterResolving(function(ValidatesWhenSubmitted $form){
+        $this->app->afterResolving(function (ValidatesWhenSubmitted $form) {
             $form->validate();
         });
     }

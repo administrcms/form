@@ -7,18 +7,18 @@ class Submit extends Text
     public function renderField(array $attributes = [])
     {
         return parent::renderField(array_merge([
-            'type' => 'submit',
+            'type'  => 'submit',
             'value' => $this->label,
         ], $attributes));
     }
 
     public function renderLabel()
     {
-        return null;
+        return;
     }
 
     public function renderErrors(array $errors = [])
     {
-        return null;
+        return;
     }
 }

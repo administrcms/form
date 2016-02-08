@@ -2,13 +2,12 @@
 
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Hidden;
-use Mockery as m;
-
 use Administr\Form\Form;
 use Administr\Form\FormBuilder;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Factory;
 use Illuminate\Routing\Redirector;
+use Illuminate\Validation\Factory;
+use Mockery as m;
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
@@ -41,13 +40,13 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $reflectedClass = new ReflectionClass($form);
         $constructor = $reflectedClass->getConstructor();
-        $constructor->invoke($form, new FormBuilder, $this->request, $this->validator, $this->redirector);
+        $constructor->invoke($form, new FormBuilder(), $this->request, $this->validator, $this->redirector);
     }
 
     /** @test */
     public function it_renders_the_form()
     {
-        $formBuilder = new FormBuilder;
+        $formBuilder = new FormBuilder();
         $formBuilder->presenter = null;
 
         $form = new TestForm(
@@ -60,15 +59,15 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->request
             ->shouldReceive('session')
             ->once()
-            ->andReturn(new SessionMock);
+            ->andReturn(new SessionMock());
 
-        $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">' . "\n" . '</form>' . "\n", $form->render());
+        $this->assertSame('<form>'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", $form->render());
     }
 
     /** @test */
     public function it_sets_form_option()
     {
-        $formBuilder = new FormBuilder;
+        $formBuilder = new FormBuilder();
         $formBuilder->presenter = null;
 
         $form = new TestForm(
@@ -82,15 +81,15 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->request
             ->shouldReceive('session')
             ->once()
-            ->andReturn(new SessionMock);
+            ->andReturn(new SessionMock());
 
-        $this->assertSame('<form method="post">' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">' . "\n" . '</form>' . "\n", $form->render());
+        $this->assertSame('<form method="post">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", $form->render());
     }
 
     /** @test */
     public function it_gets_form_option()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
+        $form = new TestForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
         $form->method = 'post';
 
         $this->assertSame('post', $form->method);
@@ -99,7 +98,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_gets_null_for_nonexisting_form_option()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
+        $form = new TestForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
 
         $this->request
             ->shouldReceive('get')
@@ -112,7 +111,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_validates_when_no_rules_are_added()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
+        $form = new TestForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
 
         $this->assertTrue($form->isValid());
     }
@@ -120,7 +119,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_does_not_validate()
     {
-        $form = new TestWithRulesForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
+        $form = new TestWithRulesForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
 
         $this->request
             ->shouldReceive('all')
@@ -139,20 +138,20 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($form->isValid());
     }
-    
+
     /** @test */
     public function it_gets_a_field_from_the_form_builder()
     {
-        $formBuilder = new FormBuilder;
+        $formBuilder = new FormBuilder();
         $form = new TestForm($formBuilder, $this->request, $this->validator, $this->redirector);
-        
+
         $this->assertInstanceOf(AbstractType::class, $form->field('test'));
     }
-    
+
     /** @test */
     public function it_gets_an_array_of_the_fields_in_the_form_builder()
     {
-        $form = new TestForm(new FormBuilder, $this->request, $this->validator, $this->redirector);
+        $form = new TestForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
 
         $this->assertCount(1, $form->fields());
     }
@@ -160,7 +159,7 @@ class FormTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_converts_the_form_to_string()
     {
-        $formBuilder = new FormBuilder;
+        $formBuilder = new FormBuilder();
         $formBuilder->presenter = null;
 
         $form = new TestForm($formBuilder, $this->request, $this->validator, $this->redirector);
@@ -168,15 +167,15 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->request
             ->shouldReceive('session')
             ->once()
-            ->andReturn(new SessionMock);
+            ->andReturn(new SessionMock());
 
-        $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">' . "\n" . '</form>' . "\n", (string)$form);
+        $this->assertSame('<form>'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", (string) $form);
     }
 
     /** @test */
     public function it_simulates_a_put_method()
     {
-        $formBuilder = new FormBuilder;
+        $formBuilder = new FormBuilder();
         $formBuilder->presenter = null;
 
         $form = new TestForm($formBuilder, $this->request, $this->validator, $this->redirector);
@@ -192,7 +191,6 @@ class FormTest extends PHPUnit_Framework_TestCase
 
 class TestForm extends Form
 {
-
     /**
      * Define the validation rules for the form.
      *
@@ -204,7 +202,7 @@ class TestForm extends Form
     }
 
     /**
-     * Define the fields of the form
+     * Define the fields of the form.
      *
      * @param FormBuilder $form
      */
@@ -216,7 +214,6 @@ class TestForm extends Form
 
 class TestWithRulesForm extends Form
 {
-
     /**
      * Define the validation rules for the form.
      *
@@ -230,7 +227,7 @@ class TestWithRulesForm extends Form
     }
 
     /**
-     * Define the fields of the form
+     * Define the fields of the form.
      *
      * @param FormBuilder $form
      */
@@ -240,9 +237,10 @@ class TestWithRulesForm extends Form
     }
 }
 
-class SessionMock {
+class SessionMock
+{
     public function get()
     {
-        return null;
+        return;
     }
 }

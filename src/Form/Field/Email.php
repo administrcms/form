@@ -2,7 +2,6 @@
 
 namespace Administr\Form\Field;
 
-
 class Email extends Text
 {
     public function renderField(array $attributes = [])

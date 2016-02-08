@@ -23,7 +23,7 @@ abstract class AbstractType
 
     public function render(array $errors = [])
     {
-        return $this->renderLabel() . $this->renderField() . $this->renderErrors($errors);
+        return $this->renderLabel().$this->renderField().$this->renderErrors($errors);
     }
 
     public function renderLabel()
@@ -33,8 +33,7 @@ abstract class AbstractType
 
     public function renderErrors(array $errors = [])
     {
-        if(count($errors) === 0)
-        {
+        if (count($errors) === 0) {
             return '';
         }
 
