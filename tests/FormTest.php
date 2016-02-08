@@ -171,6 +171,20 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('<form>' . "\n" . '<label for="test">Test</label>' . "\n" . '<input type="text" id="test" name="test" value="">' . "\n" . '</form>' . "\n", (string)$form);
     }
+
+    /** @test */
+    public function it_simulates_a_put_method()
+    {
+        $formBuilder = new FormBuilder;
+        $formBuilder->presenter = null;
+
+        $form = new TestForm($formBuilder, $this->request, $this->validator, $this->redirector);
+        $form->method = 'put';
+        $form->render();
+
+        $this->assertSame('post', $form->method);
+        $this->assertInstanceOf(Hidden::class, end($form->fields()));
+    }
 }
 
 class TestForm extends Form
