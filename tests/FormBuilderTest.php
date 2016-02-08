@@ -1,6 +1,7 @@
 <?php
 
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Hidden;
 use Administr\Form\Presenters\Presenter;
 use Administr\Form\Field\Checkbox;
 use Administr\Form\Field\Email;
@@ -162,6 +163,18 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $field = $formBuilder->getFields()['test'];
 
         $this->assertInstanceOf(Submit::class, $field);
+        $this->assertInstanceOf(FormBuilder::class, $builder);
+    }
+
+    /** @test */
+    public function it_adds_a_hidden_field_and_returns_form_builder_object()
+    {
+        $formBuilder = new FormBuilder;
+        $builder = $formBuilder->hidden('test', 'Test');
+
+        $field = $formBuilder->getFields()['test'];
+
+        $this->assertInstanceOf(Hidden::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
     }
 
