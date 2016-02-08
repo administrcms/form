@@ -7,7 +7,7 @@ class Hidden extends Text
     public function renderField(array $attributes = [])
     {
         return parent::renderField(array_merge($attributes, [
-            'type' => 'hidden',
+            'type'  => 'hidden',
             'value' => array_key_exists('value', $attributes) ? $attributes['value'] : $this->label,
         ]));
     }

@@ -15,32 +15,29 @@ class BootstrapPresenter implements Presenter
     public function render(AbstractType $field, array $error = [])
     {
         $attrs = [
-            'class' => 'form-group'
+            'class' => 'form-group',
         ];
         $fieldAttrs = [
-            'class' => 'form-control'
+            'class' => 'form-control',
         ];
 
-        if( count($error) > 0 )
-        {
+        if (count($error) > 0) {
             $attrs['class'] .= ' has-error';
         }
 
-        if( $this->isButton($field) )
-        {
+        if ($this->isButton($field)) {
             $fieldAttrs['class'] = 'btn btn-primary';
         }
 
-        $presentation = "<div{$this->renderAttributes($attrs)}>" . "\n";
+        $presentation = "<div{$this->renderAttributes($attrs)}>"."\n";
         $presentation .= "{$field->renderLabel()}";
-        $presentation .= "{$field->renderField($fieldAttrs)}" . "\n";
+        $presentation .= "{$field->renderField($fieldAttrs)}"."\n";
 
-        if( !$this->isButton($field) && !$this->isHidden($field) )
-        {
-            $presentation .= "<span class=\"help-block\">{$field->renderErrors($error)}</span>" . "\n";
+        if (!$this->isButton($field) && !$this->isHidden($field)) {
+            $presentation .= "<span class=\"help-block\">{$field->renderErrors($error)}</span>"."\n";
         }
 
-        $presentation .= "</div>";
+        $presentation .= '</div>';
 
         return $presentation;
     }

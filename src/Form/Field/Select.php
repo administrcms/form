@@ -2,7 +2,6 @@
 
 namespace Administr\Form\Field;
 
-
 class Select extends AbstractType
 {
     public function renderField(array $attributes = [])
@@ -13,17 +12,15 @@ class Select extends AbstractType
         ], $this->options, $attributes);
 
         $options = '';
-        if(array_key_exists('value', $attrs))
-        {
+        if (array_key_exists('value', $attrs)) {
             $value = $attrs['value'];
             unset($attrs['value']);
 
-            foreach($value as $value => $display)
-            {
+            foreach ($value as $value => $display) {
                 $options .= (new Option($value, $display))->renderField();
             }
         }
 
-        return '<select' . $this->renderAttributes($attrs) . '>' . $options . '</select>';
+        return '<select'.$this->renderAttributes($attrs).'>'.$options.'</select>';
     }
 }

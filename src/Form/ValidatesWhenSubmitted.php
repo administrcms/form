@@ -2,7 +2,6 @@
 
 namespace Administr\Form;
 
-
 interface ValidatesWhenSubmitted
 {
     /**

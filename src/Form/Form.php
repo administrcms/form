@@ -84,7 +84,6 @@ abstract class Form implements ValidatesWhenSubmitted
 
     /**
      * Render the form HTML.
-     *
      */
     public function render()
     {
@@ -100,8 +99,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function getFormOpen()
     {
-        if( array_key_exists('method', $this->options) && $this->options['method'] == 'put' )
-        {
+        if (array_key_exists('method', $this->options) && $this->options['method'] == 'put') {
             $this->options['method'] = 'post';
             $this->form->hidden('_method', 'put');
         }
@@ -131,11 +129,10 @@ abstract class Form implements ValidatesWhenSubmitted
     {
         $errors = $this->request->session()->get('errors');
 
-        if(empty($errors))
-        {
-            return new ViewErrorBag;
+        if (empty($errors)) {
+            return new ViewErrorBag();
         }
-        
+
         // @codeCoverageIgnoreStart
         return $errors;
         // @codeCoverageIgnoreEnd
@@ -143,8 +140,7 @@ abstract class Form implements ValidatesWhenSubmitted
 
     public function isValid()
     {
-        if(!is_array($this->rules()) || count($this->rules()) === 0)
-        {
+        if (!is_array($this->rules()) || count($this->rules()) === 0) {
             return true;
         }
 
@@ -161,14 +157,12 @@ abstract class Form implements ValidatesWhenSubmitted
         return strtolower($this->request->getMethod()) !== 'get';
     }
 
-
     /**
      * @codeCoverageIgnore
      */
     public function validate()
     {
-        if($this->isValid() || !$this->submitted())
-        {
+        if ($this->isValid() || !$this->submitted()) {
             return;
         }
 
@@ -181,7 +175,8 @@ abstract class Form implements ValidatesWhenSubmitted
     /**
      * Get the proper failed validation response for the request.
      *
-     * @param  array  $errors
+     * @param array $errors
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      * @codeCoverageIgnore
      */
@@ -203,8 +198,7 @@ abstract class Form implements ValidatesWhenSubmitted
 
     public function __get($name)
     {
-        if( !array_key_exists($name, $this->options) )
-        {
+        if (!array_key_exists($name, $this->options)) {
             return $this->request->get($name);
         }
 
@@ -245,9 +239,10 @@ abstract class Form implements ValidatesWhenSubmitted
     abstract public function rules();
 
     /**
-     * Define the fields of the form
+     * Define the fields of the form.
      *
      * @param FormBuilder $form
+     *
      * @return
      */
     abstract public function form(FormBuilder $form);
