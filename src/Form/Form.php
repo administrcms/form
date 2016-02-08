@@ -100,6 +100,12 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function getFormOpen()
     {
+        if( !empty($this->method) && $this->method == 'put' )
+        {
+            $this->method = 'post';
+            $this->form->hidden('_method', 'put');
+        }
+
         return "<form{$this->renderAttributes($this->options)}>\n";
     }
 
@@ -192,7 +198,7 @@ abstract class Form implements ValidatesWhenSubmitted
 
     public function __set($name, $value)
     {
-        $this->options[$name] = $value;
+        $this->options[$name] = strtolower($value);
     }
 
     public function __get($name)
