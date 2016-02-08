@@ -100,9 +100,9 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function getFormOpen()
     {
-        if( $this->method == 'put' )
+        if( array_key_exists('method', $this->options) && $this->options['method'] == 'put' )
         {
-            $this->method = 'post';
+            $this->options['method'] = 'post';
             $this->form->hidden('_method', 'put');
         }
 

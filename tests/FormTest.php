@@ -1,6 +1,7 @@
 <?php
 
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Hidden;
 use Mockery as m;
 
 use Administr\Form\Form;
@@ -179,11 +180,13 @@ class FormTest extends PHPUnit_Framework_TestCase
         $formBuilder->presenter = null;
 
         $form = new TestForm($formBuilder, $this->request, $this->validator, $this->redirector);
+
         $form->method = 'put';
-        $form->render();
+        $form->getFormOpen();
+        $fields = $form->fields();
 
         $this->assertSame('post', $form->method);
-        $this->assertInstanceOf(Hidden::class, end($form->fields()));
+        $this->assertInstanceOf(Hidden::class, end($fields));
     }
 }
 
