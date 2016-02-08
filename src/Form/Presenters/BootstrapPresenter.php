@@ -3,6 +3,7 @@
 namespace Administr\Form\Presenters;
 
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Hidden;
 use Administr\Form\Field\Reset;
 use Administr\Form\Field\Submit;
 use Administr\Form\RenderAttributesTrait;
@@ -34,7 +35,7 @@ class BootstrapPresenter implements Presenter
         $presentation .= "{$field->renderLabel()}";
         $presentation .= "{$field->renderField($fieldAttrs)}" . "\n";
 
-        if( !$this->isButton($field) )
+        if( !$this->isButton($field) && !$this->isHidden($field) )
         {
             $presentation .= "<span class=\"help-block\">{$field->renderErrors($error)}</span>" . "\n";
         }
@@ -47,5 +48,10 @@ class BootstrapPresenter implements Presenter
     protected function isButton(AbstractType $field)
     {
         return $field instanceof Submit || $field instanceof Reset;
+    }
+
+    protected function isHidden(AbstractType $field)
+    {
+        return $field instanceof Hidden;
     }
 }
