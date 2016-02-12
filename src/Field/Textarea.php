@@ -11,6 +11,13 @@ class Textarea extends AbstractType
             'name'  => $this->name,
         ], $this->options, $attributes);
 
-        return '<textarea'.$this->renderAttributes($attrs).'>'.old($this->name).'</textarea>';
+        $value = null;
+        if(array_key_exists('value', $attrs))
+        {
+            $value = $attrs['value'];
+            unset($attrs['value']);
+        }
+
+        return '<textarea'.$this->renderAttributes($attrs).'>'.old($this->name, $value).'</textarea>';
     }
 }
