@@ -191,6 +191,11 @@ abstract class Form implements ValidatesWhenSubmitted
             ->withErrors($errors, $this->errorBag);
     }
 
+
+    public function all()
+    {
+        return $this->request->all();
+    }
     /**
      * Get the URL to redirect to on a validation error.
      *
