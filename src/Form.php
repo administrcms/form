@@ -191,20 +191,6 @@ abstract class Form implements ValidatesWhenSubmitted
             ->withErrors($errors, $this->errorBag);
     }
 
-    public function __set($name, $value)
-    {
-        $this->options[$name] = strtolower($value);
-    }
-
-    public function __get($name)
-    {
-        if (!array_key_exists($name, $this->options)) {
-            return $this->request->get($name);
-        }
-
-        return $this->options[$name];
-    }
-
     /**
      * Get the URL to redirect to on a validation error.
      *
@@ -224,6 +210,27 @@ abstract class Form implements ValidatesWhenSubmitted
         }
 
         return $url->previous();
+    }
+
+    public function setDataSource($dataSource)
+    {
+        $this->form->setDataSource($dataSource);
+
+        return $this;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->options[$name] = strtolower($value);
+    }
+
+    public function __get($name)
+    {
+        if (!array_key_exists($name, $this->options)) {
+            return $this->request->get($name);
+        }
+
+        return $this->options[$name];
     }
 
     public function __toString()

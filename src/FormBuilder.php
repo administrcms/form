@@ -5,6 +5,7 @@ namespace Administr\Form;
 use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Text;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ViewErrorBag;
 
 class FormBuilder
@@ -18,6 +19,8 @@ class FormBuilder
      * @var array
      */
     private $fields = [];
+
+    private $dataSource = null;
 
     /**
      * Add a field to the form.
@@ -34,29 +37,6 @@ class FormBuilder
     }
 
     /**
-     * Add a field of given type. Example - text, email, password, etc.
-     *
-     * @param $name
-     * @param array $args
-     *
-     * @return $this
-     */
-    public function __call($name, array $args)
-    {
-        $class = 'Administr\\Form\\Field\\'.studly_case($name);
-
-        if (!class_exists($class)) {
-            $class = Text::class;
-        }
-
-        $reflector = new \ReflectionClass($class);
-
-        $this->add($reflector->newInstanceArgs($args));
-
-        return $this;
-    }
-
-    /**
      * Basic rendering of the form.
      *
      * @param ViewErrorBag $errors
@@ -68,6 +48,12 @@ class FormBuilder
         $form = '';
 
         foreach ($this->fields as $name => $field) {
+
+            if($value = $this->getValue($name))
+            {
+                $field->appendOption('value', $value);
+            }
+
             $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
             $form .= $this->present($field, $error);
         }
@@ -105,8 +91,51 @@ class FormBuilder
         throw new InvalidField("The requested field index [{$fieldName}] has not been defined.");
     }
 
+    public function setDataSource($dataSource)
+    {
+        $this->dataSource = $dataSource;
+    }
+
+    public function getValue($field)
+    {
+        if(is_array($this->dataSource) && array_key_exists($field, $this->dataSource))
+        {
+            return $this->dataSource[$field];
+        }
+
+        if($this->dataSource instanceof Model)
+        {
+            return $this->dataSource->$field;
+        }
+
+        return null;
+    }
+
     public function __get($name)
     {
         return $this->get($name);
+    }
+
+    /**
+     * Add a field of given type. Example - text, email, password, etc.
+     *
+     * @param $name
+     * @param array $args
+     *
+     * @return $this
+     */
+    public function __call($name, array $args)
+    {
+        $class = 'Administr\\Form\\Field\\'.studly_case($name);
+
+        if (!class_exists($class)) {
+            $class = Text::class;
+        }
+
+        $reflector = new \ReflectionClass($class);
+
+        $this->add($reflector->newInstanceArgs($args));
+
+        return $this;
     }
 }
