@@ -40,6 +40,11 @@ abstract class AbstractType
         return implode("\n", $errors);
     }
 
+    public function appendOption($option, $value)
+    {
+        $this->options = array_merge($this->options, [$option => $value]);
+    }
+
     /**
      * @return mixed
      */
