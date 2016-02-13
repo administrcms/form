@@ -3,7 +3,9 @@
 namespace Administr\Form\Presenters;
 
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Checkbox;
 use Administr\Form\Field\Hidden;
+use Administr\Form\Field\Radio;
 use Administr\Form\Field\Reset;
 use Administr\Form\Field\Submit;
 use Administr\Form\RenderAttributesTrait;
@@ -29,6 +31,16 @@ class BootstrapPresenter implements Presenter
             $fieldAttrs['class'] = 'btn btn-primary';
         }
 
+        if($this->isCheckbox($field)) {
+            $attrs['class'] = str_replace('form-group', 'checkbox', $attrs['class']);
+            $fieldAttrs['class'] = '';
+        }
+
+        if($this->isRadio($field)) {
+            $attrs['class'] = str_replace('form-group', 'radio', $attrs['class']);
+            $fieldAttrs['class'] = '';
+        }
+
         $presentation = "<div{$this->renderAttributes($attrs)}>"."\n";
         $presentation .= "{$field->renderLabel()}";
         $presentation .= "{$field->renderField($fieldAttrs)}"."\n";
@@ -50,5 +62,15 @@ class BootstrapPresenter implements Presenter
     protected function isHidden(AbstractType $field)
     {
         return $field instanceof Hidden;
+    }
+
+    protected function isCheckbox(AbstractType $field)
+    {
+        return $field instanceof Checkbox;
+    }
+
+    protected function isRadio(AbstractType $field)
+    {
+        return $field instanceof Radio;
     }
 }
