@@ -8,6 +8,7 @@ class Checkbox extends Text
     {
         return parent::renderField(array_merge($attributes, [
             'type' => 'checkbox',
+            'value' => 1
         ]));
     }
 }
