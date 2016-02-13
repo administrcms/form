@@ -48,9 +48,7 @@ class FormBuilder
         $form = '';
 
         foreach ($this->fields as $name => $field) {
-
-            if($value = $this->getValue($name))
-            {
+            if ($value = $this->getValue($name)) {
                 $field->appendOption('value', $value);
             }
 
@@ -98,17 +96,15 @@ class FormBuilder
 
     public function getValue($field)
     {
-        if(is_array($this->dataSource) && array_key_exists($field, $this->dataSource))
-        {
+        if (is_array($this->dataSource) && array_key_exists($field, $this->dataSource)) {
             return $this->dataSource[$field];
         }
 
-        if($this->dataSource instanceof Model)
-        {
+        if ($this->dataSource instanceof Model) {
             return $this->dataSource->$field;
         }
 
-        return null;
+        return;
     }
 
     public function __get($name)
