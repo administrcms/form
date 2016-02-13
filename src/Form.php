@@ -198,6 +198,11 @@ abstract class Form implements ValidatesWhenSubmitted
         return $this;
     }
 
+    public function has($field)
+    {
+        return $this->request->has($field);
+    }
+
     public function get($field)
     {
         return $this->request->get($field);
