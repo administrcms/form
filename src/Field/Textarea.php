@@ -12,8 +12,7 @@ class Textarea extends AbstractType
         ], $this->options, $attributes);
 
         $value = null;
-        if(array_key_exists('value', $attrs))
-        {
+        if (array_key_exists('value', $attrs)) {
             $value = $attrs['value'];
             unset($attrs['value']);
         }
