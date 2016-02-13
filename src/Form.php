@@ -191,11 +191,23 @@ abstract class Form implements ValidatesWhenSubmitted
             ->withErrors($errors, $this->errorBag);
     }
 
+    public function setDataSource($dataSource)
+    {
+        $this->form->setDataSource($dataSource);
+
+        return $this;
+    }
+
+    public function get($field)
+    {
+        return $this->request->get($field);
+    }
 
     public function all()
     {
         return $this->request->all();
     }
+
     /**
      * Get the URL to redirect to on a validation error.
      *
@@ -215,13 +227,6 @@ abstract class Form implements ValidatesWhenSubmitted
         }
 
         return $url->previous();
-    }
-
-    public function setDataSource($dataSource)
-    {
-        $this->form->setDataSource($dataSource);
-
-        return $this;
     }
 
     public function __set($name, $value)
