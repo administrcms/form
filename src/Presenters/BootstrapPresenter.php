@@ -34,6 +34,10 @@ class BootstrapPresenter implements Presenter
         if($this->isCheckbox($field)) {
             $attrs['class'] = str_replace('form-group', 'checkbox', $attrs['class']);
             $fieldAttrs['class'] = '';
+
+            if(array_key_exists('value', $field->getOptions()) && (bool)$field->getOption('value')) {
+                $fieldAttrs['checked'] = 'checked';
+            }
         }
 
         if($this->isRadio($field)) {
