@@ -31,16 +31,16 @@ class BootstrapPresenter implements Presenter
             $fieldAttrs['class'] = 'btn btn-primary';
         }
 
-        if($this->isCheckbox($field)) {
+        if ($this->isCheckbox($field)) {
             $attrs['class'] = str_replace('form-group', 'checkbox', $attrs['class']);
             $fieldAttrs['class'] = '';
 
-            if(array_key_exists('value', $field->getOptions()) && (bool)$field->getOption('value')) {
+            if (array_key_exists('value', $field->getOptions()) && (bool) $field->getOption('value')) {
                 $fieldAttrs['checked'] = 'checked';
             }
         }
 
-        if($this->isRadio($field)) {
+        if ($this->isRadio($field)) {
             $attrs['class'] = str_replace('form-group', 'radio', $attrs['class']);
             $fieldAttrs['class'] = '';
         }
