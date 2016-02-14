@@ -69,6 +69,11 @@ abstract class AbstractType
         return $this->options;
     }
 
+    public function getOption($field)
+    {
+        return $this->options[$field];
+    }
+
     public function __toString()
     {
         return $this->render();
