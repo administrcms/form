@@ -14,7 +14,3 @@ class TextareaFieldTest extends PHPUnit_Framework_TestCase
         $this->assertSame('<label for="test">Test</label>'."\n".'<textarea id="test" name="test"></textarea>', $field->render());
     }
 }
-
-function old($field) {
-    return;
-}
