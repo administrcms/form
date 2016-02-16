@@ -242,6 +242,15 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Text::class, $formBuilder->test);
     }
+
+    /** @test */
+    public function it_appends_the_value_when_present()
+    {
+        $formBuilder = new FormBuilder();
+        $formBuilder->text('test', 'Test present', ['value' => 'testing']);
+
+        $this->assertSame(['value' => 'testing'], $formBuilder->get('test')->getOptions());
+    }
 }
 
 class TestPresenter implements Presenter
