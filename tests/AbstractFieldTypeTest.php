@@ -86,4 +86,13 @@ class AbstractFieldTypeTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">', $field->__toString());
     }
+
+    /** @test */
+    public function it_appends_an_option()
+    {
+        $field = new Text('test', 'Test');
+        $field->appendOption('new', 'option');
+
+        $this->assertSame(['new' => 'option'], $field->getOptions());
+    }
 }
