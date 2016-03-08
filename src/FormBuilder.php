@@ -96,12 +96,14 @@ class FormBuilder
 
     public function getValue($field)
     {
-        if (is_array($this->dataSource) && array_key_exists($field, $this->dataSource)) {
-            return $this->dataSource[$field];
-        }
+        $ds = $this->dataSource;
 
         if ($this->dataSource instanceof Model) {
-            return $this->dataSource->$field;
+            $ds = $this->dataSource->toArray();
+        }
+
+        if (is_array($ds) && array_key_exists($field, $ds)) {
+            return $ds[$field];
         }
 
         return;
