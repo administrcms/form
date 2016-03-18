@@ -6,6 +6,7 @@ use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Text;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\ViewErrorBag;
 
 class FormBuilder
@@ -19,6 +20,8 @@ class FormBuilder
      * @var array
      */
     private $fields = [];
+
+    private $skips = [];
 
     private $dataSource = null;
 
@@ -48,6 +51,10 @@ class FormBuilder
         $form = '';
 
         foreach ($this->fields as $name => $field) {
+            if(in_array($name, $this->skips)) {
+                continue;
+            }
+
             if ($value = $this->getValue($name)) {
                 $field->appendOption('value', $value);
             }
@@ -107,6 +114,22 @@ class FormBuilder
         }
 
         return;
+    }
+
+    public function skip()
+    {
+        $args = func_get_args();
+
+        if(is_array($args)) {
+            $args = Arr::flatten($args);
+        }
+
+        if(count($args) == 1 && is_string($args[0])) {
+            $args = (array)$args[0];
+        }
+
+        $this->skips = $args;
+        return $this;
     }
 
     public function __get($name)

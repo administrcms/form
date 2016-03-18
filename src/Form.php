@@ -213,6 +213,11 @@ abstract class Form implements ValidatesWhenSubmitted
         return $this->request->all();
     }
 
+    public function skip()
+    {
+        return $this->form->skip(func_get_args());
+    }
+
     /**
      * Get the URL to redirect to on a validation error.
      *
