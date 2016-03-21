@@ -1,0 +1,29 @@
+<?php
+
+namespace DummyNamespace;
+
+use Administr\Form\Form;
+use Administr\Form\FormBuilder;
+
+class DummyClass extends Form
+{
+    /**
+     * Define the validation rules for the form.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+        ];
+    }
+
+    /**
+     * Define the fields of the form.
+     *
+     * @param FormBuilder $form
+     */
+    public function form(FormBuilder $form)
+    {
+    }
+}
