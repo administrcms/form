@@ -12,15 +12,37 @@ class Select extends AbstractType
         ], $this->options, $attributes);
 
         $options = '';
-        if (array_key_exists('value', $attrs)) {
-            $value = $attrs['value'];
-            unset($attrs['value']);
+        $value = $this->getValue($attrs);
 
-            foreach ($value as $value => $display) {
-                $options .= (new Option($value, $display))->renderField();
+        if (array_key_exists('values', $attrs)) {
+            $values = $attrs['values'];
+            unset($attrs['values']);
+
+            foreach ($values as $optionValue => $display) {
+                $optionAttrs = [];
+
+                if($optionValue === $value) {
+                    $optionAttrs['selected'] = true;
+                }
+
+                $options .= (new Option($optionValue, $display, $optionAttrs))->renderField();
             }
         }
 
         return '<select'.$this->renderAttributes($attrs).'>'.$options.'</select>';
+    }
+
+    /**
+     * @param array $attrs
+     * @return string
+     */
+    protected function getValue(array $attrs)
+    {
+        if(array_key_exists('value', $attrs))
+        {
+            return $attrs['value'];
+        }
+
+        return null;
     }
 }
