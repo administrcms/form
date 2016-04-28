@@ -5,6 +5,7 @@ namespace Administr\Form;
 use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Text;
+use Administr\Localization\Models\Language;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ViewErrorBag;
 
@@ -49,13 +50,17 @@ class FormBuilder
     {
         $form = '';
 
-        foreach ($this->fields as $name => $field) {
-            if(in_array($name, $this->skips)) {
-                continue;
-            }
+        $fields = array_filter($this->fields, function(AbstractType $field) {
+            return !in_array($field->getName(), $this->skips) && !$field->isTranslated();
+        });
 
+        foreach ($fields as $name => $field) {
             if ($value = $this->getValue($name)) {
                 $field->appendOption('value', $value);
+            }
+            
+            if($field->isButton()) {
+                $form .= $this->renderTranslated();
             }
 
             $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
@@ -74,6 +79,44 @@ class FormBuilder
         $presenter = new $this->presenter();
 
         return $presenter->render($field, $error);
+    }
+
+    public function renderTranslated()
+    {
+        $tabs = '';
+        $panels = '';
+        $fields = array_filter($this->fields, function(AbstractType $field) {
+            return !in_array($field->getName(), $this->skips) && $field->isTranslated();
+        });
+
+        foreach(Language::all() as $language) {
+            $tabs .= '<li role="presentation"><a href="#'.$language->name.'" aria-controls="'.$language->name.'" role="tab" data-toggle="tab">'.$language->name.'</a></li>';
+
+            $panels .= '<div role="tabpanel" class="tab-pane" id="'.$language->name.'">';
+            foreach ($fields as $name => $field) {
+                $field->setName("{$field->getName()}[{$language->id}]");
+
+                if ($value = $this->getValue($name)) {
+                    $field->appendOption('value', $value);
+                }
+
+                $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
+                $panels .= $this->present($field, $error);
+            }
+            $panels .= '</div>';
+        }
+
+        return '<div>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+          '.$tabs.'
+          </ul>
+        
+          <!-- Tab panes -->
+          <div class="tab-content">
+          '.$panels.'
+          </div>
+        </div>';
     }
 
     /**
@@ -109,7 +152,7 @@ class FormBuilder
         }
 
         if (is_array($ds) && array_key_exists($field, $ds)) {
-            return $ds[$field];
+            return array_get($ds, $field);
         }
 
         return;
