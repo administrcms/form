@@ -6,6 +6,7 @@ use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Text;
 use Administr\Localization\Models\Language;
+use Administr\Localization\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ViewErrorBag;
 
@@ -58,7 +59,7 @@ class FormBuilder
             if ($value = $this->getValue($name)) {
                 $field->appendOption('value', $value);
             }
-            
+
             if($field->isButton()) {
                 $form .= $this->renderTranslated();
             }
@@ -101,7 +102,7 @@ class FormBuilder
                 $field = clone $field;
                 $field->setName("{$field->getName()}[{$language->id}]");
 
-                if ($value = $this->getValue($name)) {
+                if ($value = $this->getValue($name, $language->id)) {
                     $field->appendOption('value', $value);
                 }
 
@@ -148,9 +149,14 @@ class FormBuilder
         $this->dataSource = $dataSource;
     }
 
-    public function getValue($field)
+    public function getValue($field, $language_id = 0)
     {
         $ds = $this->dataSource;
+
+        if ($this->dataSource instanceof Translatable && $language_id > 0) {
+            $ds = $this->dataSource->translate($language_id);
+            return array_get($ds, $field);
+        }
 
         if ($this->dataSource instanceof Model) {
             $ds = $this->dataSource->toArray();
