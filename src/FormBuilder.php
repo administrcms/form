@@ -88,7 +88,7 @@ class FormBuilder
         $fields = array_filter($this->fields, function(AbstractType $field) {
             return !in_array($field->getName(), $this->skips) && $field->isTranslated();
         });
-        
+
         if(count($fields) === 0) {
             return '';
         }
@@ -98,6 +98,7 @@ class FormBuilder
 
             $panels .= '<div role="tabpanel" class="tab-pane" id="'.$language->name.'">';
             foreach ($fields as $name => $field) {
+                $field = clone $field;
                 $field->setName("{$field->getName()}[{$language->id}]");
 
                 if ($value = $this->getValue($name)) {
