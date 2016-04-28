@@ -6,7 +6,6 @@ use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Text;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 use Illuminate\Support\ViewErrorBag;
 
 class FormBuilder
@@ -121,7 +120,7 @@ class FormBuilder
         $args = func_get_args();
 
         if(is_array($args)) {
-            $args = Arr::flatten($args);
+            $args = array_flatten($args);
         }
 
         if(count($args) == 1 && is_string($args[0])) {
