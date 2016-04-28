@@ -48,7 +48,7 @@ abstract class AbstractType
 
     public function isTranslated()
     {
-        return array_key_exists($this->options['translated']) && $this->options['translated'] === true;
+        return array_key_exists('translated', $this->options) && $this->options['translated'] === true;
     }
 
     public function appendOption($option, $value)
