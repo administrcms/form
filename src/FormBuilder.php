@@ -88,6 +88,10 @@ class FormBuilder
         $fields = array_filter($this->fields, function(AbstractType $field) {
             return !in_array($field->getName(), $this->skips) && $field->isTranslated();
         });
+        
+        if(count($fields) === 0) {
+            return '';
+        }
 
         foreach(Language::all() as $language) {
             $tabs .= '<li role="presentation"><a href="#'.$language->name.'" aria-controls="'.$language->name.'" role="tab" data-toggle="tab">'.$language->name.'</a></li>';
