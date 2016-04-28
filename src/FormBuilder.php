@@ -84,6 +84,7 @@ class FormBuilder
 
     public function renderTranslated()
     {
+        $firstTab = true;
         $tabs = '';
         $panels = '';
         $fields = array_filter($this->fields, function(AbstractType $field) {
@@ -95,9 +96,11 @@ class FormBuilder
         }
 
         foreach(Language::all() as $language) {
-            $tabs .= '<li role="presentation"><a href="#'.$language->name.'" aria-controls="'.$language->name.'" role="tab" data-toggle="tab">'.$language->name.'</a></li>';
+            $tabs .= '<li role="presentation" class="'.( $firstTab ? 'active' : '' ).'">
+                        <a href="#'.$language->name.'" aria-controls="'.$language->name.'" role="tab" data-toggle="tab">'.$language->name.'</a>
+                      </li>';
 
-            $panels .= '<div role="tabpanel" class="tab-pane" id="'.$language->name.'">';
+            $panels .= '<div role="tabpanel" class="tab-pane '.( $firstTab ? 'active' : '' ).'" id="'.$language->name.'">';
             foreach ($fields as $name => $field) {
                 $field = clone $field;
                 $field->setName("{$field->getName()}[{$language->id}]");
@@ -110,6 +113,8 @@ class FormBuilder
                 $panels .= $this->present($field, $error);
             }
             $panels .= '</div>';
+
+            $firstTab = false;
         }
 
         return '<div>
