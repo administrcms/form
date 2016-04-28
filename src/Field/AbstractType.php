@@ -45,6 +45,11 @@ abstract class AbstractType
         $this->options = array_merge($this->options, [$option => $value]);
     }
 
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
     /**
      * @return mixed
      */
@@ -52,7 +57,11 @@ abstract class AbstractType
     {
         return $this->name;
     }
-
+    
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
     /**
      * @return mixed
      */
