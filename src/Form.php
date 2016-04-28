@@ -3,6 +3,8 @@
 namespace Administr\Form;
 
 use Administr\Form\Exceptions\FormValidationException;
+use Administr\Form\Field\AbstractType;
+use Administr\Localization\Models\Language;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -211,6 +213,31 @@ abstract class Form implements ValidatesWhenSubmitted
     public function all()
     {
         return $this->request->all();
+    }
+
+    public function translated()
+    {
+        $languages = Language::pluck('id');
+        $languageFields = array_filter($this->form->getFields(), function(AbstractType $field) {
+            return $field->isTranslated();
+        });
+        $fields = $this->all();
+
+        $translated = [];
+
+        foreach($languages as $language_id) {
+            $translated[$language_id] = [];
+            foreach($fields as $field => $value) {
+                if(array_key_exists($field, $languageFields)) {
+                    $translated[$language_id][$field] = $value[$language_id];
+                    continue;
+                }
+
+                $translated[$language_id][$field] = $value;
+            }
+        }
+
+        return $translated;
     }
 
     public function skip()
