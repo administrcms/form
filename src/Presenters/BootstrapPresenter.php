@@ -27,11 +27,11 @@ class BootstrapPresenter implements Presenter
             $attrs['class'] .= ' has-error';
         }
 
-        if ($this->isButton($field)) {
+        if ($field->isButton()) {
             $fieldAttrs['class'] = 'btn btn-primary';
         }
 
-        if ($this->isCheckbox($field)) {
+        if ($field->isCheckbox()) {
             $attrs['class'] = str_replace('form-group', 'checkbox', $attrs['class']);
             $fieldAttrs['class'] = '';
 
@@ -40,7 +40,7 @@ class BootstrapPresenter implements Presenter
             }
         }
 
-        if ($this->isRadio($field)) {
+        if ($field->isRadio()) {
             $attrs['class'] = str_replace('form-group', 'radio', $attrs['class']);
             $fieldAttrs['class'] = '';
         }
@@ -49,32 +49,12 @@ class BootstrapPresenter implements Presenter
         $presentation .= "{$field->renderLabel()}";
         $presentation .= "{$field->renderField($fieldAttrs)}"."\n";
 
-        if (!$this->isButton($field) && !$this->isHidden($field)) {
+        if (!$field->isButton() && !$field->isHidden()) {
             $presentation .= "<span class=\"help-block\">{$field->renderErrors($error)}</span>"."\n";
         }
 
         $presentation .= '</div>';
 
         return $presentation;
-    }
-
-    protected function isButton(AbstractType $field)
-    {
-        return $field instanceof Submit || $field instanceof Reset;
-    }
-
-    protected function isHidden(AbstractType $field)
-    {
-        return $field instanceof Hidden;
-    }
-
-    protected function isCheckbox(AbstractType $field)
-    {
-        return $field instanceof Checkbox;
-    }
-
-    protected function isRadio(AbstractType $field)
-    {
-        return $field instanceof Radio;
     }
 }

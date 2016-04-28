@@ -74,6 +74,26 @@ abstract class AbstractType
         return $this->options[$field];
     }
 
+    public function isButton()
+    {
+        return $this instanceof Submit || $this instanceof Reset;
+    }
+
+    public function isHidden()
+    {
+        return $this instanceof Hidden;
+    }
+
+    public function isCheckbox()
+    {
+        return $this instanceof Checkbox;
+    }
+
+    public function isRadio()
+    {
+        return $this instanceof Radio;
+    }
+
     public function __toString()
     {
         return $this->render();
