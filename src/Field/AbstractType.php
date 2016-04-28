@@ -40,6 +40,17 @@ abstract class AbstractType
         return implode("\n", $errors);
     }
 
+    public function translated()
+    {
+        $this->options['translated'] = true;
+        return $this;
+    }
+
+    public function isTranslated()
+    {
+        return array_key_exists($this->options['translated']) && $this->options['translated'] === true;
+    }
+
     public function appendOption($option, $value)
     {
         $this->options = array_merge($this->options, [$option => $value]);
