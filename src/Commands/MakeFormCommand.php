@@ -4,6 +4,9 @@ namespace Administr\Form\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
+/**
+ * @codeCoverageIgnore
+ */
 class MakeFormCommand extends GeneratorCommand
 {
     /**
