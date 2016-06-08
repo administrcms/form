@@ -40,6 +40,13 @@ class FormBuilder
         return $this;
     }
 
+    public function radioGroup($name, $label, \Closure $definition)
+    {
+        $this->fields[$name] = new RadioGroup($name, $label, $definition);
+
+        return $this;
+    }
+
     /**
      * Basic rendering of the form.
      *
