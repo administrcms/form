@@ -11,6 +11,7 @@ abstract class AbstractType
     protected $name;
     protected $label;
     protected $options = [];
+    protected $value = null;
 
     public function __construct($name, $label, $options = [])
     {
@@ -68,7 +69,7 @@ abstract class AbstractType
     {
         return $this->name;
     }
-    
+
     public function setLabel($label)
     {
         $this->label = $label;
@@ -94,6 +95,11 @@ abstract class AbstractType
         return $this->options[$field];
     }
 
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
     public function isButton()
     {
         return $this instanceof Submit || $this instanceof Reset;
@@ -112,6 +118,11 @@ abstract class AbstractType
     public function isRadio()
     {
         return $this instanceof Radio;
+    }
+
+    public function isChecked($value)
+    {
+        return $this->value == $value;
     }
 
     public function __toString()

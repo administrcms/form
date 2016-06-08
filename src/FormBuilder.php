@@ -65,6 +65,7 @@ class FormBuilder
 
         foreach ($fields as $name => $field) {
             if ($value = $this->getValue($name)) {
+                $field->setValue($value);
                 $field->appendOption('value', $value);
             }
 
