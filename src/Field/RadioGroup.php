@@ -13,6 +13,11 @@ class RadioGroup extends AbstractType
         call_user_func($definition, $this);
     }
 
+    public function getRadios()
+    {
+        return $this->radios;
+    }
+
     public function radio($label, array $options = [])
     {
         $this->radios[] = new Radio($this->getName(), $label, $options);
@@ -28,7 +33,7 @@ class RadioGroup extends AbstractType
     {
         $radios = '';
 
-        foreach($this->radios as $radio) {
+        foreach($this->getRadios() as $radio) {
             $radio->setValue($this->value);
             $radios .= '<label class="radio-inline">' . $radio->renderField() . $radio->getLabel() . '</label>';
         }
