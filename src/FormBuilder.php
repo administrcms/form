@@ -4,6 +4,7 @@ namespace Administr\Form;
 
 use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\RadioGroup;
 use Administr\Form\Field\Text;
 use Administr\Localization\Models\Language;
 use Administr\Localization\Models\Translatable;
