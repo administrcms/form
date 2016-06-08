@@ -12,7 +12,8 @@ class Select extends AbstractType
         ], $this->options, $attributes);
 
         $options = '';
-        $value = $this->getValue($attrs);
+        $value = array_get($attrs, 'value');
+        unset($attrs['value']);
 
         if (array_key_exists('values', $attrs)) {
             $values = $attrs['values'];
@@ -22,7 +23,7 @@ class Select extends AbstractType
                 $optionAttrs = [];
 
                 if($optionValue === $value) {
-                    $optionAttrs['selected'] = true;
+                    $optionAttrs['selected'] = 'selected';
                 }
 
                 $options .= (new Option($optionValue, $display, $optionAttrs))->renderField();
@@ -30,19 +31,5 @@ class Select extends AbstractType
         }
 
         return '<select'.$this->renderAttributes($attrs).'>'.$options.'</select>';
-    }
-
-    /**
-     * @param array $attrs
-     * @return string
-     */
-    protected function getValue(array $attrs)
-    {
-        if(array_key_exists('value', $attrs))
-        {
-            return $attrs['value'];
-        }
-
-        return null;
     }
 }
