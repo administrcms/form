@@ -3,6 +3,7 @@
 namespace Administr\Form\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * @codeCoverageIgnore
@@ -14,7 +15,7 @@ class MakeFormCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'administr:form {name}';
+    protected $name = 'administr:form';
 
     /**
      * The console command description.
