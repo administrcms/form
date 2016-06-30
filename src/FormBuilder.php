@@ -63,18 +63,23 @@ class FormBuilder
             return !in_array($field->getName(), $this->skips) && !$field->isTranslated();
         });
 
+        $fieldsCount = count($fields);
+        $renderedFieldsCount = 1;
+
         foreach ($fields as $name => $field) {
             if ($value = $this->getValue($name)) {
                 $field->setValue($value);
                 $field->appendOption('value', $value);
             }
 
-            if($field->isButton()) {
+            if($field->isButton() || $fieldsCount === $renderedFieldsCount) {
                 $form .= $this->renderTranslated();
             }
 
             $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
             $form .= $this->present($field, $error);
+
+            $renderedFieldsCount += 1;
         }
 
         return $form;
