@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5d3966484b43e49ecf2b4ca9a1748a38",
-    "content-hash": "f098e883d7bc93ee7194045ba5b00b0e",
+    "hash": "853e101ce75a6e9f2f97c8f2c123c2ca",
+    "content-hash": "f5bd299b69319e19ccd8a0bd8e9a8a4f",
     "packages": [
         {
             "name": "administrcms/asset-manager",
-            "version": "dev-master",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/administrcms/asset-manager.git",
-                "reference": "607d00794fd1257d81fa764969f918b0ea07dab6"
+                "reference": "3f0d8eab2bce44a19c50a06d4bf46fc239ace597"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/administrcms/asset-manager/zipball/607d00794fd1257d81fa764969f918b0ea07dab6",
-                "reference": "607d00794fd1257d81fa764969f918b0ea07dab6",
+                "url": "https://api.github.com/repos/administrcms/asset-manager/zipball/3f0d8eab2bce44a19c50a06d4bf46fc239ace597",
+                "reference": "3f0d8eab2bce44a19c50a06d4bf46fc239ace597",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                     "email": "mvvitanov@gmail.com"
                 }
             ],
-            "time": "2016-07-01 12:10:08"
+            "time": "2016-07-01 12:49:31"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -3397,7 +3397,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "administrcms/asset-manager": 20,
         "codeclimate/php-test-reporter": 20
     },
     "prefer-stable": false,
