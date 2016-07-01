@@ -192,11 +192,11 @@ class FormBuilder
      */
     public function get($field)
     {
-        if (array_key_exists($fieldName, $this->fields)) {
-            return $this->fields[$fieldName];
+        if (array_key_exists($field, $this->fields)) {
+            return $this->fields[$field];
         }
 
-        throw new InvalidField("The requested field index [{$fieldName}] has not been defined.");
+        throw new InvalidField("The requested field index [{$field}] has not been defined.");
     }
 
     /**
