@@ -88,10 +88,10 @@ class FormBuilder
         $renderedFieldsCount = 1;
 
         foreach ($fields as $name => $field) {
-            if ($value = $this->getValue($name)) {
-                $field->setValue($value);
-                $field->appendOption('value', $value);
-            }
+            $value = $this->getValue($name);
+
+            $field->setValue($value);
+            $field->appendOption('value', $value);
 
             if($field->isButton() || $fieldsCount === $renderedFieldsCount && !$this->translationRendered) {
                 $form .= $this->renderTranslated();
