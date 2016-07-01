@@ -195,6 +195,13 @@ abstract class Form implements ValidatesWhenSubmitted
             ->withErrors($errors, $this->errorBag);
     }
 
+    /**
+     * Set the data source on the form builder.
+     *
+     * @param array|Model|Translatable $dataSource
+     * @return $this
+     * @codeCoverageIgnore
+     */
     public function setDataSource($dataSource)
     {
         $this->formBuilder->setDataSource($dataSource);
@@ -255,6 +262,9 @@ abstract class Form implements ValidatesWhenSubmitted
         return $translated;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function skip()
     {
         return $this->formBuilder->skip(func_get_args());
