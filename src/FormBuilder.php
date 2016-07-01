@@ -219,22 +219,23 @@ class FormBuilder
      */
     public function getValue($field, $language_id = 0)
     {
-        $ds = $this->dataSource;
+        $dataSource = $this->dataSource;
 
-        if ($this->dataSource instanceof Translatable && $language_id > 0) {
-            $ds = $this->dataSource->translate($language_id);
-            return array_get($ds, $field);
+        if ($dataSource instanceof Translatable && $language_id > 0) {
+            $dataSource = $dataSource
+                ->translate($language_id)
+                ->toArray();
         }
 
-        if ($this->dataSource instanceof Model) {
-            $ds = $this->dataSource->toArray();
+        if ($dataSource instanceof Model) {
+            $dataSource = $dataSource->toArray();
         }
 
-        if (is_array($ds) && array_key_exists($field, $ds)) {
-            return array_get($ds, $field);
+        if (is_array($dataSource)) {
+            return array_get($dataSource, $field);
         }
 
-        return;
+        return null;
     }
 
     /**
