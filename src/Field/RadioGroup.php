@@ -34,6 +34,7 @@ class RadioGroup extends AbstractType
         $radios = '';
 
         foreach($this->getRadios() as $radio) {
+            $radio->appendOption('value', $this->getOption('value'));
             $radio->setValue($this->value);
             $radios .= '<label class="radio-inline">' . $radio->renderField() . $radio->getLabel() . '</label>';
         }
