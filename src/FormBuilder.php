@@ -34,6 +34,13 @@ class FormBuilder
     private $dataSource = null;
 
     /**
+     * Avoid rendering the translation fields twice.
+     *
+     * @var bool
+     */
+    private $translationRendered = false;
+
+    /**
      * Add a field to the form.
      *
      * @param AbstractType $field
@@ -86,7 +93,7 @@ class FormBuilder
                 $field->appendOption('value', $value);
             }
 
-            if($field->isButton() || $fieldsCount === $renderedFieldsCount) {
+            if($field->isButton() || $fieldsCount === $renderedFieldsCount && !$this->translationRendered) {
                 $form .= $this->renderTranslated();
             }
 
@@ -127,6 +134,8 @@ class FormBuilder
      */
     public function renderTranslated()
     {
+        $this->translationRendered = true;
+
         $firstTab = true;
         $tabs = '';
         $panels = '';
