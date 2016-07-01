@@ -202,16 +202,29 @@ abstract class Form implements ValidatesWhenSubmitted
         return $this;
     }
 
+    /**
+     * @param $field
+     * @return bool
+     * @codeCoverageIgnore
+     */
     public function has($field)
     {
         return $this->request->has($field);
     }
 
+    /**
+     * @param $field
+     * @return mixed
+     * @codeCoverageIgnore
+     */
     public function get($field)
     {
         return $this->request->get($field);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function all()
     {
         return $this->request->all();
