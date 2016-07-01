@@ -20,7 +20,7 @@ abstract class Form implements ValidatesWhenSubmitted
     /**
      * @var FormBuilder
      */
-    protected $form;
+    protected $formBuilder;
 
     /**
      * @var Request
@@ -75,13 +75,13 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     protected $dontFlash = ['password', 'password_confirmation'];
 
-    public function __construct(FormBuilder $form, Request $request, Factory $validator, Redirector $redirector)
+    public function __construct(FormBuilder $formBuilder, Request $request, Factory $validator, Redirector $redirector)
     {
-        $this->form = $form;
+        $this->formBuilder = $formBuilder;
         $this->request = $request;
         $this->validator = $validator;
         $this->redirector = $redirector;
-        $this->form($this->form);
+        $this->form($this->formBuilder);
     }
 
     /**
@@ -90,7 +90,7 @@ abstract class Form implements ValidatesWhenSubmitted
     public function render()
     {
         $form = $this->getFormOpen();
-        $form .= $this->form->render($this->errors());
+        $form .= $this->formBuilder->render($this->errors());
         $form .= $this->getFormClose();
 
         return $form;
@@ -103,7 +103,7 @@ abstract class Form implements ValidatesWhenSubmitted
     {
         if (array_key_exists('method', $this->options) && $this->options['method'] == 'put') {
             $this->options['method'] = 'post';
-            $this->form->hidden('_method', 'put');
+            $this->formBuilder->hidden('_method', 'put');
         }
 
         return "<form{$this->renderAttributes($this->options)}>\n";
@@ -119,12 +119,12 @@ abstract class Form implements ValidatesWhenSubmitted
 
     public function field($name)
     {
-        return $this->form->get($name);
+        return $this->formBuilder->get($name);
     }
 
     public function fields()
     {
-        return $this->form->getFields();
+        return $this->formBuilder->fields();
     }
 
     public function errors()
@@ -195,7 +195,7 @@ abstract class Form implements ValidatesWhenSubmitted
 
     public function setDataSource($dataSource)
     {
-        $this->form->setDataSource($dataSource);
+        $this->formBuilder->setDataSource($dataSource);
 
         return $this;
     }
@@ -218,7 +218,7 @@ abstract class Form implements ValidatesWhenSubmitted
     public function translated()
     {
         $languages = Language::pluck('id');
-        $languageFields = array_filter($this->form->getFields(), function(AbstractType $field) {
+        $languageFields = array_filter($this->formBuilder->fields(), function(AbstractType $field) {
             return $field->isTranslated();
         });
         $fields = $this->all();
@@ -242,7 +242,7 @@ abstract class Form implements ValidatesWhenSubmitted
 
     public function skip()
     {
-        return $this->form->skip(func_get_args());
+        return $this->formBuilder->skip(func_get_args());
     }
 
     /**
