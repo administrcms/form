@@ -244,17 +244,18 @@ class FormBuilder
      */
     public function skip()
     {
-        $args = func_get_args();
+        $fields = func_get_args();
 
-        if(is_array($args)) {
-            $args = array_flatten($args);
+        if(is_array($fields)) {
+            $fields = array_flatten($fields);
         }
 
-        if(count($args) == 1 && is_string($args[0])) {
-            $args = (array)$args[0];
+        if(count($fields) == 1 && is_string($fields[0])) {
+            $fields = (array)$fields[0];
         }
 
-        $this->skips = $args;
+        $this->skips = $fields;
+
         return $this;
     }
 
