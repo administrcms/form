@@ -22,6 +22,10 @@ class FormServiceProvider extends ServiceProvider
         Asset::shortcuts([
             'wysiwyg'   => WysiwygShortcut::class,
         ]);
+
+        $this->publishes([
+            __DIR__ . '/Assets' => public_path('vendor/administr/form'),
+        ], 'public');
     }
 
     /**
