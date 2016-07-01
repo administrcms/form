@@ -1,11 +1,13 @@
 <?php
 
+use Administr\Form\Field\RadioGroup;
+
 class RadioGroupFieldTest extends PHPUnit_Framework_TestCase
 {
     /** @test */
     public function it_makes_radio_instances()
     {
-        $radioGroup = new \Administr\Form\Field\RadioGroup('test', 'Test', function(\Administr\Form\Field\RadioGroup $group){
+        $radioGroup = new RadioGroup('test', 'Test', function(RadioGroup $group){
             $group->radio('yes', ['value' => 1]);
         });
         
@@ -17,9 +19,10 @@ class RadioGroupFieldTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_renders_correct_html()
     {
-        $radioGroup = new \Administr\Form\Field\RadioGroup('test', 'Test', function(\Administr\Form\Field\RadioGroup $group){
+        $radioGroup = new RadioGroup('test', 'Test', function(RadioGroup $group){
             $group->radio('yes', ['value' => 1]);
         });
+        $radioGroup->setValue(0);
 
         $this->assertSame('<label class="radio-inline"><input type="radio" id="test" name="test" value="1">yes</label>', $radioGroup->renderField());
     }
@@ -27,7 +30,7 @@ class RadioGroupFieldTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_renders_correct_label()
     {
-        $radioGroup = new \Administr\Form\Field\RadioGroup('test', 'Test', function(\Administr\Form\Field\RadioGroup $group){
+        $radioGroup = new RadioGroup('test', 'Test', function(RadioGroup $group){
             $group->radio('yes', ['value' => 1]);
         });
 
