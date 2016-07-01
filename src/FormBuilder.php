@@ -229,9 +229,10 @@ class FormBuilder
         $dataSource = $this->dataSource;
 
         if ($dataSource instanceof Translatable && $language_id > 0) {
-            $dataSource = $dataSource
-                ->translate($language_id)
-                ->toArray();
+            $dataSource = array_merge(
+                $dataSource->toArray(),
+                $dataSource->translate($language_id)->toArray()
+            );
         }
 
         if ($dataSource instanceof Model) {
