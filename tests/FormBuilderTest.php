@@ -7,6 +7,7 @@ use Administr\Form\Field\Hidden;
 use Administr\Form\Field\Option;
 use Administr\Form\Field\Password;
 use Administr\Form\Field\Radio;
+use Administr\Form\Field\RadioGroup;
 use Administr\Form\Field\Select;
 use Administr\Form\Field\Submit;
 use Administr\Form\Field\Text;
@@ -250,6 +251,50 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder->text('test', 'Test present', ['value' => 'testing']);
 
         $this->assertSame(['value' => 'testing'], $formBuilder->get('test')->getOptions());
+    }
+
+    /** @test */
+    public function it_skips_fields()
+    {
+        $formBuilder = new FormBuilder();
+        $formBuilder->text('test', 'Test');
+
+        $formBuilder->skip('test');
+
+        $this->assertEquals(null, $formBuilder->render());
+    }
+
+    /** @test */
+    public function it_skips_fields_with_array()
+    {
+        $formBuilder = new FormBuilder();
+        $formBuilder->text('test', 'Test');
+
+        $formBuilder->skip(['test']);
+
+        $this->assertEquals(null, $formBuilder->render());
+    }
+
+    /** @test */
+    public function it_creates_a_radio_group()
+    {
+        $formBuilder = new FormBuilder();
+        $formBuilder->radioGroup('is_visible', 'Visible?', function(RadioGroup $group){
+           $group
+               ->radio('Yes', ['value' => 1])
+               ->radio('No', ['value' => 0]);
+        });
+
+        $this->assertInstanceOf(RadioGroup::class, $formBuilder->get('is_visible'));
+    }
+
+    /** @test */
+    public function it_sets_a_data_source()
+    {
+        $formBuilder = new FormBuilder();
+        $formBuilder->setDataSource(['name' => 'test']);
+
+        $this->assertSame('test', $formBuilder->getValue('name'));
     }
 }
 
