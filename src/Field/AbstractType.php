@@ -122,10 +122,6 @@ abstract class AbstractType
 
     public function isChecked($value)
     {
-        if(!$this->value) {
-            return false;
-        }
-        
         return $this->value == $value;
     }
 
