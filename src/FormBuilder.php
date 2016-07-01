@@ -149,7 +149,7 @@ class FormBuilder
      *
      * @return array
      */
-    public function getFields()
+    public function fields()
     {
         return $this->fields;
     }

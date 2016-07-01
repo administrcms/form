@@ -21,7 +21,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
     {
         $formBuilder = new FormBuilder();
 
-        $this->assertCount(0, $formBuilder->getFields());
+        $this->assertCount(0, $formBuilder->fields());
     }
 
     /** @test */
@@ -30,7 +30,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $formBuilder->add(new Text('test', 'Test'));
 
-        $this->assertCount(1, $formBuilder->getFields());
+        $this->assertCount(1, $formBuilder->fields());
     }
 
     /** @test */
@@ -48,7 +48,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->text('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Text::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -60,7 +60,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->textarea('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Textarea::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -72,7 +72,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->radio('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Radio::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -84,7 +84,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->checkbox('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Checkbox::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -96,7 +96,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->select('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Select::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -110,7 +110,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
             'value' => ['test' => 'Test'],
         ]);
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Select::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -122,7 +122,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->option('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Option::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -134,7 +134,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->email('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Email::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -146,7 +146,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->password('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Password::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -158,7 +158,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->submit('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Submit::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -170,7 +170,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $builder = $formBuilder->hidden('test', 'Test');
 
-        $field = $formBuilder->getFields()['test'];
+        $field = $formBuilder->fields()['test'];
 
         $this->assertInstanceOf(Hidden::class, $field);
         $this->assertInstanceOf(FormBuilder::class, $builder);
@@ -182,8 +182,8 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder = new FormBuilder();
         $formBuilder->text('test', 'Test');
 
-        $this->assertCount(1, $formBuilder->getFields());
-        $this->assertInternalType('array', $formBuilder->getFields());
+        $this->assertCount(1, $formBuilder->fields());
+        $this->assertInternalType('array', $formBuilder->fields());
     }
 
     /** @test */
