@@ -2,7 +2,9 @@
 
 namespace Administr\Form;
 
+use Administr\Form\AssetShortcuts\WysiwygShortcut;
 use Illuminate\Support\ServiceProvider;
+use Asset;
 
 /**
  * Class FormServiceProvider.
@@ -16,6 +18,10 @@ class FormServiceProvider extends ServiceProvider
         $this->app->afterResolving(function (ValidatesWhenSubmitted $form) {
             $form->validate();
         });
+
+        Asset::shortcuts([
+            'wysiwyg'   => WysiwygShortcut::class,
+        ]);
     }
 
     /**
