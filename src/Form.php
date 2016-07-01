@@ -101,7 +101,9 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function getFormOpen()
     {
-        if (array_key_exists('method', $this->options) && $this->options['method'] == 'put') {
+        // To simulate a put requrest with Laravel,
+        // we need to add a hidden field for the method
+        if (array_get($this->options, 'method') == 'put') {
             $this->options['method'] = 'post';
             $this->formBuilder->hidden('_method', 'put');
         }
