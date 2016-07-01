@@ -58,13 +58,13 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_presents_a_radio_field_correctly()
     {
-        $radio = new Radio('test', 'Test');
+        $radio = new Radio('test', 'Test', ['value' => 'test']);
         $presenter = new BootstrapPresenter;
 
         $this->assertSame(
             '<div class="radio">'."\n".
             '<label for="test">Test</label>'."\n".
-            '<input type="radio" id="test" name="test" value="" class="">'."\n".
+            '<input type="radio" id="test" name="test" value="test" class="">'."\n".
             '<span class="help-block"></span>'."\n".
             '</div>',
 
