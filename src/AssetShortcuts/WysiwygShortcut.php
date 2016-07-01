@@ -7,7 +7,7 @@ use Asset;
 
 class WysiwygShortcut implements Shortcut
 {
-    public function exexute()
+    public function execute()
     {
         Asset::addJs(
             url('vendor/administr/form/tinymce/tinymce.min.js')
