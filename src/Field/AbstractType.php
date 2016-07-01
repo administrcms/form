@@ -90,9 +90,9 @@ abstract class AbstractType
         return $this->options;
     }
 
-    public function getOption($field)
+    public function getOption($option)
     {
-        return $this->options[$field];
+        return array_get($this->options, $option);
     }
 
     public function setValue($value)
