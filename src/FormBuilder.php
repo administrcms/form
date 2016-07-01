@@ -121,9 +121,7 @@ class FormBuilder
             return $field->render($error)."\n";
         }
 
-        $presenter = new $this->presenter();
-
-        return $presenter->render($field, $error);
+        return (new $this->presenter)->render($field, $error);
     }
 
     /**
