@@ -23,8 +23,14 @@ class FormBuilder
      */
     private $fields = [];
 
+    /**
+     * @var array
+     */
     private $skips = [];
 
+    /**
+     * @var null|array|Model|Translatable
+     */
     private $dataSource = null;
 
     /**
@@ -41,6 +47,14 @@ class FormBuilder
         return $this;
     }
 
+    /**
+     * Define a group of radios.
+     *
+     * @param $name
+     * @param $label
+     * @param \Closure $definition
+     * @return $this
+     */
     public function radioGroup($name, $label, \Closure $definition)
     {
         $this->fields[$name] = new RadioGroup($name, $label, $definition);
@@ -49,7 +63,7 @@ class FormBuilder
     }
 
     /**
-     * Basic rendering of the form.
+     * Render form fields.
      *
      * @param ViewErrorBag $errors
      *
@@ -85,6 +99,15 @@ class FormBuilder
         return $form;
     }
 
+    /**
+     * If a presenter class has been set,
+     * render the field using its presentation,
+     * otherwise call the normal render.
+     *
+     * @param AbstractType $field
+     * @param array $error
+     * @return string
+     */
     public function present(AbstractType $field, array $error = [])
     {
         if (empty($this->presenter) || !class_exists($this->presenter)) {
@@ -96,6 +119,12 @@ class FormBuilder
         return $presenter->render($field, $error);
     }
 
+    /**
+     * Render a tabs container with available languages
+     * and the fields that contain translatable data.
+     *
+     * @return string
+     */
     public function renderTranslated()
     {
         $firstTab = true;
@@ -154,7 +183,14 @@ class FormBuilder
         return $this->fields;
     }
 
-    public function get($fieldName)
+    /**
+     * Get a field definition.
+     *
+     * @param $field
+     * @return AbstractType
+     * @throws InvalidField
+     */
+    public function get($field)
     {
         if (array_key_exists($fieldName, $this->fields)) {
             return $this->fields[$fieldName];
@@ -163,11 +199,24 @@ class FormBuilder
         throw new InvalidField("The requested field index [{$fieldName}] has not been defined.");
     }
 
+    /**
+     * Set a dataSource when you want the form
+     * to be prefilled with values.
+     *
+     * @param array|Model|Translatable $dataSource
+     */
     public function setDataSource($dataSource)
     {
         $this->dataSource = $dataSource;
     }
 
+    /**
+     * Get value for a field, if it exists.
+     *
+     * @param $field
+     * @param int $language_id
+     * @return mixed|null
+     */
     public function getValue($field, $language_id = 0)
     {
         $ds = $this->dataSource;
@@ -188,6 +237,11 @@ class FormBuilder
         return;
     }
 
+    /**
+     * Skip given fields from rendering.
+     *
+     * @return $this
+     */
     public function skip()
     {
         $args = func_get_args();
@@ -204,6 +258,13 @@ class FormBuilder
         return $this;
     }
 
+    /**
+     * Get a field as a property.
+     *
+     * @param $name
+     * @return AbstractType
+     * @throws InvalidField
+     */
     public function __get($name)
     {
         return $this->get($name);
