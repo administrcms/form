@@ -240,7 +240,13 @@ class FormBuilder
         }
 
         if (is_array($dataSource)) {
-            return array_get($dataSource, $field);
+            $val = array_get($dataSource, $field);
+
+            if(is_string($val)) {
+                return htmlentities($val);
+            }
+
+            return $val;
         }
 
         return null;

@@ -226,7 +226,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function get($field)
     {
-        return $this->request->get($field);
+        return html_entity_decode( $this->request->get($field) );
     }
 
     /**
@@ -234,7 +234,13 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function all()
     {
-        return $this->request->all();
+        return array_map(function($val) {
+            if(is_string($val)) {
+                return html_entity_decode($val);
+            }
+
+            return $val;
+        }, $this->request->all());
     }
 
     public function translated()
