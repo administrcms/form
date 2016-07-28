@@ -234,13 +234,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function all()
     {
-        return array_map(function($val) {
-            if(is_string($val)) {
-                return html_entity_decode($val);
-            }
-
-            return $val;
-        }, $this->request->all());
+        return array_map([$this, 'removeEntities'], $this->request->all());
     }
 
     /**
@@ -323,6 +317,19 @@ abstract class Form implements ValidatesWhenSubmitted
     public function __toString()
     {
         return $this->render();
+    }
+    
+    public function removeEntities($val)
+    {
+        if (is_string($val)) {
+            return html_entity_decode($val);
+        }
+
+        if(is_array($val)) {
+            $val = array_map([$this, 'removeEntities'], $val);
+        }
+
+        return $val;
     }
 
     /**
