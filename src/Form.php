@@ -243,6 +243,15 @@ abstract class Form implements ValidatesWhenSubmitted
         }, $this->request->all());
     }
 
+    /**
+     * @return Request
+     * @codeCoverageIgnore
+     */
+    public function request()
+    {
+        return $this->request;
+    }
+
     public function translated()
     {
         $languages = Language::pluck('id');
