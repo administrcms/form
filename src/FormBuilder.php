@@ -11,6 +11,24 @@ use Administr\Localization\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ViewErrorBag;
 
+/**
+ * Class FormBuilder
+ * @package Administr\Form
+ *
+ * @method text($name, $label, array $options)
+ * @method password($name, $label, array $options)
+ * @method textarea($name, $label, array $options)
+ * @method email($name, $label, array $options)
+ * @method file($name, $label, array $options)
+ * @method hidden($name, $label, array $options)
+ * @method checkbox($name, $label, array $options)
+ * @method radio($name, $label, array $options)
+ * @method select($name, $label, array $options)
+ * @method wysiwyg($name, $label, array $options)
+ * @method submit($name, $label, array $options)
+ * @method reset($name, $label, array $options)
+ * 
+ */
 class FormBuilder
 {
     /*
