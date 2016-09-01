@@ -61,7 +61,7 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(new SessionMock());
 
-        $this->assertSame('<form>'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", $form->render());
+        $this->assertSame('<form enctype="application/x-www-form-urlencoded">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", $form->render());
     }
 
     /** @test */
@@ -83,7 +83,7 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(new SessionMock());
 
-        $this->assertSame('<form method="post">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", $form->render());
+        $this->assertSame('<form method="post" enctype="application/x-www-form-urlencoded">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", $form->render());
     }
 
     /** @test */
@@ -169,7 +169,7 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(new SessionMock());
 
-        $this->assertSame('<form>'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", (string) $form);
+        $this->assertSame('<form enctype="application/x-www-form-urlencoded">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", (string) $form);
     }
 
     /** @test */
@@ -186,6 +186,29 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('post', $form->method);
         $this->assertInstanceOf(Hidden::class, end($fields));
+    }
+    
+    /** @test */
+    public function it_sets_correct_enctype_for_form_uploads()
+    {
+        $formBuilder = new FormBuilder();
+        $formBuilder->presenter = null;
+
+        $formBuilder->file('file', 'File');
+
+        $form = new TestForm(
+            $formBuilder,
+            $this->request,
+            $this->validator,
+            $this->redirector
+        );
+
+        $this->request
+            ->shouldReceive('session')
+            ->once()
+            ->andReturn(new SessionMock());
+
+        $this->assertContains('enctype="multipart/form-data"', $form->render());
     }
 }
 

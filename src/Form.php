@@ -4,6 +4,7 @@ namespace Administr\Form;
 
 use Administr\Form\Exceptions\FormValidationException;
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\File;
 use Administr\Localization\Models\Language;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\JsonResponse;
@@ -89,6 +90,8 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function render()
     {
+        $this->setEnctype();
+
         $form = $this->getFormOpen();
         $form .= $this->formBuilder->render($this->errors());
         $form .= $this->getFormClose();
@@ -277,6 +280,20 @@ abstract class Form implements ValidatesWhenSubmitted
     public function skip()
     {
         return $this->formBuilder->skip(func_get_args());
+    }
+
+    /**
+     * Set the enctype attribute
+     */
+    public function setEnctype()
+    {
+        $fields = collect($this->fields());
+
+        $hasFile = $fields->contains(function($key, $value) {
+            return $value instanceof File;
+        });
+
+        $this->options['enctype'] = $hasFile ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
     }
 
     /**
