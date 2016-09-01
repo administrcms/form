@@ -2,6 +2,7 @@
 
 namespace Administr\Form;
 
+use Administr\Form\Contracts\ValidatesWhenSubmitted;
 use Administr\Form\Exceptions\FormValidationException;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\File;

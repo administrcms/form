@@ -1,6 +1,6 @@
 <?php
 
-namespace Administr\Form;
+namespace Administr\Form\Contracts;
 
 interface ValidatesWhenSubmitted
 {

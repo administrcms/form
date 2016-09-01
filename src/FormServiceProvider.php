@@ -3,6 +3,7 @@
 namespace Administr\Form;
 
 use Administr\Form\AssetShortcuts\WysiwygShortcut;
+use Administr\Form\Contracts\ValidatesWhenSubmitted;
 use Illuminate\Support\ServiceProvider;
 use Asset;
 
