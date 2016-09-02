@@ -14,7 +14,8 @@ class Wysiwyg extends Textarea
 
     public function renderField(array $attributes = [])
     {
-        $attributes['class'] = array_get($attributes, 'class') . ' administr-wysiwyg';
+        $attributes['class'] = array_get($attributes, 'class').' administr-wysiwyg';
+
         return parent::renderField($attributes);
     }
 }

@@ -4,8 +4,8 @@ namespace Administr\Form;
 
 use Administr\Form\AssetShortcuts\WysiwygShortcut;
 use Administr\Form\Contracts\ValidatesWhenSubmitted;
-use Illuminate\Support\ServiceProvider;
 use Asset;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Class FormServiceProvider.
@@ -25,7 +25,7 @@ class FormServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([
-            __DIR__ . '/Assets' => public_path('vendor/administr/form'),
+            __DIR__.'/Assets' => public_path('vendor/administr/form'),
         ], 'public');
     }
 

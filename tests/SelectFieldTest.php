@@ -21,16 +21,16 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('<label for="test">Test</label>'."\n".'<select id="test" name="test"><option value="miro">test</option></select>', $field->render());
     }
-    
+
     /** @test */
     public function it_marks_the_checked_option()
     {
         $field = new Select('test', 'Test', [
             'values' => [
                 'miro' => 'test',
-                'test' => 'miro'
+                'test' => 'miro',
             ],
-            'value' => 'miro'
+            'value' => 'miro',
         ]);
 
         $this->assertSame('<label for="test">Test</label>'."\n".'<select id="test" name="test"><option value="miro" selected="selected">test</option><option value="test">miro</option></select>', $field->render());

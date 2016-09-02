@@ -10,7 +10,7 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
     public function it_presents_a_text_field_correctly()
     {
         $text = new Text('test', 'Test');
-        $presenter = new BootstrapPresenter;
+        $presenter = new BootstrapPresenter();
 
         $this->assertSame(
             '<div class="form-group">'."\n".
@@ -27,7 +27,7 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
     public function it_presents_a_text_field_correctly_with_error()
     {
         $text = new Text('test', 'Test');
-        $presenter = new BootstrapPresenter;
+        $presenter = new BootstrapPresenter();
 
         $this->assertSame(
             '<div class="form-group has-error">'."\n".
@@ -44,7 +44,7 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
     public function it_presents_a_button_field_correctly()
     {
         $submit = new Submit('test', 'Test');
-        $presenter = new BootstrapPresenter;
+        $presenter = new BootstrapPresenter();
 
         $this->assertSame(
             '<div class="form-group">'."\n".
@@ -59,7 +59,7 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
     public function it_presents_a_radio_field_correctly()
     {
         $radio = new Radio('test', 'Test', ['value' => 'test']);
-        $presenter = new BootstrapPresenter;
+        $presenter = new BootstrapPresenter();
 
         $this->assertSame(
             '<div class="radio">'."\n".
@@ -76,7 +76,7 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
     public function it_presents_a_checkbox_field_correctly()
     {
         $checkbox = new Checkbox('test', 'Test', ['value' => 1]);
-        $presenter = new BootstrapPresenter;
+        $presenter = new BootstrapPresenter();
 
         $this->assertSame(
             '<div class="checkbox">'."\n".
@@ -90,10 +90,10 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-function old($field) {
-    return;
+function old($field)
+{
 }
 
-function make($class) {
-    return;
+function make($class)
+{
 }

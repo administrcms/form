@@ -11,12 +11,12 @@ class Radio extends Text
             'value'
         );
 
-        if( $this->isChecked($value) ) {
+        if ($this->isChecked($value)) {
             $attributes['checked'] = 'checked';
         }
 
         return parent::renderField(array_merge($attributes, [
-            'type' => 'radio'
+            'type' => 'radio',
         ]));
     }
 }

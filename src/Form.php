@@ -204,6 +204,7 @@ abstract class Form implements ValidatesWhenSubmitted
      * Set the data source on the form builder.
      *
      * @param array|Model|Translatable $dataSource
+     *
      * @return $this
      * @codeCoverageIgnore
      */
@@ -216,6 +217,7 @@ abstract class Form implements ValidatesWhenSubmitted
 
     /**
      * @param $field
+     *
      * @return bool
      * @codeCoverageIgnore
      */
@@ -226,12 +228,13 @@ abstract class Form implements ValidatesWhenSubmitted
 
     /**
      * @param $field
+     *
      * @return mixed
      * @codeCoverageIgnore
      */
     public function get($field)
     {
-        return html_entity_decode( $this->request->get($field) );
+        return html_entity_decode($this->request->get($field));
     }
 
     /**
@@ -254,17 +257,17 @@ abstract class Form implements ValidatesWhenSubmitted
     public function translated()
     {
         $languages = Language::pluck('id');
-        $languageFields = array_filter($this->formBuilder->fields(), function(AbstractType $field) {
+        $languageFields = array_filter($this->formBuilder->fields(), function (AbstractType $field) {
             return $field->isTranslated();
         });
         $fields = $this->all();
 
         $translated = [];
 
-        foreach($languages as $language_id) {
+        foreach ($languages as $language_id) {
             $translated[$language_id] = [];
-            foreach($fields as $field => $value) {
-                if(array_key_exists($field, $languageFields)) {
+            foreach ($fields as $field => $value) {
+                if (array_key_exists($field, $languageFields)) {
                     $translated[$language_id][$field] = $value[$language_id];
                     continue;
                 }
@@ -285,13 +288,13 @@ abstract class Form implements ValidatesWhenSubmitted
     }
 
     /**
-     * Set the enctype attribute
+     * Set the enctype attribute.
      */
     public function setEnctype()
     {
         $fields = collect($this->fields());
 
-        $hasFile = $fields->contains(function($key, $value) {
+        $hasFile = $fields->contains(function ($key, $value) {
             return $value instanceof File;
         });
 
@@ -299,16 +302,16 @@ abstract class Form implements ValidatesWhenSubmitted
     }
 
     /**
-     * Add Laravel's csrf token
+     * Add Laravel's csrf token.
      */
     public function addTokenField()
     {
-        if(array_key_exists('_token', $this->fields())) {
+        if (array_key_exists('_token', $this->fields())) {
             return;
         }
 
         $this->formBuilder->hidden('_token', '', [
-            'value' => csrf_token()
+            'value' => csrf_token(),
         ]);
     }
 
@@ -351,14 +354,14 @@ abstract class Form implements ValidatesWhenSubmitted
     {
         return $this->render();
     }
-    
+
     public function removeEntities($val)
     {
         if (is_string($val)) {
             return html_entity_decode($val);
         }
 
-        if(is_array($val)) {
+        if (is_array($val)) {
             $val = array_map([$this, 'removeEntities'], $val);
         }
 
