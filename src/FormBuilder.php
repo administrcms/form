@@ -2,8 +2,10 @@
 
 namespace Administr\Form;
 
+use Administr\Form\Contracts\ImageFieldSource;
 use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Image;
 use Administr\Form\Field\RadioGroup;
 use Administr\Form\Field\Text;
 use Administr\Localization\Models\Language;
@@ -107,6 +109,12 @@ class FormBuilder
 
         foreach ($fields as $name => $field) {
             $value = $this->getValue($name);
+
+            if($field instanceof Image) {
+                $src = $this->dataSource instanceof ImageFieldSource
+                    ? $this->dataSource->getImagePath() : '';
+                $field->setSrc($src);
+            }
 
             $field->setValue($value);
             $field->appendOption('value', $value);
