@@ -26,7 +26,7 @@ use Illuminate\Support\ViewErrorBag;
  * @method wysiwyg($name, $label, array $options)
  * @method submit($name, $label, array $options)
  * @method reset($name, $label, array $options)
- * 
+ *
  */
 class FormBuilder
 {

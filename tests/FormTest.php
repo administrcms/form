@@ -1,5 +1,7 @@
 <?php
 
+namespace Administr\Form;
+
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Hidden;
 use Administr\Form\Form;
@@ -8,8 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Validation\Factory;
 use Mockery as m;
+use ReflectionClass;
 
-class FormTest extends PHPUnit_Framework_TestCase
+class FormTest extends \PHPUnit_Framework_TestCase
 {
     private $request;
     private $validator;
@@ -61,7 +64,7 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(new SessionMock());
 
-        $this->assertSame('<form enctype="application/x-www-form-urlencoded">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", $form->render());
+        $this->assertSame('<form enctype="application/x-www-form-urlencoded">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'<input type="hidden" id="_token" name="_token" value="">'."\n".'</form>'."\n", $form->render());
     }
 
     /** @test */
@@ -83,7 +86,7 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(new SessionMock());
 
-        $this->assertSame('<form method="post" enctype="application/x-www-form-urlencoded">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", $form->render());
+        $this->assertSame('<form method="post" enctype="application/x-www-form-urlencoded">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'<input type="hidden" id="_token" name="_token" value="">'."\n".'</form>'."\n", $form->render());
     }
 
     /** @test */
@@ -169,7 +172,7 @@ class FormTest extends PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(new SessionMock());
 
-        $this->assertSame('<form enctype="application/x-www-form-urlencoded">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'</form>'."\n", (string) $form);
+        $this->assertSame('<form enctype="application/x-www-form-urlencoded">'."\n".'<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n".'<input type="hidden" id="_token" name="_token" value="">'."\n".'</form>'."\n", (string) $form);
     }
 
     /** @test */
@@ -291,4 +294,9 @@ class SessionMock
     public function get()
     {
     }
+}
+
+function csrf_token()
+{
+    return null;
 }
