@@ -26,6 +26,7 @@ abstract class AbstractType
      * Default render of field with its label and errors.
      *
      * @param array $errors
+     *
      * @return string
      */
     public function render(array $errors = [])
@@ -47,6 +48,7 @@ abstract class AbstractType
      * Default rendering of the errors for a field.
      *
      * @param array $errors
+     *
      * @return string
      */
     public function renderErrors(array $errors = [])
@@ -66,6 +68,7 @@ abstract class AbstractType
     public function translated()
     {
         $this->options['translated'] = true;
+
         return $this;
     }
 
@@ -84,6 +87,7 @@ abstract class AbstractType
      *
      * @param $option
      * @param $value
+     *
      * @return $this
      */
     public function appendOption($option, $value)
@@ -113,6 +117,7 @@ abstract class AbstractType
     {
         $this->label = $label;
     }
+
     /**
      * @return mixed
      */
@@ -135,6 +140,7 @@ abstract class AbstractType
      * Get an option.
      *
      * @param $option
+     *
      * @return mixed
      */
     public function getOption($option)
@@ -146,6 +152,7 @@ abstract class AbstractType
      * Set the value for a given field.
      *
      * @param $value
+     *
      * @return $this
      */
     public function setValue($value)
@@ -185,7 +192,6 @@ abstract class AbstractType
         return $this instanceof Checkbox;
     }
 
-
     /**
      * Is this a radio field.
      *
@@ -200,6 +206,7 @@ abstract class AbstractType
      * Whether a radio or checkbox should be checked.
      *
      * @param mixed $value
+     *
      * @return bool
      */
     public function isChecked($value)

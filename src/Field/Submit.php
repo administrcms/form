@@ -14,11 +14,9 @@ class Submit extends Text
 
     public function renderLabel()
     {
-        return;
     }
 
     public function renderErrors(array $errors = [])
     {
-        return;
     }
 }

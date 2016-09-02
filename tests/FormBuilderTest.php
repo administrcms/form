@@ -279,8 +279,8 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
     public function it_creates_a_radio_group()
     {
         $formBuilder = new FormBuilder();
-        $formBuilder->radioGroup('is_visible', 'Visible?', function(RadioGroup $group){
-           $group
+        $formBuilder->radioGroup('is_visible', 'Visible?', function (RadioGroup $group) {
+            $group
                ->radio('Yes', ['value' => 1])
                ->radio('No', ['value' => 0]);
         });
@@ -302,6 +302,5 @@ class TestPresenter implements Presenter
 {
     public function render(AbstractType $field, array $error = [])
     {
-        return;
     }
 }

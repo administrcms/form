@@ -187,7 +187,7 @@ class FormTest extends PHPUnit_Framework_TestCase
         $this->assertSame('post', $form->method);
         $this->assertInstanceOf(Hidden::class, end($fields));
     }
-    
+
     /** @test */
     public function it_sets_correct_enctype_for_form_uploads()
     {
@@ -210,7 +210,7 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $this->assertContains('enctype="multipart/form-data"', $form->render());
     }
-    
+
     /** @test */
     public function it_adds_csrf_field()
     {
@@ -290,6 +290,5 @@ class SessionMock
 {
     public function get()
     {
-        return;
     }
 }

@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ViewErrorBag;
 
 /**
- * Class FormBuilder
- * @package Administr\Form
+ * Class FormBuilder.
  *
  * @method text($name, $label, array $options)
  * @method password($name, $label, array $options)
@@ -27,7 +26,6 @@ use Illuminate\Support\ViewErrorBag;
  * @method wysiwyg($name, $label, array $options)
  * @method submit($name, $label, array $options)
  * @method reset($name, $label, array $options)
- * 
  */
 class FormBuilder
 {
@@ -78,6 +76,7 @@ class FormBuilder
      * @param $name
      * @param $label
      * @param \Closure $definition
+     *
      * @return $this
      */
     public function radioGroup($name, $label, \Closure $definition)
@@ -98,7 +97,7 @@ class FormBuilder
     {
         $form = '';
 
-        $fields = array_filter($this->fields, function(AbstractType $field) {
+        $fields = array_filter($this->fields, function (AbstractType $field) {
             return !in_array($field->getName(), $this->skips) && !$field->isTranslated();
         });
 
@@ -111,7 +110,7 @@ class FormBuilder
             $field->setValue($value);
             $field->appendOption('value', $value);
 
-            if($field->isButton() || $fieldsCount === $renderedFieldsCount && !$this->translationRendered) {
+            if ($field->isButton() || $fieldsCount === $renderedFieldsCount && !$this->translationRendered) {
                 $form .= $this->renderTranslated();
             }
 
@@ -130,7 +129,8 @@ class FormBuilder
      * otherwise call the normal render.
      *
      * @param AbstractType $field
-     * @param array $error
+     * @param array        $error
+     *
      * @return string
      */
     public function present(AbstractType $field, array $error = [])
@@ -139,7 +139,7 @@ class FormBuilder
             return $field->render($error)."\n";
         }
 
-        return (new $this->presenter)->render($field, $error);
+        return (new $this->presenter())->render($field, $error);
     }
 
     /**
@@ -155,20 +155,20 @@ class FormBuilder
         $firstTab = true;
         $tabs = '';
         $panels = '';
-        $fields = array_filter($this->fields, function(AbstractType $field) {
+        $fields = array_filter($this->fields, function (AbstractType $field) {
             return !in_array($field->getName(), $this->skips) && $field->isTranslated();
         });
 
-        if(count($fields) === 0) {
+        if (count($fields) === 0) {
             return '';
         }
 
-        foreach(Language::all() as $language) {
-            $tabs .= '<li role="presentation" class="'.( $firstTab ? 'active' : '' ).'">
+        foreach (Language::all() as $language) {
+            $tabs .= '<li role="presentation" class="'.($firstTab ? 'active' : '').'">
                         <a href="#'.$language->name.'" aria-controls="'.$language->name.'" role="tab" data-toggle="tab">'.$language->name.'</a>
                       </li>';
 
-            $panels .= '<div role="tabpanel" class="tab-pane '.( $firstTab ? 'active' : '' ).'" id="'.$language->name.'">';
+            $panels .= '<div role="tabpanel" class="tab-pane '.($firstTab ? 'active' : '').'" id="'.$language->name.'">';
             foreach ($fields as $name => $field) {
                 $field = clone $field;
                 $field->setName("{$field->getName()}[{$language->id}]");
@@ -212,8 +212,10 @@ class FormBuilder
      * Get a field definition.
      *
      * @param $field
-     * @return AbstractType
+     *
      * @throws InvalidField
+     *
+     * @return AbstractType
      */
     public function get($field)
     {
@@ -240,6 +242,7 @@ class FormBuilder
      *
      * @param $field
      * @param int $language_id
+     *
      * @return mixed|null
      */
     public function getValue($field, $language_id = 0)
@@ -260,14 +263,12 @@ class FormBuilder
         if (is_array($dataSource)) {
             $val = array_get($dataSource, $field);
 
-            if(is_string($val)) {
+            if (is_string($val)) {
                 return htmlentities($val);
             }
 
             return $val;
         }
-
-        return null;
     }
 
     /**
@@ -279,12 +280,12 @@ class FormBuilder
     {
         $fields = func_get_args();
 
-        if(is_array($fields)) {
+        if (is_array($fields)) {
             $fields = array_flatten($fields);
         }
 
-        if(count($fields) == 1 && is_string($fields[0])) {
-            $fields = (array)$fields[0];
+        if (count($fields) == 1 && is_string($fields[0])) {
+            $fields = (array) $fields[0];
         }
 
         $this->skips = $fields;
@@ -296,8 +297,10 @@ class FormBuilder
      * Get a field as a property.
      *
      * @param $name
-     * @return AbstractType
+     *
      * @throws InvalidField
+     *
+     * @return AbstractType
      */
     public function __get($name)
     {
