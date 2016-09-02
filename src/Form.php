@@ -92,6 +92,7 @@ abstract class Form implements ValidatesWhenSubmitted
     public function render()
     {
         $this->setEnctype();
+        $this->addTokenField();
 
         $form = $this->getFormOpen();
         $form .= $this->formBuilder->render($this->errors());
@@ -295,6 +296,20 @@ abstract class Form implements ValidatesWhenSubmitted
         });
 
         $this->options['enctype'] = $hasFile ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
+    }
+
+    /**
+     * Add Laravel's csrf token
+     */
+    public function addTokenField()
+    {
+        if(array_key_exists('_token', $this->fields())) {
+            return;
+        }
+
+        $this->formBuilder->hidden('_token', '', [
+            'value' => csrf_token()
+        ]);
     }
 
     /**

@@ -210,6 +210,32 @@ class FormTest extends PHPUnit_Framework_TestCase
 
         $this->assertContains('enctype="multipart/form-data"', $form->render());
     }
+    
+    /** @test */
+    public function it_adds_csrf_field()
+    {
+        $formBuilder = new FormBuilder();
+        $formBuilder->presenter = null;
+
+        $form = new TestForm(
+            $formBuilder,
+            $this->request,
+            $this->validator,
+            $this->redirector
+        );
+
+        $this->request
+            ->shouldReceive('session')
+            ->once()
+            ->andReturn(new SessionMock());
+
+        $form->render();
+
+        $this->assertTrue(
+            array_key_exists('_token', $form->fields())
+        );
+        $this->assertInstanceOf(Hidden::class, $form->field('_token'));
+    }
 }
 
 class TestForm extends Form
