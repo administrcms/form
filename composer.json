@@ -1,6 +1,6 @@
 {
     "name": "administrcms/form",
-    "description": "Administration package that allows for fast and flexible admin pages",
+    "description": "Form package for the administrcms as good as standalone laravel package",
     "authors": [
         {
             "name": "Miroslav Vitanov",
