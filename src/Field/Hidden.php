@@ -6,10 +6,10 @@ class Hidden extends Text
 {
     public function renderField(array $attributes = [])
     {
-        return parent::renderField(array_merge($attributes, [
-            'type'  => 'hidden',
-            'value' => array_key_exists('value', $attributes) ? $attributes['value'] : $this->label,
-        ]));
+        $attrs = array_merge($this->getOptions(), $attributes);
+        $attrs['type'] = 'hidden';
+
+        return parent::renderField($attrs);
     }
 
     public function renderLabel()
