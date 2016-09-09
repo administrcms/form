@@ -108,16 +108,7 @@ class FormBuilder
         $renderedFieldsCount = 1;
 
         foreach ($fields as $name => $field) {
-            $value = $this->getValue($name);
-
-            if($field instanceof Image) {
-                $src = $this->dataSource instanceof ImageFieldSource
-                    ? $this->dataSource->getImagePath() : '';
-                $field->setSrc($src);
-            }
-
-            $field->setValue($value);
-            $field->appendOption('value', $value);
+            $this->setValue($field);
 
             if ($field->isButton() || $fieldsCount === $renderedFieldsCount && !$this->translationRendered) {
                 $form .= $this->renderTranslated();
@@ -278,6 +269,30 @@ class FormBuilder
 
             return $val;
         }
+    }
+
+    /**
+     * Determine the value of a field if a data source
+     * is set and add it to the field itself.
+     *
+     * @param $field
+     */
+    protected function setValue(AbstractType $field)
+    {
+        if(!$this->dataSource) {
+            return;
+        }
+
+        $value = $this->getValue($field->getName());
+
+        if ($field instanceof Image) {
+            $src = $this->dataSource instanceof ImageFieldSource
+                ? $this->dataSource->getImagePath() : '';
+            $field->setSrc($src);
+        }
+
+        $field->setValue($value);
+        $field->appendOption('value', $value);
     }
 
     /**
