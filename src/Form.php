@@ -310,9 +310,7 @@ abstract class Form implements ValidatesWhenSubmitted
             return;
         }
 
-        $this->formBuilder->hidden('_token', '', [
-            'value' => csrf_token(),
-        ]);
+        $this->formBuilder->hidden('_token', csrf_token());
     }
 
     /**
