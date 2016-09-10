@@ -5,6 +5,9 @@ namespace Administr\Form\AssetShortcuts;
 use Administr\Assets\Contracts\Shortcut;
 use Asset;
 
+/**
+ * @codeCoverageIgnore
+ */
 class WysiwygShortcut implements Shortcut
 {
     public function execute()
