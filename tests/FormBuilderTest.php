@@ -296,6 +296,18 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('test', $formBuilder->getValue('name'));
     }
+
+    /** @test */
+    public function it_checks_if_datasource_is_present()
+    {
+        $formBuilder = new FormBuilder();
+
+        $this->assertFalse($formBuilder->hasDataSource());
+
+        $formBuilder->setDataSource(['name' => 'test']);
+
+        $this->assertTrue($formBuilder->hasDataSource());
+    }
 }
 
 class TestPresenter implements Presenter
