@@ -126,7 +126,10 @@ class FormBuilder
     {
         $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
 
-        return $this->present($this->get($name), $error);
+        $field = $this->get($name);
+        $this->setValue($field);
+
+        return $this->present($field, $error);
     }
 
     /**
