@@ -17,7 +17,14 @@ class WysiwygFieldTest extends PHPUnit_Framework_TestCase
     public function it_adds_class_for_tinymce_to_find()
     {
         $wysiwyg = new Wysiwyg('test', 'Test');
+        
+        $this->assertContains('administr-wysiwyg', $wysiwyg->render());
+    }
+}
 
-        $this->assertContains('administr-wysiwyg', $wysiwyg->getOption('class'));
+class Asset {
+    public static function wysiwyg()
+    {
+        return null;
     }
 }
