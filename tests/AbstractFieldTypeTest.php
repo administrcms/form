@@ -60,6 +60,15 @@ class AbstractFieldTypeTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(AbstractType::class, $field);
         $this->assertSame('test', $field->getName());
     }
+    
+    /** @test */
+    public function it_sets_field_name()
+    {
+        $field = new Text('test', 'Test');
+        $field->setName('named');
+
+        $this->assertSame('named', $field->getName());
+    }
 
     /** @test */
     public function it_gets_field_label()
@@ -68,6 +77,15 @@ class AbstractFieldTypeTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(AbstractType::class, $field);
         $this->assertSame('Test', $field->getLabel());
+    }
+
+    /** @test */
+    public function it_sets_field_label()
+    {
+        $field = new Text('test', 'Test');
+        $field->setLabel('labeled');
+
+        $this->assertSame('labeled', $field->getLabel());
     }
 
     /** @test */
@@ -94,5 +112,14 @@ class AbstractFieldTypeTest extends PHPUnit_Framework_TestCase
         $field->appendOption('new', 'option');
 
         $this->assertSame(['new' => 'option'], $field->getOptions());
+    }
+    
+    /** @test */
+    public function it_sets_translatable_option()
+    {
+        $field = new Text('test', 'Test');
+        $field->translated();
+
+        $this->assertContains('translated', $field->getOptions());
     }
 }
