@@ -124,11 +124,20 @@ abstract class Form implements ValidatesWhenSubmitted
         return "</form>\n";
     }
 
+    /**
+     * @param $name
+     * @return AbstractType
+     * @codeCoverageIgnore
+     */
     public function field($name)
     {
         return $this->formBuilder->get($name);
     }
 
+    /**
+     * @return array
+     * @codeCoverageIgnore
+     */
     public function fields()
     {
         return $this->formBuilder->fields();
