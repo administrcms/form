@@ -106,11 +106,15 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function getFormOpen()
     {
+        $this->addTokenField();
+
         // To simulate a put requrest with Laravel,
         // we need to add a hidden field for the method
         if (array_get($this->options, 'method') == 'put') {
             $this->options['method'] = 'post';
             $this->formBuilder->hidden('_method', 'put');
+        } else {
+            $this->formBuilder->hidden('_method', array_get($this->options, 'method'));
         }
 
         return "<form{$this->renderAttributes($this->options)}>\n";
