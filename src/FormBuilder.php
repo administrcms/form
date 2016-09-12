@@ -114,13 +114,19 @@ class FormBuilder
                 $form .= $this->renderTranslated();
             }
 
-            $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
-            $form .= $this->present($field, $error);
+            $form .= $this->renderField($name, $errors);
 
             $renderedFieldsCount += 1;
         }
 
         return $form;
+    }
+
+    public function renderField($name, ViewErrorBag $errors = null)
+    {
+        $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
+
+        return $this->present($this->get($name), $error);
     }
 
     /**
@@ -235,6 +241,11 @@ class FormBuilder
     public function setDataSource($dataSource)
     {
         $this->dataSource = $dataSource;
+    }
+
+    public function hasDataSource()
+    {
+        return !is_null($this->dataSource);
     }
 
     /**

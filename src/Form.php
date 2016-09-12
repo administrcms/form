@@ -134,6 +134,16 @@ abstract class Form implements ValidatesWhenSubmitted
         return $this->formBuilder->fields();
     }
 
+    /**
+     * @param $name
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function renderField($name)
+    {
+        return $this->formBuilder->renderField($name);
+    }
+
     public function errors()
     {
         $errors = $this->request->session()->get('errors');
