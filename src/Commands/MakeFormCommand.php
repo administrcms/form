@@ -26,6 +26,38 @@ class MakeFormCommand extends GeneratorCommand
 
     protected $type = 'Form class';
 
+    public function fire()
+    {
+        parent::fire();
+
+        $name = str_plural(
+            str_replace( '-form', '', snake_case($this->argument('name'), '-') )
+        );
+
+        $from = __DIR__ . '/stubs/form.blade.stub';
+        $targetPath = resource_path("views/{$name}/");
+        $fileName = 'form.blade.php';
+
+        if( $this->files->exists($targetPath . $fileName) )
+        {
+            $this->error("File views/{$name}/{$fileName} already exists!");
+            return;
+        }
+
+        if( !$this->files->isDirectory($targetPath) )
+        {
+            $this->files->makeDirectory($targetPath);
+        }
+
+        if( $this->files->copy($from, $targetPath . $fileName) )
+        {
+            $this->info("Created views/{$name}/{$fileName}");
+            return;
+        }
+
+        $this->error("Could not create views/{$name}/{$fileName}");
+    }
+
     /**
      * Get the stub file for the generator.
      *
