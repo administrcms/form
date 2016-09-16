@@ -20,7 +20,7 @@
     <header>
       <div class="inner">
         <h1>Form</h1>
-        <h2></h2>
+        <h2>Package from administrcms</h2>
         <a href="https://github.com/administrcms/form" class="button"><small>View project on</small> GitHub</a>
       </div>
     </header>
@@ -29,22 +29,25 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h1>
-<a id="form-builder-for-the-administr-package" class="anchor" href="#form-builder-for-the-administr-package" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Form Builder for the administr package</h1>
+<a id="current-status" class="anchor" href="#current-status" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Current status</h1>
 
 <p><a href="https://travis-ci.org/administrcms/form"><img src="https://travis-ci.org/administrcms/form.svg?branch=master" alt="Build Status"></a>
 <a href="https://codeclimate.com/github/administrcms/form"><img src="https://codeclimate.com/github/administrcms/form/badges/gpa.svg" alt="Code Climate"></a>
 <a href="https://codeclimate.com/github/administrcms/form/coverage"><img src="https://codeclimate.com/github/administrcms/form/badges/coverage.svg" alt="Test Coverage"></a></p>
 
-<p>Work-in-progress.</p>
+<p>This project is still work-in-progress. It is built for use with the Laravel Framework (&gt;= 5.2).</p>
+
+<p>The forms are implemented as the FormRequests in Laravel - they self-validate when type hinted in the controller method to which they send the data, if validation fails, they return back without executing the method and preserve the entered value and render their errors.</p>
 
 <h1>
-<a id="radio-groups" class="anchor" href="#radio-groups" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Radio groups</h1>
+<a id="defining-a-form-class" class="anchor" href="#defining-a-form-class" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Defining a Form class</h1>
+
+<p>You need to define a class that extends the base abstract Form class from this package.</p>
 
 <div class="highlight highlight-text-html-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
 <span class="pl-s1"></span>
 <span class="pl-s1"><span class="pl-k">namespace</span> <span class="pl-en">App\Http\Forms</span>;</span>
 <span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Administr\Form\Field\RadioGroup</span>;</span>
 <span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Administr\Form\Form</span>;</span>
 <span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Administr\Form\FormBuilder</span>;</span>
 <span class="pl-s1"></span>
@@ -72,12 +75,37 @@
 <span class="pl-s1">    {</span>
 <span class="pl-s1">        <span class="pl-smi">$form</span></span>
 <span class="pl-s1">            <span class="pl-k">-&gt;</span>text(<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Name<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>translated<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>submit(<span class="pl-s"><span class="pl-pds">'</span>save<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Save<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1">}</span></pre></div>
+
+<ul>
+<li>Defining Radio groups</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">namespace</span> <span class="pl-en">App\Http\Forms</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Administr\Form\Field\RadioGroup</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Administr\Form\Form</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Administr\Form\FormBuilder</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">class</span> <span class="pl-en">TeamForm</span> <span class="pl-k">extends</span> <span class="pl-e">Form</span></span>
+<span class="pl-s1">{</span>
+<span class="pl-s1">    <span class="pl-c">/**</span></span>
+<span class="pl-s1"><span class="pl-c">     * Define the fields of the form.</span></span>
+<span class="pl-s1"><span class="pl-c">     *</span></span>
+<span class="pl-s1"><span class="pl-c">     * <span class="pl-k">@param</span> FormBuilder $form</span></span>
+<span class="pl-s1"><span class="pl-c">     */</span></span>
+<span class="pl-s1">    <span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">form</span>(<span class="pl-c1">FormBuilder</span> <span class="pl-smi">$form</span>)</span>
+<span class="pl-s1">    {</span>
+<span class="pl-s1">        <span class="pl-smi">$form</span></span>
 <span class="pl-s1">            <span class="pl-k">-&gt;</span>radioGroup(<span class="pl-s"><span class="pl-pds">'</span>is_visible<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Is Visible<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-c1">RadioGroup</span> <span class="pl-smi">$group</span>) {</span>
 <span class="pl-s1">                <span class="pl-smi">$group</span></span>
-<span class="pl-s1">                    <span class="pl-k">-&gt;</span>radio(<span class="pl-s"><span class="pl-pds">'</span>да<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">1</span>])</span>
-<span class="pl-s1">                    <span class="pl-k">-&gt;</span>radio(<span class="pl-s"><span class="pl-pds">'</span>не<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0</span>]);</span>
-<span class="pl-s1">            })</span>
-<span class="pl-s1">            <span class="pl-k">-&gt;</span>submit(<span class="pl-s"><span class="pl-pds">'</span>save<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Save<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">                    <span class="pl-k">-&gt;</span>radio(<span class="pl-s"><span class="pl-pds">'</span>yes<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">1</span>])</span>
+<span class="pl-s1">                    <span class="pl-k">-&gt;</span>radio(<span class="pl-s"><span class="pl-pds">'</span>no<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0</span>]);</span>
+<span class="pl-s1">            });</span>
 <span class="pl-s1">    }</span>
 <span class="pl-s1">}</span></pre></div>
         </section>
