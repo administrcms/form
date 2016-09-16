@@ -16,18 +16,18 @@ use Illuminate\Support\ViewErrorBag;
 /**
  * Class FormBuilder.
  *
- * @method text($name, $label, array $options)
- * @method password($name, $label, array $options)
- * @method textarea($name, $label, array $options)
- * @method email($name, $label, array $options)
- * @method file($name, $label, array $options)
- * @method hidden($name, $label, array $options)
- * @method checkbox($name, $label, array $options)
- * @method radio($name, $label, array $options)
- * @method select($name, $label, array $options)
- * @method wysiwyg($name, $label, array $options)
- * @method submit($name, $label, array $options)
- * @method reset($name, $label, array $options)
+ * @method FormBuilder text($name, $label, array $options)
+ * @method FormBuilder password($name, $label, array $options)
+ * @method FormBuilder textarea($name, $label, array $options)
+ * @method FormBuilder email($name, $label, array $options)
+ * @method FormBuilder file($name, $label, array $options)
+ * @method FormBuilder hidden($name, $label, array $options)
+ * @method FormBuilder checkbox($name, $label, array $options)
+ * @method FormBuilder radio($name, $label, array $options)
+ * @method FormBuilder select($name, $label, array $options)
+ * @method FormBuilder wysiwyg($name, $label, array $options)
+ * @method FormBuilder submit($name, $label, array $options)
+ * @method FormBuilder reset($name, $label, array $options)
  *
  */
 class FormBuilder
