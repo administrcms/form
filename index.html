@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Form by administrcms</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Form</h1>
+        <h2></h2>
+        <a href="https://github.com/administrcms/form" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="form-builder-for-the-administr-package" class="anchor" href="#form-builder-for-the-administr-package" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Form Builder for the administr package</h1>
+
+<p><a href="https://travis-ci.org/administrcms/form"><img src="https://travis-ci.org/administrcms/form.svg?branch=master" alt="Build Status"></a>
+<a href="https://codeclimate.com/github/administrcms/form"><img src="https://codeclimate.com/github/administrcms/form/badges/gpa.svg" alt="Code Climate"></a>
+<a href="https://codeclimate.com/github/administrcms/form/coverage"><img src="https://codeclimate.com/github/administrcms/form/badges/coverage.svg" alt="Test Coverage"></a></p>
+
+<p>Work-in-progress.</p>
+
+<h1>
+<a id="radio-groups" class="anchor" href="#radio-groups" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Radio groups</h1>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">namespace</span> <span class="pl-en">App\Http\Forms</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Administr\Form\Field\RadioGroup</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Administr\Form\Form</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Administr\Form\FormBuilder</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">class</span> <span class="pl-en">TeamForm</span> <span class="pl-k">extends</span> <span class="pl-e">Form</span></span>
+<span class="pl-s1">{</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">/**</span></span>
+<span class="pl-s1"><span class="pl-c">     * Define the validation rules for the form.</span></span>
+<span class="pl-s1"><span class="pl-c">     *</span></span>
+<span class="pl-s1"><span class="pl-c">     * <span class="pl-k">@return</span> array</span></span>
+<span class="pl-s1"><span class="pl-c">     */</span></span>
+<span class="pl-s1">    <span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">rules</span>()</span>
+<span class="pl-s1">    {</span>
+<span class="pl-s1">        <span class="pl-k">return</span> [</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>      <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>required|max:100<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">        ];</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">/**</span></span>
+<span class="pl-s1"><span class="pl-c">     * Define the fields of the form.</span></span>
+<span class="pl-s1"><span class="pl-c">     *</span></span>
+<span class="pl-s1"><span class="pl-c">     * <span class="pl-k">@param</span> FormBuilder $form</span></span>
+<span class="pl-s1"><span class="pl-c">     */</span></span>
+<span class="pl-s1">    <span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">form</span>(<span class="pl-c1">FormBuilder</span> <span class="pl-smi">$form</span>)</span>
+<span class="pl-s1">    {</span>
+<span class="pl-s1">        <span class="pl-smi">$form</span></span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>text(<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Name<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>translated<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>radioGroup(<span class="pl-s"><span class="pl-pds">'</span>is_visible<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Is Visible<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-c1">RadioGroup</span> <span class="pl-smi">$group</span>) {</span>
+<span class="pl-s1">                <span class="pl-smi">$group</span></span>
+<span class="pl-s1">                    <span class="pl-k">-&gt;</span>radio(<span class="pl-s"><span class="pl-pds">'</span>да<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">1</span>])</span>
+<span class="pl-s1">                    <span class="pl-k">-&gt;</span>radio(<span class="pl-s"><span class="pl-pds">'</span>не<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">0</span>]);</span>
+<span class="pl-s1">            })</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>submit(<span class="pl-s"><span class="pl-pds">'</span>save<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Save<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1">}</span></pre></div>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/administrcms/form/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/administrcms/form/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/administrcms/form"></a> is maintained by <a href="https://github.com/administrcms">administrcms</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
