@@ -15,7 +15,7 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(
             '<div class="form-group">'."\n".
             '<label for="test">Test</label>'."\n".
-            '<input type="text" id="test" name="test" value="" class="form-control">'."\n".
+            '<input type="text" id="test" name="test" class="form-control" value="">'."\n".
             '<span class="help-block"></span>'."\n".
             '</div>',
 
@@ -32,7 +32,7 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(
             '<div class="form-group has-error">'."\n".
             '<label for="test">Test</label>'."\n".
-            '<input type="text" id="test" name="test" value="" class="form-control">'."\n".
+            '<input type="text" id="test" name="test" class="form-control" value="">'."\n".
             '<span class="help-block">miro</span>'."\n".
             '</div>',
 
@@ -90,8 +90,9 @@ class BootstrapPresenterTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-function old($field)
+function old($field, $default = null)
 {
+    return $default;
 }
 
 function make($class)
