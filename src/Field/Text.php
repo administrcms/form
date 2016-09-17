@@ -6,14 +6,17 @@ class Text extends AbstractType
 {
     public function renderField(array $attributes = [])
     {
+        $attributes = array_merge($this->options, $attributes);
+
         $value = array_key_exists('value', $attributes) ? $attributes['value'] : null;
 
         $attrs = array_merge([
             'type'  => 'text',
-            'id'    => $this->name,
-            'name'  => $this->name,
+            'id'    => $this->getName(),
+            'name'  => $this->getName(),
+        ], $attributes, [
             'value' => old($this->name, $value),
-        ], $this->options, $attributes);
+        ]);
 
         return '<input'.$this->renderAttributes($attrs).'>';
     }
