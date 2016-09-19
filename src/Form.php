@@ -252,6 +252,17 @@ abstract class Form implements ValidatesWhenSubmitted
     }
 
     /**
+     * @param array|Model|Translatable $dataSource
+     * @codeCoverageIgnore
+     * @deprecated
+     * @return Form
+     */
+    public function setDataSource($dataSource)
+    {
+        return $this->dataSource($dataSource);
+    }
+
+    /**
      * Set the data source on the form builder.
      *
      * @param array|Model|Translatable $dataSource
@@ -259,7 +270,7 @@ abstract class Form implements ValidatesWhenSubmitted
      * @return $this
      * @codeCoverageIgnore
      */
-    public function setDataSource($dataSource)
+    public function dataSource($dataSource)
     {
         $this->builder()->setDataSource($dataSource);
 
