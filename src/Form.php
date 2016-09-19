@@ -133,8 +133,9 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function open()
     {
-        $this->setEnctype();
-        $this->addTokenField();
+        $this
+            ->setEnctype()
+            ->addTokenField();
 
         // To simulate a put requrest with Laravel,
         // we need to add a hidden field for the method
@@ -361,6 +362,8 @@ abstract class Form implements ValidatesWhenSubmitted
         });
 
         $this->options['enctype'] = $hasFile ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
+
+        return $this;
     }
 
     /**
@@ -373,6 +376,8 @@ abstract class Form implements ValidatesWhenSubmitted
         }
 
         $this->builder()->hidden('_token', csrf_token());
+
+        return $this;
     }
 
     /**
