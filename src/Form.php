@@ -102,10 +102,31 @@ abstract class Form implements ValidatesWhenSubmitted
     }
 
     /**
+     * Should use open()
      * @return string
+     * @deprecated
      */
     public function getFormOpen()
     {
+        return $this->open();
+    }
+
+    /**
+     * Should use close()
+     * @return string
+     * @deprecated
+     */
+    public function getFormClose()
+    {
+        return $this->close();
+    }
+
+    /**
+     * @return string
+     */
+    public function open()
+    {
+        $this->setEnctype();
         $this->addTokenField();
 
         // To simulate a put requrest with Laravel,
@@ -123,7 +144,7 @@ abstract class Form implements ValidatesWhenSubmitted
     /**
      * @return string
      */
-    public function getFormClose()
+    public function close()
     {
         return "</form>\n";
     }
