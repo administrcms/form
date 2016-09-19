@@ -22,7 +22,7 @@ abstract class Form implements ValidatesWhenSubmitted
     /**
      * @var FormBuilder
      */
-    protected $formBuilder;
+    protected $builder;
 
     /**
      * @var Request
@@ -77,13 +77,23 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     protected $dontFlash = ['password', 'password_confirmation'];
 
-    public function __construct(FormBuilder $formBuilder, Request $request, Factory $validator, Redirector $redirector)
+    public function __construct(FormBuilder $builder, Request $request, Factory $validator, Redirector $redirector)
     {
-        $this->formBuilder = $formBuilder;
+        $this->builder = $builder;
         $this->request = $request;
         $this->validator = $validator;
         $this->redirector = $redirector;
-        $this->form($this->formBuilder);
+        $this->form($this->builder);
+    }
+
+    /**
+     * Getter for FormBuilder instance.
+     *
+     * @return FormBuilder
+     */
+    public function builder()
+    {
+        return $this->builder;
     }
 
     /**
@@ -91,12 +101,9 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function render()
     {
-        $this->setEnctype();
-        $this->addTokenField();
-
-        $form = $this->getFormOpen();
-        $form .= $this->formBuilder->render($this->errors());
-        $form .= $this->getFormClose();
+        $form = $this->open();
+        $form .= $this->builder()->render($this->errors());
+        $form .= $this->close();
 
         return $form;
     }
@@ -133,9 +140,9 @@ abstract class Form implements ValidatesWhenSubmitted
         // we need to add a hidden field for the method
         if (array_get($this->options, 'method') == 'put') {
             $this->options['method'] = 'post';
-            $this->formBuilder->hidden('_method', 'put');
+            $this->builder()->hidden('_method', 'put');
         } else {
-            $this->formBuilder->hidden('_method', array_get($this->options, 'method'));
+            $this->builder()->hidden('_method', array_get($this->options, 'method'));
         }
 
         return "<form{$this->renderAttributes($this->options)}>\n";
@@ -156,7 +163,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function field($name)
     {
-        return $this->formBuilder->get($name);
+        return $this->builder()->get($name);
     }
 
     /**
@@ -165,7 +172,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function fields()
     {
-        return $this->formBuilder->fields();
+        return $this->builder()->fields();
     }
 
     /**
@@ -175,7 +182,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function renderField($name)
     {
-        return $this->formBuilder->renderField($name);
+        return $this->builder()->renderField($name);
     }
 
     public function errors()
@@ -254,7 +261,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function setDataSource($dataSource)
     {
-        $this->formBuilder->setDataSource($dataSource);
+        $this->builder()->setDataSource($dataSource);
 
         return $this;
     }
@@ -301,7 +308,7 @@ abstract class Form implements ValidatesWhenSubmitted
     public function translated()
     {
         $languages = Language::pluck('id');
-        $languageFields = array_filter($this->formBuilder->fields(), function (AbstractType $field) {
+        $languageFields = array_filter($this->fields(), function (AbstractType $field) {
             return $field->isTranslated();
         });
         $fields = $this->all();
@@ -328,7 +335,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function skip()
     {
-        return $this->formBuilder->skip(func_get_args());
+        return $this->builder()->skip(func_get_args());
     }
 
     /**
@@ -354,7 +361,7 @@ abstract class Form implements ValidatesWhenSubmitted
             return;
         }
 
-        $this->formBuilder->hidden('_token', csrf_token());
+        $this->builder()->hidden('_token', csrf_token());
     }
 
     /**
