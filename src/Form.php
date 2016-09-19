@@ -271,9 +271,9 @@ abstract class Form implements ValidatesWhenSubmitted
      * @return $this
      * @codeCoverageIgnore
      */
-    public function dataSource($dataSource)
+    public function dataSource($dataSource = null)
     {
-        $this->builder()->setDataSource($dataSource);
+        $this->builder()->dataSource($dataSource);
 
         return $this;
     }
