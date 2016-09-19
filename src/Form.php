@@ -343,6 +343,8 @@ abstract class Form implements ValidatesWhenSubmitted
     }
 
     /**
+     * Skip fields from rendering.
+     *
      * @codeCoverageIgnore
      */
     public function skip()
