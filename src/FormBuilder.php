@@ -208,6 +208,21 @@ class FormBuilder
     }
 
     /**
+     * Get fields of given type.
+     *
+     * @param $type
+     * @return array
+     */
+    public function fieldsOfType($type = AbstractType::class)
+    {
+        return collect($this->fields())
+            ->filter(function(AbstractType $field) use($type) {
+                return $field instanceof $type;
+            })
+            ->toArray();
+    }
+
+    /**
      * Get the fields in the form.
      *
      * @return array
