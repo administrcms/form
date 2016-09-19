@@ -205,7 +205,12 @@ abstract class Form implements ValidatesWhenSubmitted
             return true;
         }
 
-        $this->validatorInstance = $this->validator->make($this->request->all(), $this->rules());
+        $this->validatorInstance = $this->validator->make(
+            $this->request->all(),
+            $this->rules(),
+            $this->messages(),
+            $this->attributes()
+        );
 
         return $this->validatorInstance->passes();
     }
@@ -441,6 +446,26 @@ abstract class Form implements ValidatesWhenSubmitted
      * @return array
      */
     abstract public function rules();
+
+    /**
+     * Define custom validation messages.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [];
+    }
+
+    /**
+     * Define custom attributes.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [];
+    }
 
     /**
      * Define the fields of the form.
