@@ -13,11 +13,20 @@ abstract class AbstractType
     protected $options = [];
     protected $value = null;
 
-    public function __construct($name, $label, $options = [])
+    public function __construct($name, $label, $options = null)
     {
         $this->name = $name;
         $this->label = $label;
-        $this->options = $options;
+
+        if($options instanceof \Closure)
+        {
+            call_user_func($options, $this);
+        }
+
+        if(is_array($options))
+        {
+            $this->options = $options;
+        }
     }
 
     abstract public function renderField(array $attributes = []);

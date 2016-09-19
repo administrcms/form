@@ -6,13 +6,6 @@ class RadioGroup extends AbstractType
 {
     protected $radios = [];
 
-    public function __construct($name, $label, \Closure $definition)
-    {
-        parent::__construct($name, $label, []);
-
-        call_user_func($definition, $this);
-    }
-
     public function getRadios()
     {
         return $this->radios;

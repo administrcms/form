@@ -6,7 +6,7 @@ use Asset;
 
 class Wysiwyg extends Textarea
 {
-    public function __construct($name, $label, array $options = [])
+    public function __construct($name, $label, $options = null)
     {
         Asset::wysiwyg();
         parent::__construct($name, $label, $options);
