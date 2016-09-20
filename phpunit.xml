@@ -13,7 +13,9 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory>src/</directory>
-            <exclude>src/Views/</exclude>
+            <exclude>
+                <directory>src/Views/</directory>
+            </exclude>
         </whitelist>
     </filter>
 
