@@ -8,11 +8,6 @@ class Image extends File implements ImageContract
 {
     protected $src = null;
 
-    public function render(array $attributes = [])
-    {
-        return parent::render($attributes);
-    }
-
     public function setSrc($src)
     {
         $this->src = $src;
