@@ -84,6 +84,7 @@ class AbstractFieldTypeTest extends \PHPUnit_Framework_TestCase
         $field = (new Text('test', 'Test'))->translated();
 
         $this->assertContains('translated', $field->getOptions());
+        $this->assertTrue($field->isTranslated());
     }
 }
 
