@@ -186,6 +186,10 @@ abstract class Form implements ValidatesWhenSubmitted
         return $this->builder()->renderField($name);
     }
 
+    /**
+     * @return ViewErrorBag|mixed
+     * @codeCoverageIgnore
+     */
     public function errors()
     {
         $errors = $this->request->session()->get('errors');
@@ -194,9 +198,7 @@ abstract class Form implements ValidatesWhenSubmitted
             return new ViewErrorBag();
         }
 
-        // @codeCoverageIgnoreStart
         return $errors;
-        // @codeCoverageIgnoreEnd
     }
 
     public function isValid()
@@ -422,6 +424,10 @@ abstract class Form implements ValidatesWhenSubmitted
         return $this->options[$name];
     }
 
+    /**
+     * @return string
+     * @codeCoverageIgnore
+     */
     public function __toString()
     {
         return $this->render();
