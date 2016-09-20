@@ -11,7 +11,7 @@ class WysiwygFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Wysiwyg('test', 'Test');
 
-        $this->assertSame('administr::form.textarea', $field->getView());
+        $this->assertSame('administr.form::textarea', $field->getView());
         $this->assertContains('administr-wysiwyg', $field->getOption('class'));
         $this->assertInstanceOf(Textarea::class, $field);
     }

@@ -25,8 +25,13 @@ class FormServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([
-            __DIR__.'/Assets' => public_path('vendor/administr/form'),
+            __DIR__ . '/Assets' => public_path('vendor/administr/form'),
         ], 'public');
+
+        $this->loadViewsFrom(__DIR__ . '/Views', 'administr.form');
+        $this->publishes([
+            __DIR__ . '/Views' => resource_path('views/vendor/administr/form')
+        ], 'views');
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Hidden extends AbstractType
+class Hidden extends Text
 {
     public function render(array $attributes = [])
     {

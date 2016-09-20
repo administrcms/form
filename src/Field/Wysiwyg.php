@@ -11,7 +11,7 @@ class Wysiwyg extends Textarea
         Asset::wysiwyg();
         parent::__construct($name, $label, $options);
 
-        $this->setView('administr::form.textarea');
+        $this->setView('administr.form::textarea');
         $this->options['class'] = array_get($this->getOptions(), 'class').' administr-wysiwyg';
     }
 }

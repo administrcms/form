@@ -10,7 +10,7 @@ class CheckboxFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Checkbox('test', 'Test');
 
-        $this->assertSame('administr::form.checkbox', $field->getView());
+        $this->assertSame('administr.form::checkbox', $field->getView());
         $this->assertInstanceOf(AbstractType::class, $field);
     }
 

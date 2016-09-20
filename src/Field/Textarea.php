@@ -2,6 +2,6 @@
 
 namespace Administr\Form\Field;
 
-class Textarea extends AbstractType
+class Textarea extends Text
 {
 }

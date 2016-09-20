@@ -18,7 +18,7 @@ abstract class AbstractType
     {
         $this->setName($name);
         $this->setLabel($label);
-        $this->setView("administr::form.{$this->type()}");
+        $this->setView("administr.form::{$this->type()}");
 
         if($options instanceof \Closure)
         {
@@ -41,6 +41,10 @@ abstract class AbstractType
     public function render(array $attributes = [])
     {
         $this->options = array_merge($this->options, $attributes);
+
+        $value = $this->getOption('value');
+
+        $this->setValue( old($this->name, $value) );
 
         return view($this->getView(), [
             'field' => $this

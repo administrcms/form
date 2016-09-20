@@ -10,7 +10,7 @@ class TextareaFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Textarea('test', 'Test', ['value' => '']);
 
-        $this->assertSame('administr::form.textarea', $field->getView());
+        $this->assertSame('administr.form::textarea', $field->getView());
         $this->assertInstanceOf(AbstractType::class, $field);
     }
 }
