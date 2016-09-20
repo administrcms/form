@@ -11,11 +11,4 @@ class Reset extends Submit
         $this->setView('administr::form.submit');
         $this->options['type'] = 'reset';
     }
-
-    public function render(array $attributes = [])
-    {
-        $this->options['value'] = $this->getLabel();
-
-        return parent::render(array_merge($this->getOptions(), $attributes));
-    }
 }
