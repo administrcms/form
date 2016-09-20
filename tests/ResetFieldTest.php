@@ -10,7 +10,7 @@ class ResetFieldTest extends \PHPUnit_Framework_TestCase
         $field = new Reset('test', 'Test');
 
         $this->assertSame('reset', $field->getOption('type'));
-        $this->assertSame('administr.form::submit', $field->getView());
+        $this->assertSame('administr/form::submit', $field->getView());
         $this->assertInstanceOf(AbstractType::class, $field);
     }
 }

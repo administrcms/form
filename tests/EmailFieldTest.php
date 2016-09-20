@@ -10,7 +10,7 @@ class EmailFieldTest extends \PHPUnit_Framework_TestCase
         $field = new Email('test', 'Test');
 
         $this->assertSame('email', $field->getOption('type'));
-        $this->assertSame('administr.form::text', $field->getView());
+        $this->assertSame('administr/form::text', $field->getView());
         $this->assertInstanceOf(AbstractType::class, $field);
     }
 }

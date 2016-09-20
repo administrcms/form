@@ -9,7 +9,7 @@ class HiddenFieldTest extends \PHPUnit_Framework_TestCase
     {
         $field = new Hidden('test', 'Test');
 
-        $this->assertSame('administr.form::hidden', $field->getView());
+        $this->assertSame('administr/form::hidden', $field->getView());
         $this->assertInstanceOf(AbstractType::class, $field);
     }
     

@@ -11,7 +11,7 @@ class FileFieldTest extends PHPUnit_Framework_TestCase
         $field = new File('test', 'Test');
 
         $this->assertSame('file', $field->getOption('type'));
-        $this->assertSame('administr.form::text', $field->getView());
+        $this->assertSame('administr/form::text', $field->getView());
         $this->assertInstanceOf(AbstractType::class, $field);
     }
 }

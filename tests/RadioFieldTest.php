@@ -9,7 +9,7 @@ class RadioFieldTest extends \PHPUnit_Framework_TestCase
     {
         $field = new Radio('test', 'Test', ['value' => 'test']);
 
-        $this->assertSame('administr.form::radio', $field->getView());
+        $this->assertSame('administr/form::radio', $field->getView());
         $this->assertInstanceOf(Text::class, $field);
     }
 

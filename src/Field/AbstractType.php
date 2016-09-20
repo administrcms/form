@@ -18,7 +18,7 @@ abstract class AbstractType
     {
         $this->setName($name);
         $this->setLabel($label);
-        $this->setView("administr.form::{$this->type()}");
+        $this->setView("administr/form::{$this->type()}");
 
         if($options instanceof \Closure)
         {

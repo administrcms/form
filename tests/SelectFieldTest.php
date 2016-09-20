@@ -9,7 +9,7 @@ class SelectFieldTest extends \PHPUnit_Framework_TestCase
     {
         $field = new Select('test', 'Test');
 
-        $this->assertSame('administr.form::select', $field->getView());
+        $this->assertSame('administr/form::select', $field->getView());
         $this->assertInstanceOf(AbstractType::class, $field);
     }
 
