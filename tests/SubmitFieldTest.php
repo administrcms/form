@@ -12,6 +12,7 @@ class SubmitFieldTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('submit', $field->getOption('type'));
         $this->assertSame('administr::form.submit', $field->getView());
+        $this->assertSame('Test', $field->getValue());
         $this->assertInstanceOf(AbstractType::class, $field);
     }
 }
