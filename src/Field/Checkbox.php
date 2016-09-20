@@ -4,15 +4,16 @@ namespace Administr\Form\Field;
 
 class Checkbox extends Text
 {
-    public function renderField(array $attributes = [])
+    public function render(array $attributes = [])
     {
-        if ((array_key_exists('value', $attributes) && (bool) $attributes['value']) ||
-            (array_key_exists('value', $this->options) && (bool) $this->options['value'])) {
-            $attributes['checked'] = 'checked';
+        $this->options = array_merge($this->getOptions(), $attributes);
+
+        $value = array_get($this->options, 'value');
+
+        if ($this->isChecked($value)) {
+            $this->options['checked'] = 'checked';
         }
 
-        return parent::renderField(array_merge($attributes, [
-            'type' => 'checkbox',
-        ]));
+        return parent::render($attributes);
     }
 }

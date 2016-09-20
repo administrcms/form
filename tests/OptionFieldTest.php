@@ -1,14 +1,17 @@
 <?php
 
-use Administr\Form\Field\Option;
+namespace Administr\Form\Field;
 
-class OptionFieldTest extends PHPUnit_Framework_TestCase
+class OptionFieldTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function it_renders_the_full_html()
+    public function it_is_a_correct_object()
     {
         $field = new Option('test', 'Test');
+        $field->render();
 
-        $this->assertSame('<option value="test">Test</option>', $field->render());
+        $this->assertSame('test', $field->getValue());
+        $this->assertSame('administr::form.option', $field->getView());
+        $this->assertInstanceOf(AbstractType::class, $field);
     }
 }

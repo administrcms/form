@@ -2,21 +2,13 @@
 
 namespace Administr\Form\Field;
 
-class Submit extends Text
+class Submit extends AbstractType
 {
-    public function renderField(array $attributes = [])
+    public function __construct($name, $label, $options = null)
     {
-        return parent::renderField(array_merge([
-            'type'  => 'submit',
-            'value' => $this->label,
-        ], $attributes));
-    }
+        parent::__construct($name, $label, $options);
 
-    public function renderLabel()
-    {
-    }
-
-    public function renderErrors(array $errors = [])
-    {
+        $this->setView('administr::form.submit');
+        $this->options['type'] = 'submit';
     }
 }

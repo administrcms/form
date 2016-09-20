@@ -2,12 +2,13 @@
 
 namespace Administr\Form\Field;
 
-class File extends Text
+class File extends AbstractType
 {
-    public function renderField(array $attributes = [])
+    public function __construct($name, $label, $options = null)
     {
-        return parent::renderField(array_merge($attributes, [
-            'type'  => 'file',
-        ]));
+        parent::__construct($name, $label, $options);
+
+        $this->setView('administr::form.text');
+        $this->options['type'] = 'file';
     }
 }

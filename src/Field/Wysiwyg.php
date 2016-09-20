@@ -10,12 +10,8 @@ class Wysiwyg extends Textarea
     {
         Asset::wysiwyg();
         parent::__construct($name, $label, $options);
-    }
 
-    public function renderField(array $attributes = [])
-    {
-        $attributes['class'] = array_get($attributes, 'class').' administr-wysiwyg';
-
-        return parent::renderField($attributes);
+        $this->setView('administr::form.textarea');
+        $this->options['class'] = array_get($this->getOptions(), 'class').' administr-wysiwyg';
     }
 }

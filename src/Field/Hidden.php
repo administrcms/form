@@ -2,29 +2,18 @@
 
 namespace Administr\Form\Field;
 
-class Hidden extends Text
+class Hidden extends AbstractType
 {
-    public function renderField(array $attributes = [])
+    public function render(array $attributes = [])
     {
-        $attrs = array_merge($this->getOptions(), $attributes);
-        $attrs['type'] = 'hidden';
+        $this->options = array_merge($this->options, $attributes);
 
         // Since the hidden type does not have a label,
         // we can use its value to pass the value of the hidden
-        if(!array_key_exists('value', $attrs) || strlen($attrs['value']) === 0) {
-            $attrs['value'] = $this->getLabel();
+        if(!array_key_exists('value', $this->options) || strlen($this->options['value']) === 0) {
+            $this->value = $this->getLabel();
         }
 
-        return parent::renderField($attrs);
-    }
-
-    public function renderLabel()
-    {
-        return '';
-    }
-
-    public function renderErrors(array $errors = [])
-    {
-        return '';
+        return parent::render($attributes);
     }
 }

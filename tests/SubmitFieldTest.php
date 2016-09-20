@@ -1,14 +1,17 @@
 <?php
 
+use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Submit;
 
 class SubmitFieldTest extends PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function it_renders_the_correct_field_html()
+    public function it_is_a_correct_object()
     {
         $field = new Submit('test', 'Test');
 
-        $this->assertSame('<input type="submit" id="test" name="test" value="Test">', $field->render());
+        $this->assertSame('submit', $field->getOption('type'));
+        $this->assertSame('administr::form.submit', $field->getView());
+        $this->assertInstanceOf(AbstractType::class, $field);
     }
 }

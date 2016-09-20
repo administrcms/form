@@ -35,7 +35,8 @@ class FormBuilder
     /*
      * @var \Administr\Form\Presenters\Presenter
      */
-    public $presenter = \Administr\Form\Presenters\BootstrapPresenter::class;
+//    public $presenter = \Administr\Form\Presenters\BootstrapPresenter::class;
+    public $presenter = null;
 
     /**
      * @var array

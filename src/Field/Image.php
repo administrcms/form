@@ -2,28 +2,25 @@
 
 namespace Administr\Form\Field;
 
+use Administr\Form\Contracts\Image as ImageContract;
 
-class Image extends File
+class Image extends File implements ImageContract
 {
-    protected $imageSrc;
+    protected $src = null;
+
+    public function render(array $attributes = [])
+    {
+        return parent::render($attributes);
+    }
 
     public function setSrc($src)
     {
-        $this->imageSrc = $src;
+        $this->src = $src;
         return $this;
     }
 
-    public function renderField(array $attributes = [])
+    public function getSrc()
     {
-        return $this->renderImage() . parent::renderField($attributes);
-    }
-
-    public function renderImage()
-    {
-        if(!$this->imageSrc) {
-            return '';
-        }
-
-        return '<img class="administr_image_type" src="'. $this->imageSrc .'" alt="'. $this->imageSrc .'" />';
+        return $this->src;
     }
 }

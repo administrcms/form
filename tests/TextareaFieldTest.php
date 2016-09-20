@@ -1,16 +1,16 @@
 <?php
 
-namespace Administr\Form\Field;
-
-use PHPUnit_Framework_TestCase;
+use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Textarea;
 
 class TextareaFieldTest extends PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function it_renders_the_full_html()
+    public function it_is_a_correct_object()
     {
         $field = new Textarea('test', 'Test', ['value' => '']);
 
-        $this->assertSame('<label for="test">Test</label>'."\n".'<textarea id="test" name="test"></textarea>', $field->render());
+        $this->assertSame('administr::form.textarea', $field->getView());
+        $this->assertInstanceOf(AbstractType::class, $field);
     }
 }

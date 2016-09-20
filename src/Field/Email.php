@@ -2,12 +2,12 @@
 
 namespace Administr\Form\Field;
 
-class Email extends Text
+class Email extends AbstractType
 {
-    public function renderField(array $attributes = [])
+    public function __construct($name, $label, $options = null)
     {
-        return parent::renderField(array_merge($attributes, [
-            'type' => 'email',
-        ]));
+        parent::__construct($name, $label, $options);
+        $this->setView('administr::form.text');
+        $this->options['type'] = 'email';
     }
 }

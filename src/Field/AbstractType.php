@@ -12,11 +12,13 @@ abstract class AbstractType
     protected $label;
     protected $options = [];
     protected $value = null;
+    protected $view;
 
     public function __construct($name, $label, $options = null)
     {
-        $this->name = $name;
-        $this->label = $label;
+        $this->setName($name);
+        $this->setLabel($label);
+        $this->setView("administr::form.{$this->type()}");
 
         if($options instanceof \Closure)
         {
@@ -29,44 +31,20 @@ abstract class AbstractType
         }
     }
 
-    abstract public function renderField(array $attributes = []);
-
     /**
      * Default render of field with its label and errors.
      *
-     * @param array $errors
+     * @param array $attributes
      *
      * @return string
      */
-    public function render(array $errors = [])
+    public function render(array $attributes = [])
     {
-        return $this->renderLabel().$this->renderField().$this->renderErrors($errors);
-    }
+        $this->options = array_merge($this->options, $attributes);
 
-    /**
-     * Default label rendering for a field.
-     *
-     * @return string
-     */
-    public function renderLabel()
-    {
-        return "<label for=\"{$this->name}\">{$this->label}</label>\n";
-    }
-
-    /**
-     * Default rendering of the errors for a field.
-     *
-     * @param array $errors
-     *
-     * @return string
-     */
-    public function renderErrors(array $errors = [])
-    {
-        if (count($errors) === 0) {
-            return '';
-        }
-
-        return implode("\n", $errors);
+        return view($this->getView(), [
+            'field' => $this
+        ]);
     }
 
     /**
@@ -108,10 +86,13 @@ abstract class AbstractType
 
     /**
      * @param $name
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -125,6 +106,8 @@ abstract class AbstractType
     public function setLabel($label)
     {
         $this->label = $label;
+
+        return $this;
     }
 
     /**
@@ -149,12 +132,13 @@ abstract class AbstractType
      * Get an option.
      *
      * @param $option
+     * @param null $default
      *
      * @return mixed
      */
-    public function getOption($option)
+    public function getOption($option, $default = null)
     {
-        return array_get($this->options, $option);
+        return array_get($this->options, $option, $default);
     }
 
     /**
@@ -169,6 +153,16 @@ abstract class AbstractType
         $this->value = $value;
 
         return $this;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public function attributes()
+    {
+        return $this->renderAttributes($this->options);
     }
 
     /**
@@ -221,6 +215,29 @@ abstract class AbstractType
     public function isChecked($value)
     {
         return $this->value == $value;
+    }
+
+    /**
+     * Get the type of the field.
+     *
+     * Administr\Form\Field\Text -> text
+     *
+     * @return string
+     */
+    public function type()
+    {
+        return strtolower( str_replace( 'Administr\\Form\\Field\\', '', get_called_class() ) );
+    }
+
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    public function setView($view)
+    {
+        $this->view = $view;
+        return $this;
     }
 
     public function __toString()

@@ -1,14 +1,16 @@
 <?php
 
+use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Checkbox;
 
 class CheckboxFieldTest extends PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function it_renders_the_full_html()
+    public function it_is_a_correct_object()
     {
         $field = new Checkbox('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label>'."\n".'<input type="checkbox" id="test" name="test" value="">', $field->render());
+        $this->assertSame('administr::form.checkbox', $field->getView());
+        $this->assertInstanceOf(AbstractType::class, $field);
     }
 }

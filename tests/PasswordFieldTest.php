@@ -1,14 +1,25 @@
 <?php
 
-use Administr\Form\Field\Password;
+namespace Administr\Form\Field;
 
-class PasswordFieldTest extends PHPUnit_Framework_TestCase
+class PasswordFieldTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function it_renders_the_correct_field_html()
+    public function it_is_a_correct_object()
     {
         $field = new Password('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label>'."\n".'<input type="password" id="test" name="test" value="">', $field->render());
+        $this->assertSame('password', $field->getOption('type'));
+        $this->assertSame('administr::form.text', $field->getView());
+        $this->assertInstanceOf(AbstractType::class, $field);
+    }
+
+    /** @test */
+    public function it_always_has_a_null_value_on_init()
+    {
+        $field = new Password('test', 'Test', ['value' => true]);
+        $field->setValue(true);
+
+        $this->assertNull($field->getValue());
     }
 }

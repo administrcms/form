@@ -1,14 +1,24 @@
 <?php
 
-use Administr\Form\Field\Hidden;
+namespace Administr\Form\Field;
 
-class HiddenFieldTest extends PHPUnit_Framework_TestCase
+class HiddenFieldTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function it_renders_the_full_html()
+    public function it_is_a_correct_object()
     {
         $field = new Hidden('test', 'Test');
 
-        $this->assertSame('<input type="hidden" id="test" name="test" value="Test">', $field->render());
+        $this->assertSame('administr::form.hidden', $field->getView());
+        $this->assertInstanceOf(AbstractType::class, $field);
+    }
+    
+    /** @test */
+    public function it_passses_the_label_as_value()
+    {
+        $field = new Hidden('test', 'Test');
+        $field->render();
+
+        $this->assertSame('Test', $field->getValue());
     }
 }

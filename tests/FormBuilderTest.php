@@ -1,6 +1,5 @@
 <?php
 
-use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Checkbox;
 use Administr\Form\Field\Email;
 use Administr\Form\Field\Hidden;
@@ -13,7 +12,6 @@ use Administr\Form\Field\Submit;
 use Administr\Form\Field\Text;
 use Administr\Form\Field\Textarea;
 use Administr\Form\FormBuilder;
-use Administr\Form\Presenters\Presenter;
 
 class FormBuilderTest extends PHPUnit_Framework_TestCase
 {
@@ -178,26 +176,6 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_returns_an_array_of_the_form_fields()
-    {
-        $formBuilder = new FormBuilder();
-        $formBuilder->text('test', 'Test');
-
-        $this->assertCount(1, $formBuilder->fields());
-        $this->assertInternalType('array', $formBuilder->fields());
-    }
-
-    /** @test */
-    public function it_renders_a_basic_form()
-    {
-        $formBuilder = new FormBuilder();
-        $formBuilder->presenter = null;
-        $formBuilder->text('test', 'Test');
-
-        $this->assertSame('<label for="test">Test</label>'."\n".'<input type="text" id="test" name="test" value="">'."\n", $formBuilder->render());
-    }
-
-    /** @test */
     public function it_gets_a_field()
     {
         $formBuilder = new FormBuilder();
@@ -223,16 +201,6 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
     {
         $formBuilder = new FormBuilder();
         $formBuilder->test;
-    }
-
-    /** @test */
-    public function it_uses_a_presenter_when_given()
-    {
-        $formBuilder = new FormBuilder();
-        $formBuilder->presenter = TestPresenter::class;
-        $formBuilder->text('test', 'Test present');
-
-        $this->assertNull($formBuilder->present($formBuilder->get('test')));
     }
 
     /** @test */
@@ -292,7 +260,7 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
     public function it_sets_a_data_source()
     {
         $formBuilder = new FormBuilder();
-        $formBuilder->setDataSource(['name' => 'test']);
+        $formBuilder->dataSource(['name' => 'test']);
 
         $this->assertSame('test', $formBuilder->getValue('name'));
     }
@@ -304,15 +272,8 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($formBuilder->hasDataSource());
 
-        $formBuilder->setDataSource(['name' => 'test']);
+        $formBuilder->dataSource(['name' => 'test']);
 
         $this->assertTrue($formBuilder->hasDataSource());
-    }
-}
-
-class TestPresenter implements Presenter
-{
-    public function render(AbstractType $field, array $error = [])
-    {
     }
 }

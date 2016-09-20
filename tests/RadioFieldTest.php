@@ -1,15 +1,16 @@
 <?php
 
-use Administr\Form\Field\Radio;
+namespace Administr\Form\Field;
 
-class RadioFieldTest extends PHPUnit_Framework_TestCase
+class RadioFieldTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function it_renders_the_full_html()
+    public function it_is_a_correct_object()
     {
         $field = new Radio('test', 'Test', ['value' => 'test']);
 
-        $this->assertSame('<label for="test">Test</label>'."\n".'<input type="radio" id="test" name="test" value="test">', $field->render());
+        $this->assertSame('administr::form.radio', $field->getView());
+        $this->assertInstanceOf(Text::class, $field);
     }
 
     /** @test */
@@ -19,6 +20,9 @@ class RadioFieldTest extends PHPUnit_Framework_TestCase
             ->appendOption('value', 'should_be_checked')
             ->setValue('should_be_checked');
 
-        $this->assertSame('<input type="radio" id="test" name="test" value="should_be_checked" checked="checked">', $field->renderField());
+        $field->render();
+
+        $this->assertSame('checked', $field->getOption('checked'));
     }
 }
+

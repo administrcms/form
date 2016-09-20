@@ -1,15 +1,16 @@
 <?php
 
-use Administr\Form\Field\Select;
+namespace Administr\Form\Field;
 
-class SelectFieldTest extends PHPUnit_Framework_TestCase
+class SelectFieldTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function it_renders_the_full_html()
+    public function it_is_a_correct_object()
     {
         $field = new Select('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label>'."\n".'<select id="test" name="test"></select>', $field->render());
+        $this->assertSame('administr::form.select', $field->getView());
+        $this->assertInstanceOf(AbstractType::class, $field);
     }
 
     /** @test */
@@ -19,7 +20,11 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
             'values' => ['miro' => 'test'],
         ]);
 
-        $this->assertSame('<label for="test">Test</label>'."\n".'<select id="test" name="test"><option value="miro">test</option></select>', $field->render());
+        $field->render();
+
+        $options = $field->options();
+        $this->assertCount(1, $options);
+        $this->assertInstanceOf(Option::class, $options[0]);
     }
 
     /** @test */
@@ -33,6 +38,10 @@ class SelectFieldTest extends PHPUnit_Framework_TestCase
             'value' => 'miro',
         ]);
 
-        $this->assertSame('<label for="test">Test</label>'."\n".'<select id="test" name="test"><option value="miro" selected="selected">test</option><option value="test">miro</option></select>', $field->render());
+        $field->render();
+
+        $optionFields = $field->options();
+
+        $this->assertSame('selected', $optionFields[0]->getOption('selected'));
     }
 }

@@ -2,15 +2,15 @@
 
 namespace Administr\Form\Field;
 
-use PHPUnit_Framework_TestCase;
-
-class EmailFieldTest extends PHPUnit_Framework_TestCase
+class EmailFieldTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
-    public function it_renders_the_correct_field_html()
+    public function it_is_a_correct_object()
     {
         $field = new Email('test', 'Test');
 
-        $this->assertSame('<label for="test">Test</label>'."\n".'<input type="email" id="test" name="test" value="">', $field->render());
+        $this->assertSame('email', $field->getOption('type'));
+        $this->assertSame('administr::form.text', $field->getView());
+        $this->assertInstanceOf(AbstractType::class, $field);
     }
 }

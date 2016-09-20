@@ -4,20 +4,17 @@ namespace Administr\Form\Field;
 
 class Select extends AbstractType
 {
-    public function renderField(array $attributes = [])
+    protected $selectOptions = [];
+
+    public function render(array $attributes = [])
     {
-        $attrs = array_merge([
-            'id'    => $this->name,
-            'name'  => $this->name,
-        ], $this->options, $attributes);
+        $this->options = array_merge($this->options, $attributes);
 
-        $options = '';
-        $value = array_get($attrs, 'value');
-        unset($attrs['value']);
+        $value = $this->getOption('value');
+        unset($this->options['value']);
 
-        if (array_key_exists('values', $attrs)) {
-            $values = $attrs['values'];
-            unset($attrs['values']);
+        if ($values = $this->getOption('values')) {
+            unset($this->options['values']);
 
             foreach ($values as $optionValue => $display) {
                 $optionAttrs = [];
@@ -26,10 +23,15 @@ class Select extends AbstractType
                     $optionAttrs['selected'] = 'selected';
                 }
 
-                $options .= (new Option($optionValue, $display, $optionAttrs))->renderField();
+                $this->selectOptions[] = new Option($optionValue, $display, $optionAttrs);
             }
         }
 
-        return '<select'.$this->renderAttributes($attrs).'>'.$options.'</select>';
+        return parent::render();
+    }
+
+    public function options()
+    {
+        return $this->selectOptions;
     }
 }

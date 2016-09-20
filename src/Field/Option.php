@@ -4,22 +4,11 @@ namespace Administr\Form\Field;
 
 class Option extends AbstractType
 {
-    public function renderField(array $attributes = [])
+    public function render(array $attributes = [])
     {
-        $attrs = array_merge([
-            'value' => $this->name,
-        ], $this->options, $attributes);
+        $this->options = array_merge($this->options, $attributes);
+        $this->value = $this->getName();
 
-        return '<option'.$this->renderAttributes($attrs).'>'.$this->label.'</option>';
-    }
-
-    public function renderLabel()
-    {
-        return '';
-    }
-
-    public function renderErrors(array $errors = [])
-    {
-        return '';
+        return parent::render($attributes);
     }
 }

@@ -12,27 +12,24 @@ class ImageFieldTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(File::class, $image);
     }
-    
+
     /** @test */
-    public function it_should_not_render_an_image_tag_when_img_src_is_missing()
+    public function it_is_an_instance_of_image_contract()
     {
         $image = new Image('test', 'Test');
 
-        $this->assertNotContains('<img', $image->render());
+        $this->assertInstanceOf(\Administr\Form\Contracts\Image::class, $image);
     }
 
     /** @test */
-    public function it_renders_an_img_with_administr_class_name()
+    public function it_returns_url_to_img()
     {
-        $imgSrc = 'http://path-to-file.jpg';
+        $src = 'http://path-to-file.jpg';
 
         $image = new Image('test', 'Test');
-        $image->setSrc($imgSrc);
+        $image->setSrc($src);
 
-        $img = $image->render();
-
-        $this->assertContains($imgSrc, $img);
-        $this->assertContains('administr_image_type', $img);
+        $this->assertSame($src, $image->getSrc());
     }
 
 }

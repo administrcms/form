@@ -1,0 +1,1 @@
+<input type="submit" id="{{ $filed->getName() }}" name="{{ $field->getName() }}" value="{{ $field->getValue() }}" {!! $field->attributes() !!}>

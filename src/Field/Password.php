@@ -2,13 +2,18 @@
 
 namespace Administr\Form\Field;
 
-class Password extends Text
+class Password extends AbstractType
 {
-    public function renderField(array $attributes = [])
+    public function __construct($name, $label, $options = null)
     {
-        return parent::renderField(array_merge($attributes, [
-            'type'  => 'password',
-            'value' => '',
-        ]));
+        parent::__construct($name, $label, $options);
+
+        $this->setView('administr::form.text');
+        $this->options['type'] = 'password';
+    }
+
+    public function getValue()
+    {
+        return null;
     }
 }
