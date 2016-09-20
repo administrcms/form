@@ -23,9 +23,9 @@ class AbstractFieldTypeTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_returns_correct_string_for_args()
     {
-        $field = new Text('test', 'Test');
+        $field = new Text('test', 'Test', ['test' => 'miro']);
 
-        $this->assertSame(' test="miro"', $field->renderAttributes(['test' => 'miro']));
+        $this->assertSame(' test="miro"', $field->attributes());
     }
 
     /** @test */
