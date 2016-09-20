@@ -1,1 +1,1 @@
-<option id="{{ $filed->getName() }}" name="{{ $field->getName() }}" {!! $field->attributes() !!}>{{ $field->getValue() }}</option>
+<option id="{{ $field->getName() }}" name="{{ $field->getName() }}" {!! $field->attributes() !!}>{{ $field->getValue() }}</option>
