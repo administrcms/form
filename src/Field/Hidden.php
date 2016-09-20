@@ -11,6 +11,7 @@ class Hidden extends Text
         // Since the hidden type does not have a label,
         // we can use its value to pass the value of the hidden
         if(!array_key_exists('value', $this->options) || strlen($this->options['value']) === 0) {
+            $this->options['value'] = $this->getLabel();
             $this->value = $this->getLabel();
         }
 

@@ -94,7 +94,7 @@ function make()
 
 function old($name, $default)
 {
-    return;
+    return $default;
 }
 
 function view($name, $data)
