@@ -173,6 +173,7 @@ abstract class AbstractType
      * Is this field a type of button.
      *
      * @return bool
+     * @codeCoverageIgnore
      */
     public function isButton()
     {
@@ -183,6 +184,7 @@ abstract class AbstractType
      * Is this a hidden field.
      *
      * @return bool
+     * @codeCoverageIgnore
      */
     public function isHidden()
     {
@@ -193,6 +195,7 @@ abstract class AbstractType
      * Is this a checkbox field.
      *
      * @return bool
+     * @codeCoverageIgnore
      */
     public function isCheckbox()
     {
@@ -203,6 +206,7 @@ abstract class AbstractType
      * Is this a radio field.
      *
      * @return bool
+     * @codeCoverageIgnore
      */
     public function isRadio()
     {
@@ -215,6 +219,7 @@ abstract class AbstractType
      * @param mixed $value
      *
      * @return bool
+     * @codeCoverageIgnore
      */
     public function isChecked($value)
     {
@@ -244,6 +249,9 @@ abstract class AbstractType
         return $this;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function __toString()
     {
         return $this->render();
