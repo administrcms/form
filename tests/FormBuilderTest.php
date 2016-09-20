@@ -1,5 +1,6 @@
 <?php
 
+use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Checkbox;
 use Administr\Form\Field\Email;
 use Administr\Form\Field\Hidden;
@@ -275,5 +276,21 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
         $formBuilder->dataSource(['name' => 'test']);
 
         $this->assertTrue($formBuilder->hasDataSource());
+    }
+
+    /** @test */
+    public function it_filters_fields_of_type()
+    {
+        $builder = new FormBuilder();
+        $builder
+            ->text('test', 'Test')
+            ->submit('send', 'send');
+
+
+        $this->assertCount(1, $builder->fieldsOfType(Text::class));
+        $this->assertInstanceOf(Text::class, $builder->fieldsOfType(Text::class)['test']);
+        
+        $this->assertCount(2, $builder->fieldsOfType(AbstractType::class));
+        $this->assertCount(0, $builder->fieldsOfType(Textarea::class));
     }
 }
