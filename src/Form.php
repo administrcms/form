@@ -364,11 +364,22 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function setEnctype()
     {
-        $fields = collect($this->fields());
+//        $fields = collect($this->fields());
 
-        $hasFile = $fields->contains(function ($key, $value) {
-            return $value instanceof File;
-        });
+        $hasFile = false;
+
+        foreach($this->fields() as $field)
+        {
+            if($field instanceof File)
+            {
+                $hasFile = true;
+                break;
+            }
+        }
+
+//        $hasFile = $fields->contains(function ($key, $value) {
+//            return $value instanceof File;
+//        });
 
         $this->options['enctype'] = $hasFile ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
 
