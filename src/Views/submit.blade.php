@@ -1,1 +1,1 @@
-<input type="submit" id="{{ $field->getName() }}" name="{{ $field->getName() }}" value="{{ $field->getValue() }}" {!! $field->attributes() !!}>
+<input id="{{ $field->getName() }}" name="{{ $field->getName() }}" value="{{ $field->getLabel() }}" {!! $field->attributes() !!}>
