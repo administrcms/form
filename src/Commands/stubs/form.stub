@@ -21,11 +21,11 @@ class DummyClass extends Form
     /**
      * Define the fields of the form.
      *
-     * @param FormBuilder $form
+     * @param FormBuilder $builder
      */
-    public function form(FormBuilder $form)
+    public function form(FormBuilder $builder)
     {
-        $form
+        $builder
 
             ->submit('save', 'Save');
     }

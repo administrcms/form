@@ -476,9 +476,9 @@ abstract class Form implements ValidatesWhenSubmitted
     /**
      * Define the fields of the form.
      *
-     * @param FormBuilder $form
+     * @param FormBuilder $builder
      *
      * @return
      */
-    abstract public function form(FormBuilder $form);
+    abstract public function form(FormBuilder $builder);
 }
