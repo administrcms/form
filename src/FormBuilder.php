@@ -21,6 +21,7 @@ use Illuminate\Support\ViewErrorBag;
  * @method FormBuilder textarea($name, $label, array $options)
  * @method FormBuilder email($name, $label, array $options)
  * @method FormBuilder file($name, $label, array $options)
+ * @method FormBuilder image($name, $label, array $options)
  * @method FormBuilder hidden($name, $value, array $options)
  * @method FormBuilder checkbox($name, $label, array $options)
  * @method FormBuilder radio($name, $label, array $options)
