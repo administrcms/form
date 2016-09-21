@@ -11,6 +11,7 @@ class ImageFieldTest extends PHPUnit_Framework_TestCase
         $image = new Image('test', 'Test');
 
         $this->assertInstanceOf(File::class, $image);
+        $this->assertSame('administr/form::image', $image->getView());
     }
 
     /** @test */
