@@ -14,6 +14,8 @@ class Select extends AbstractType
         unset($this->options['value']);
 
         if ($values = $this->getOption('values')) {
+            $this->selectOptions = [];
+
             foreach ($values as $optionValue => $display) {
                 $optionAttrs = [];
 
