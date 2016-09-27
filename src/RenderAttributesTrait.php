@@ -12,6 +12,10 @@ trait RenderAttributesTrait
 
         $attributes = '';
         foreach ($attrs as $attr => $value) {
+            if(is_array($value)) {
+                continue;
+            }
+
             $attributes .= " {$attr}=\"{$value}\"";
         }
 
