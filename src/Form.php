@@ -6,6 +6,7 @@ use Administr\Form\Contracts\ValidatesWhenSubmitted;
 use Administr\Form\Exceptions\FormValidationException;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\File;
+use Administr\Form\Field\Group;
 use Administr\Localization\Models\Language;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\JsonResponse;
@@ -351,14 +352,28 @@ abstract class Form implements ValidatesWhenSubmitted
 //        $fields = collect($this->fields());
 
         $hasFile = false;
+        $isFile = function($field) {
+            return $field instanceof File;
+        };
 
         foreach($this->fields() as $field)
         {
-            if($field instanceof File)
-            {
-                $hasFile = true;
+            if($field instanceof Group) {
+                foreach($field->builder()->fields() as $f)
+                {
+                    $hasFile = $isFile($f);
+
+                    if($hasFile) {
+                        break;
+                    }
+                }
+            }
+
+            if($hasFile) {
                 break;
             }
+
+            $hasFile = $isFile($field);
         }
 
 //        $hasFile = $fields->contains(function ($key, $value) {
