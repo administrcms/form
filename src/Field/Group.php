@@ -38,4 +38,12 @@ class Group extends AbstractType
         return $this->builder;
     }
 
+    /**
+     * @param $field
+     * @return AbstractType
+     */
+    public function get($field)
+    {
+        return $this->builder()->get($field);
+    }
 }
