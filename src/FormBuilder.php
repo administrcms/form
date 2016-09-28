@@ -131,6 +131,10 @@ class FormBuilder
         $field = $this->get($name);
         $this->setValue($field);
 
+        if($field instanceof Group) {
+            $field->builder()->dataSource($this->dataSource);
+        }
+
         return $field->render();
     }
 
