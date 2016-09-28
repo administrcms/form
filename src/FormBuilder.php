@@ -12,7 +12,6 @@ use Administr\Form\Field\Text;
 use Administr\Localization\Models\Language;
 use Administr\Localization\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\ViewErrorBag;
 
 /**
  * Class FormBuilder.
