@@ -1,5 +1,5 @@
 <fieldset>
     <legend>{{ $field->getLabel() }}</legend>
 
-    {{ $builder->render() }}
+    {!! $builder->render() !!}
 </fieldset>
