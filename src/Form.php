@@ -11,7 +11,6 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\ViewErrorBag;
 
 abstract class Form implements ValidatesWhenSubmitted
 {
@@ -102,7 +101,7 @@ abstract class Form implements ValidatesWhenSubmitted
     public function render()
     {
         $form = $this->open();
-        $form .= $this->builder()->render($this->errors());
+        $form .= $this->builder()->render();
         $form .= $this->close();
 
         return $form;
@@ -184,21 +183,6 @@ abstract class Form implements ValidatesWhenSubmitted
     public function renderField($name)
     {
         return $this->builder()->renderField($name);
-    }
-
-    /**
-     * @return ViewErrorBag|mixed
-     * @codeCoverageIgnore
-     */
-    public function errors()
-    {
-        $errors = $this->request->session()->get('errors');
-
-        if (empty($errors)) {
-            return new ViewErrorBag();
-        }
-
-        return $errors;
     }
 
     public function isValid()

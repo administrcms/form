@@ -88,11 +88,9 @@ class FormBuilder
     /**
      * Render form fields.
      *
-     * @param ViewErrorBag $errors
-     *
      * @return string
      */
-    public function render(ViewErrorBag $errors = null)
+    public function render()
     {
         $form = '';
 
@@ -110,7 +108,7 @@ class FormBuilder
                 $form .= $this->renderTranslated();
             }
 
-            $form .= $this->renderField($name, $errors);
+            $form .= $this->renderField($name);
 
             $renderedFieldsCount += 1;
         }
@@ -118,33 +116,12 @@ class FormBuilder
         return $form;
     }
 
-    public function renderField($name, ViewErrorBag $errors = null)
+    public function renderField($name)
     {
-        $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
-
         $field = $this->get($name);
         $this->setValue($field);
 
-        return $this->present($field, $error);
-    }
-
-    /**
-     * If a presenter class has been set,
-     * render the field using its presentation,
-     * otherwise call the normal render.
-     *
-     * @param AbstractType $field
-     * @param array        $error
-     *
-     * @return string
-     */
-    public function present(AbstractType $field, array $error = [])
-    {
-        if (empty($this->presenter) || !class_exists($this->presenter)) {
-            return $field->render($error)."\n";
-        }
-
-        return (new $this->presenter())->render($field, $error);
+        return $field->render();
     }
 
     /**
@@ -180,10 +157,10 @@ class FormBuilder
 
                 if ($value = $this->getValue($name, $language->id)) {
                     $field->appendOption('value', $value);
+                    $field->setValue($value);
                 }
 
-                $error = !empty($errors) && $errors->has($name) ? $errors->get($name) : [];
-                $panels .= $this->present($field, $error);
+                $panels .= $field->render();
             }
             $panels .= '</div>';
 
