@@ -29,4 +29,13 @@ class Group extends AbstractType
             'builder' => $this->builder,
         ]);
     }
+
+    /**
+     * @return FormBuilder
+     */
+    public function builder()
+    {
+        return $this->builder;
+    }
+
 }
