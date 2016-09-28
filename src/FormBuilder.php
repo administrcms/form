@@ -5,6 +5,7 @@ namespace Administr\Form;
 use Administr\Form\Contracts\ImageFieldSource;
 use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Group;
 use Administr\Form\Field\Image;
 use Administr\Form\Field\RadioGroup;
 use Administr\Form\Field\Text;
@@ -80,9 +81,19 @@ class FormBuilder
      */
     public function radioGroup($name, $label, \Closure $definition)
     {
-        $this->fields[$name] = new RadioGroup($name, $label, $definition);
+        return $this->add(new RadioGroup($name, $label, $definition));
+    }
 
-        return $this;
+    /**
+     * @param $name
+     * @param $label
+     * @param \Closure $definition
+     *
+     * @return $this
+     */
+    public function group($name, $label, \Closure $definition)
+    {
+        return $this->add(new Group($name, $label, $definition));
     }
 
     /**
