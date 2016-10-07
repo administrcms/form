@@ -4,5 +4,5 @@ namespace Administr\Form\Contracts;
 
 interface ImageFieldSource
 {
-    public function getImagePath();
+    public function getImagePath($field);
 }

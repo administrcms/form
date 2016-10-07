@@ -297,7 +297,7 @@ class FormBuilder
 
         if ($field instanceof Image) {
             $src = $this->dataSource instanceof ImageFieldSource
-                ? $this->dataSource->getImagePath() : '';
+                ? $this->dataSource->getImagePath($field->getName()) : '';
             $field->setSrc($src);
         }
 
