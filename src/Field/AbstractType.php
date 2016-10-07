@@ -241,11 +241,20 @@ abstract class AbstractType
         return strtolower( str_replace( 'Administr\\Form\\Field\\', '', get_called_class() ) );
     }
 
+    /**
+     * @return string
+     */
     public function getView()
     {
         return $this->view;
     }
 
+    /**
+     * The view file for this field.
+     *
+     * @param string $view
+     * @return $this
+     */
     public function setView($view)
     {
         $this->view = $view;
