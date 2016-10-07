@@ -14,6 +14,8 @@ abstract class AbstractType
     protected $value = null;
     protected $view;
 
+    protected $skipIf = false;
+
     public function __construct($name, $label, $options = null)
     {
         $this->setName($name);
@@ -250,6 +252,23 @@ abstract class AbstractType
     }
 
     /**
+     * Skip field render if given condition is true.
+     *
+     * @param boolean $condition
+     */
+    public function skipIf($condition)
+    {
+        if(!is_bool($condition)) {
+            return;
+        }
+
+        $this->skipIf = $condition;
+    }
+
+    public function isSkipped()
+    {
+        return $this->skipIf;
+    }
      * @codeCoverageIgnore
      */
     public function __toString()

@@ -82,7 +82,7 @@ class FormBuilder
         $form = '';
 
         $fields = array_filter($this->fields, function (AbstractType $field) {
-            return !in_array($field->getName(), $this->skips) && !$field->isTranslated();
+            return !in_array($field->getName(), $this->skips) && !$field->isSkipped() && !$field->isTranslated();
         });
 
         $fieldsCount = count($fields);
@@ -129,7 +129,7 @@ class FormBuilder
         $tabs = '';
         $panels = '';
         $fields = array_filter($this->fields, function (AbstractType $field) {
-            return !in_array($field->getName(), $this->skips) && $field->isTranslated();
+            return !in_array($field->getName(), $this->skips) && !$field->isSkipped() && $field->isTranslated();
         });
 
         if (count($fields) === 0) {
