@@ -32,6 +32,17 @@ use Illuminate\Database\Eloquent\Model;
  * @method FormBuilder group($name, $label, Closure $definition)
  * @method FormBuilder radioGroup($name, $label, Closure $definition)
  * @method FormBuilder checkboxGroup($name, $label, Closure $definition)
+ * @method FormBuilder color($name, $label, Closure $definition)
+ * @method FormBuilder date($name, $label, Closure $definition)
+ * @method FormBuilder datetime($name, $label, Closure $definition)
+ * @method FormBuilder time($name, $label, Closure $definition)
+ * @method FormBuilder week($name, $label, Closure $definition)
+ * @method FormBuilder month($name, $label, Closure $definition)
+ * @method FormBuilder number($name, $label, Closure $definition)
+ * @method FormBuilder range($name, $label, Closure $definition)
+ * @method FormBuilder search($name, $label, Closure $definition)
+ * @method FormBuilder tel($name, $label, Closure $definition)
+ * @method FormBuilder url($name, $label, Closure $definition)
  *
  */
 class FormBuilder
