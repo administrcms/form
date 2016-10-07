@@ -29,6 +29,7 @@ abstract class AbstractType
 
         if(is_array($options))
         {
+            $options = $this->optionsToMethods($options);
             $this->options = $options;
         }
     }
@@ -269,6 +270,27 @@ abstract class AbstractType
     {
         return $this->skipIf;
     }
+
+    /**
+     * @param array $options
+     * @return array
+     */
+    protected function optionsToMethods(array $options)
+    {
+        foreach($options as $name => $value)
+        {
+            if(! method_exists($this, $name) ) {
+                continue;
+            }
+
+            call_user_func([$this, $name], $value);
+            unset($options[$name]);
+        }
+
+        return $options;
+    }
+
+    /**
      * @codeCoverageIgnore
      */
     public function __toString()
