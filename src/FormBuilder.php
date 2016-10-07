@@ -70,6 +70,20 @@ class FormBuilder
     }
 
     /**
+     * Define a group of checkboxes.
+     *
+     * @param $name
+     * @param $label
+     * @param \Closure $definition
+     *
+     * @return $this
+     */
+    public function checkboxGroup($name, $label, \Closure $definition)
+    {
+        return $this->add(new CheckboxGroup($name, $label, $definition));
+    }
+
+    /**
      * Define a group of radios.
      *
      * @param $name
@@ -186,7 +200,7 @@ class FormBuilder
           <ul class="nav nav-tabs" role="tablist">
           '.$tabs.'
           </ul>
-        
+
           <!-- Tab panes -->
           <div class="tab-content">
           '.$panels.'
