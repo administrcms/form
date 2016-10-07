@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method FormBuilder wysiwyg($name, $label, array $options)
  * @method FormBuilder submit($name, $label, array $options)
  * @method FormBuilder reset($name, $label, array $options)
+ * @method FormBuilder group($name, $label, Closure $definition)
+ * @method FormBuilder radioGroup($name, $label, Closure $definition)
  *
  */
 class FormBuilder
@@ -67,32 +69,6 @@ class FormBuilder
         $this->fields[$field->getName()] = $field;
 
         return $this;
-    }
-
-    /**
-     * Define a group of radios.
-     *
-     * @param $name
-     * @param $label
-     * @param \Closure $definition
-     *
-     * @return $this
-     */
-    public function radioGroup($name, $label, \Closure $definition)
-    {
-        return $this->add(new RadioGroup($name, $label, $definition));
-    }
-
-    /**
-     * @param $name
-     * @param $label
-     * @param \Closure $definition
-     *
-     * @return $this
-     */
-    public function group($name, $label, \Closure $definition)
-    {
-        return $this->add(new Group($name, $label, $definition));
     }
 
     /**
