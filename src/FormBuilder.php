@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method FormBuilder reset($name, $label, array $options)
  * @method FormBuilder group($name, $label, Closure $definition)
  * @method FormBuilder radioGroup($name, $label, Closure $definition)
+ * @method FormBuilder checkboxGroup($name, $label, Closure $definition)
  *
  */
 class FormBuilder
