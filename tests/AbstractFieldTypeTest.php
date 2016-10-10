@@ -29,6 +29,14 @@ class AbstractFieldTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_returns_correct_string_for_args_when_array_given()
+    {
+        $field = new Text('test', 'Test', ['test' => 'miro', 'array' => ['multi' => 'value']]);
+
+        $this->assertSame(' test="miro"', $field->attributes());
+    }
+
+    /** @test */
     public function it_gets_field_name()
     {
         $field = new Text('test', 'Test');
@@ -85,6 +93,40 @@ class AbstractFieldTypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertContains('translated', $field->getOptions());
         $this->assertTrue($field->isTranslated());
+    }
+
+    /** @test */
+    public function it_is_skippable()
+    {
+        $field = new Text('test', 'Test');
+        $field->skipIf(true);
+
+        $this->assertTrue($field->isSkipped());
+    }
+
+    /** @test */
+    public function it_doesnt_set_skip_option_if_it_is_not_boolean()
+    {
+        $field = new Text('test', 'Test');
+        $field->skipIf('asd');
+
+        $this->assertFalse($field->isSkipped());
+    }
+
+    /** @test */
+    public function it_is_not_skippable_by_default()
+    {
+        $field = new Text('test', 'Test');
+
+        $this->assertFalse($field->isSkipped());
+    }
+
+    /** @test */
+    public function it_calls_methods_when_option_name_is_the_same()
+    {
+        $field = new Text('test', 'Test', ['skipIf' => true]);
+
+        $this->assertTrue($field->isSkipped());
     }
 }
 
