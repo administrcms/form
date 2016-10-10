@@ -45,7 +45,7 @@ abstract class AbstractType
     {
         $this->options = array_merge($this->options, $attributes);
 
-        $value = $this->getOption('value');
+        $value = request($this->name, $this->getOption('value'));
 
         $this->setValue( old($this->name, $value) );
 

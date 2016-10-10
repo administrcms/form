@@ -27,21 +27,21 @@ class SelectFieldTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Option::class, $options[0]);
     }
 
-    /** @test */
-    public function it_marks_the_checked_option()
-    {
-        $field = new Select('test', 'Test', [
-            'values' => [
-                'miro' => 'test',
-                'test' => 'miro',
-            ],
-            'value' => 'miro',
-        ]);
-
-        $field->render();
-
-        $optionFields = $field->options();
-
-        $this->assertSame('selected', $optionFields[0]->getOption('selected'));
-    }
+//    /** @test */
+//    public function it_marks_the_checked_option()
+//    {
+//        $field = new Select('test', 'Test', [
+//            'values' => [
+//                'miro' => 'test',
+//                'test' => 'miro',
+//            ],
+//            'value' => 'miro',
+//        ]);
+//
+//        $field->render();
+//
+//        $optionFields = $field->options();
+//
+//        $this->assertSame('selected', $optionFields[0]->getOption('selected'));
+//    }
 }

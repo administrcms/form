@@ -8,7 +8,7 @@ class Radio extends Text
     {
         $this->options = array_merge($this->getOptions(), $attributes);
 
-        $value = array_get($this->options, 'value');
+        $value = request($this->name, $this->getOption('value'));
 
         if ($this->isChecked($value)) {
             $this->options['checked'] = 'checked';

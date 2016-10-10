@@ -192,3 +192,8 @@ function view($name, $data)
 {
     return;
 }
+
+function request($name)
+{
+    return $name;
+}

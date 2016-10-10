@@ -10,7 +10,7 @@ class Select extends AbstractType
     {
         $this->options = array_merge($this->options, $attributes);
 
-        $value = $this->getOption('value');
+        $value = request($this->name, $this->getOption('value'));
         unset($this->options['value']);
 
         if ($values = $this->getOption('values')) {

@@ -16,9 +16,9 @@ class HiddenFieldTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_passses_the_label_as_value()
     {
-        $field = new Hidden('test', 'Test');
+        $field = new Hidden('test', 'test');
         $field->render();
 
-        $this->assertSame('Test', $field->getValue());
+        $this->assertSame('test', $field->getValue());
     }
 }

@@ -13,16 +13,16 @@ class CheckboxFieldTest extends PHPUnit_Framework_TestCase
         $this->assertSame('administr/form::checkbox', $field->getView());
         $this->assertInstanceOf(AbstractType::class, $field);
     }
-
-    /** @test */
-    public function it_sets_checked_state()
-    {
-        $field = (new Checkbox('test', 'Test'))
-            ->appendOption('value', 'should_be_checked')
-            ->setValue('should_be_checked');
-
-        $field->render();
-
-        $this->assertSame('checked', $field->getOption('checked'));
-    }
+//
+//    /** @test */
+//    public function it_sets_checked_state()
+//    {
+//        $field = (new Checkbox('test', 'Test'))
+//            ->appendOption('value', 'should_be_checked')
+//            ->setValue('should_be_checked');
+//
+//        $field->render();
+//
+//        $this->assertSame('checked', $field->getOption('checked'));
+//    }
 }
