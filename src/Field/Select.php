@@ -23,11 +23,17 @@ class Select extends AbstractType
                     $optionAttrs['selected'] = 'selected';
                 }
 
-                $this->selectOptions[] = new Option($optionValue, $display, $optionAttrs);
+                $this->option($optionValue, $display, $optionAttrs);
             }
         }
 
         return parent::render();
+    }
+
+    public function option($value, $display, $options = null)
+    {
+        $this->selectOptions[] = new Option($value, $display, $options);
+        return $this;
     }
 
     public function options()
