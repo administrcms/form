@@ -8,6 +8,7 @@ class Time extends AbstractType
     {
         parent::__construct($name, $label, $options);
 
+        $this->setView('administr/form::text');
         $this->options['type'] = 'time';
     }
 }

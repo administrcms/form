@@ -8,6 +8,7 @@ class Range extends Text
     {
         parent::__construct($name, $label, $options);
 
+        $this->setView('administr/form::text');
         $this->options['type'] = 'range';
     }
 }
