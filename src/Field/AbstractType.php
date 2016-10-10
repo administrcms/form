@@ -30,7 +30,7 @@ abstract class AbstractType
         if(is_array($options))
         {
             $options = $this->optionsToMethods($options);
-            $this->options = $options;
+            $this->setOptions($options);
         }
     }
 
@@ -74,21 +74,6 @@ abstract class AbstractType
     public function isTranslated()
     {
         return $this->getOption('translated') === true;
-    }
-
-    /**
-     * Append an option for the field.
-     *
-     * @param $option
-     * @param $value
-     *
-     * @return $this
-     */
-    public function appendOption($option, $value)
-    {
-        $this->options = array_merge($this->options, [$option => $value]);
-
-        return $this;
     }
 
     /**
@@ -136,6 +121,36 @@ abstract class AbstractType
     }
 
     /**
+     * Append an option for the field.
+     *
+     * @param $option
+     * @param $value
+     *
+     * @return $this
+     */
+    public function appendOption($option, $value)
+    {
+        $this->options = array_merge($this->options, [$option => $value]);
+
+        return $this;
+    }
+
+    /**
+     * Append multiple options at once.
+     *
+     * @param array $options
+     * @return $this
+     */
+    public function appendOptions(array $options)
+    {
+        foreach($options as $option => $value) {
+            $this->appendOption($option, $value);
+        }
+
+        return $this;
+    }
+
+    /**
      * Get an option.
      *
      * @param $option
@@ -146,6 +161,32 @@ abstract class AbstractType
     public function getOption($option, $default = null)
     {
         return array_get($this->options, $option, $default);
+    }
+
+    /**
+     * Set single option.
+     *
+     * @param $option
+     * @param $value
+     */
+    public function setOption($option, $value)
+    {
+        $this->options[$option] = $value;
+    }
+
+    /**
+     * Set the options.
+     *
+     * @param array $options
+     * @return $this
+     */
+    public function setOptions(array $options)
+    {
+        foreach($options as $option => $value) {
+            $this->setOption($option, $value);
+        }
+
+        return $this;
     }
 
     /**

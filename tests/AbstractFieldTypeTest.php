@@ -128,6 +128,54 @@ class AbstractFieldTypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($field->isSkipped());
     }
+
+    /** @test */
+    public function it_sets_multiple_options_after_instantiation()
+    {
+        $field = new Text('test', 'Test');
+
+        $this->assertCount(0, $field->getOptions());
+
+        $field->setOptions(['skipIf' => true]);
+
+        $this->assertCount(1, $field->getOptions());
+    }
+
+    /** @test */
+    public function it_sets_single_option_after_instantiation()
+    {
+        $field = new Text('test', 'Test');
+
+        $this->assertNull($field->getOption('miro'));
+
+        $field->setOption('miro', 'vit');
+
+        $this->assertSame('vit', $field->getOption('miro'));
+    }
+
+    /** @test */
+    public function it_appends_multiple_options_after_instantiation()
+    {
+        $field = new Text('test', 'Test', ['miro' => 'vit']);
+
+        $this->assertCount(1, $field->getOptions());
+
+        $field->appendOptions(['option1' => 1, 'option2' => 2]);
+
+        $this->assertCount(3, $field->getOptions());
+    }
+
+    /** @test */
+    public function it_appends_single_option_after_instantiation()
+    {
+        $field = new Text('test', 'Test', ['miro' => 'vit']);
+
+        $this->assertNull($field->getOption('present'));
+
+        $field->appendOption('present', true);
+
+        $this->assertTrue($field->getOption('present'));
+    }
 }
 
 function make()
