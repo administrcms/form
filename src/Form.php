@@ -98,11 +98,13 @@ abstract class Form implements ValidatesWhenSubmitted
 
     /**
      * Render the form HTML.
+     * @param array $viewData
+     * @return string
      */
-    public function render()
+    public function render(array $viewData = [])
     {
         $form = $this->open();
-        $form .= $this->builder()->render();
+        $form .= $this->builder()->render($viewData);
         $form .= $this->close();
 
         return $form;

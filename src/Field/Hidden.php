@@ -4,7 +4,7 @@ namespace Administr\Form\Field;
 
 class Hidden extends Text
 {
-    public function render(array $attributes = [])
+    public function render(array $attributes = [], array $viewData = [])
     {
         $this->options = array_merge($this->options, $attributes);
 
@@ -15,6 +15,6 @@ class Hidden extends Text
             $this->value = $this->getLabel();
         }
 
-        return parent::render($attributes);
+        return parent::render($attributes, $viewData);
     }
 }

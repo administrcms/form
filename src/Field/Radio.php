@@ -4,7 +4,7 @@ namespace Administr\Form\Field;
 
 class Radio extends Text
 {
-    public function render(array $attributes = [])
+    public function render(array $attributes = [], array $viewData = [])
     {
         $this->options = array_merge($this->getOptions(), $attributes);
 
@@ -14,6 +14,6 @@ class Radio extends Text
             $this->options['checked'] = 'checked';
         }
 
-        return parent::render($attributes);
+        return parent::render($attributes, $viewData);
     }
 }

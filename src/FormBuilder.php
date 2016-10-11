@@ -86,9 +86,11 @@ class FormBuilder
     /**
      * Render form fields.
      *
+     * @param array $viewData
+     *
      * @return string
      */
-    public function render()
+    public function render(array $viewData = [])
     {
         $form = '';
 
@@ -103,10 +105,10 @@ class FormBuilder
             $this->setValue($field);
 
             if ($field->isButton() || $fieldsCount === $renderedFieldsCount && !$this->translationRendered) {
-                $form .= $this->renderTranslated();
+                $form .= $this->renderTranslated($viewData);
             }
 
-            $form .= $this->renderField($name);
+            $form .= $this->renderField($name, $viewData);
 
             $renderedFieldsCount += 1;
         }
@@ -132,7 +134,7 @@ class FormBuilder
      *
      * @return string
      */
-    public function renderTranslated()
+    public function renderTranslated(array $viewData = [])
     {
         $this->translationRendered = true;
 
@@ -162,7 +164,7 @@ class FormBuilder
                     $field->setValue($value);
                 }
 
-                $panels .= $field->render();
+                $panels .= $field->render($viewData);
             }
             $panels .= '</div>';
 

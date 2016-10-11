@@ -6,7 +6,7 @@ class Select extends AbstractType
 {
     protected $selectOptions = [];
 
-    public function render(array $attributes = [])
+    public function render(array $attributes = [], array $viewData = [])
     {
         $this->options = array_merge($this->options, $attributes);
 
@@ -27,7 +27,7 @@ class Select extends AbstractType
             }
         }
 
-        return parent::render();
+        return parent::render($attributes, $viewData);
     }
 
     public function option($value, $display, $options = null)

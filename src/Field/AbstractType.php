@@ -38,10 +38,11 @@ abstract class AbstractType
      * Default render of field with its label and errors.
      *
      * @param array $attributes
+     * @param array $viewData
      *
      * @return string
      */
-    public function render(array $attributes = [])
+    public function render(array $attributes = [], array $viewData = [])
     {
         $this->options = array_merge($this->options, $attributes);
 
@@ -49,9 +50,9 @@ abstract class AbstractType
 
         $this->setValue( old($this->name, $value) );
 
-        return view($this->getView(), [
+        return view($this->getView(), array_merge([
             'field' => $this
-        ]);
+        ], $viewData));
     }
 
     /**

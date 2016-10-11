@@ -20,14 +20,11 @@ class Group extends AbstractType
         call_user_func($definition, $this->builder);
     }
 
-    public function render(array $attributes = [])
+    public function render(array $attributes = [], array $viewData = [])
     {
-        $this->options = array_merge($this->options, $attributes);
+        $viewData['builder'] = $this->builder();
 
-        return view($this->getView(), [
-            'field' => $this,
-            'builder' => $this->builder,
-        ]);
+        return parent::render($attributes, $viewData);
     }
 
     /**
