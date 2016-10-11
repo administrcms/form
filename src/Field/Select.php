@@ -13,19 +13,7 @@ class Select extends AbstractType
         $value = request($this->name, $this->getOption('value'));
         unset($this->options['value']);
 
-        if ($values = $this->getOption('values')) {
-            $this->selectOptions = [];
-
-            foreach ($values as $optionValue => $display) {
-                $optionAttrs = [];
-
-                if ($optionValue === $value) {
-                    $optionAttrs['selected'] = 'selected';
-                }
-
-                $this->option($optionValue, $display, $optionAttrs);
-            }
-        }
+        $this->setSelectOptions($value);
 
         return parent::render($attributes, $viewData);
     }
@@ -39,5 +27,24 @@ class Select extends AbstractType
     public function options()
     {
         return $this->selectOptions;
+    }
+
+    protected function setSelectOptions($value)
+    {
+        if (!$values = $this->getOption('values')) {
+            return;
+        }
+
+        $this->selectOptions = [];
+
+        foreach ($values as $optionValue => $display) {
+            $optionAttrs = [];
+
+            if ($optionValue === $value) {
+                $optionAttrs['selected'] = 'selected';
+            }
+
+            $this->option($optionValue, $display, $optionAttrs);
+        }
     }
 }
