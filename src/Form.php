@@ -394,7 +394,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function addTokenField()
     {
-        if (array_key_exists('_token', $this->fields())) {
+        if (array_key_exists('_token', $this->fields()) || $this->request()->isMethod('get')) {
             return;
         }
 
