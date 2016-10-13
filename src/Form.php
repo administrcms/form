@@ -135,6 +135,8 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function open()
     {
+        $this->form($this->builder);
+
         $this
             ->setEnctype()
             ->addTokenField();
