@@ -211,7 +211,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function submitted()
     {
-        return strtolower($this->request->getMethod()) !== 'get';
+        return ! $this->request->isMethod('get');
     }
 
     /**
