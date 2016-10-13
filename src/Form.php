@@ -143,11 +143,11 @@ abstract class Form implements ValidatesWhenSubmitted
 
         // To simulate a put requrest with Laravel,
         // we need to add a hidden field for the method
+
+        $this->builder()->hidden('_method', array_get($this->options, 'method'));
+
         if (array_get($this->options, 'method') == 'put') {
             $this->options['method'] = 'post';
-            $this->builder()->hidden('_method', 'put');
-        } else {
-            $this->builder()->hidden('_method', array_get($this->options, 'method'));
         }
 
         return "<form{$this->renderAttributes($this->options)}>\n";
