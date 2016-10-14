@@ -83,7 +83,7 @@ abstract class Form implements ValidatesWhenSubmitted
         $this->request = $request;
         $this->validator = $validator;
         $this->redirector = $redirector;
-        $this->form($this->builder);
+//        $this->form($this->builder);
     }
 
     /**
