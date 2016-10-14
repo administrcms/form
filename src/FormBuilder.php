@@ -108,7 +108,7 @@ class FormBuilder
                 $form .= $this->renderTranslated($viewData);
             }
 
-            $form .= $this->renderField($name, $viewData);
+            $form .= $this->renderField($name, [], $viewData);
 
             $renderedFieldsCount += 1;
         }
@@ -116,7 +116,7 @@ class FormBuilder
         return $form;
     }
 
-    public function renderField($name)
+    public function renderField($name, array $attributes = [], array $viewData = [])
     {
         $field = $this->get($name);
         $this->setValue($field);
@@ -125,7 +125,7 @@ class FormBuilder
             $field->builder()->dataSource($this->dataSource);
         }
 
-        return $field->render();
+        return $field->render($attributes, $viewData);
     }
 
     /**

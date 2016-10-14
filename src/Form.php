@@ -182,12 +182,14 @@ abstract class Form implements ValidatesWhenSubmitted
 
     /**
      * @param $name
+     * @param array $attributes
+     * @param array $viewData
      * @return string
      * @codeCoverageIgnore
      */
-    public function renderField($name)
+    public function renderField($name, array $attributes = [], array $viewData = [])
     {
-        return $this->builder()->renderField($name);
+        return $this->builder()->renderField($name, $attributes, $viewData);
     }
 
     public function isValid()
