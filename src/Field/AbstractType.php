@@ -50,6 +50,10 @@ abstract class AbstractType
 
         $this->setValue( old($this->name, $value) );
 
+        if($this->isSkipped()) {
+            return;
+        }
+
         return view($this->getView(), array_merge([
             'field' => $this
         ], $viewData));
