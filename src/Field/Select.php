@@ -40,7 +40,7 @@ class Select extends AbstractType
         foreach ($values as $optionValue => $display) {
             $optionAttrs = [];
 
-            if ($optionValue === $value) {
+            if ($optionValue == $value) {
                 $optionAttrs['selected'] = 'selected';
             }
 
