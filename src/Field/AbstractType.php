@@ -174,10 +174,13 @@ abstract class AbstractType
      *
      * @param $option
      * @param $value
+     * @return $this
      */
     public function setOption($option, $value)
     {
         $this->options[$option] = $value;
+
+        return $this;
     }
 
     /**
