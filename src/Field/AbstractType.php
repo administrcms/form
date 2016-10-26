@@ -18,9 +18,10 @@ abstract class AbstractType
 
     public function __construct($name, $label, $options = null)
     {
-        $this->setName($name);
-        $this->setLabel($label);
-        $this->setView("administr/form::{$this->type()}");
+        $this
+            ->setName($name)
+            ->setLabel($label)
+            ->setView("administr/form::{$this->type()}");
 
         if($options instanceof \Closure)
         {
