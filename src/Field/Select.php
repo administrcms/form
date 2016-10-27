@@ -10,7 +10,7 @@ class Select extends AbstractType
     {
         $this->options = array_merge($this->options, $attributes);
 
-        $value = request($this->name, $this->getOption('value'));
+        $value = old(str_replace('[]', '', $this->name), $this->getOption('value'));
         unset($this->options['value']);
 
         $this->setSelectOptions($value);
@@ -40,7 +40,7 @@ class Select extends AbstractType
         foreach ($values as $optionValue => $display) {
             $optionAttrs = [];
 
-            if ($optionValue == $value) {
+            if ($optionValue == $value || is_array($value) && in_array($optionValue, $value)) {
                 $optionAttrs['selected'] = 'selected';
             }
 
