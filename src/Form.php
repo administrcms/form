@@ -357,6 +357,10 @@ abstract class Form implements ValidatesWhenSubmitted
     {
 //        $fields = collect($this->fields());
 
+        if(array_key_exists('enctype', $this->options)) {
+            return $this;
+        }
+
         $hasFile = false;
         $isFile = function($field) {
             return $field instanceof File;
