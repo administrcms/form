@@ -318,6 +318,9 @@ abstract class Form implements ValidatesWhenSubmitted
     public function translated()
     {
         $languages = Language::pluck('id');
+
+        $this->form($this->builder);
+
         $languageFields = array_filter($this->fields(), function (AbstractType $field) {
             return $field->isTranslated();
         });
