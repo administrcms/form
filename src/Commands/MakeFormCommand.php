@@ -47,7 +47,7 @@ class MakeFormCommand extends GeneratorCommand
 
         if( $this->files->exists($targetPath . $fileName) )
         {
-            $this->error("File views/{$name}/{$fileName} already exists!");
+            $this->error("File views/{$viewPath}{$name}/{$fileName} already exists!");
             return;
         }
 
@@ -58,11 +58,11 @@ class MakeFormCommand extends GeneratorCommand
 
         if( $this->files->copy($from, $targetPath . $fileName) )
         {
-            $this->info("Created views/{$name}/{$fileName}");
+            $this->info("Created views/{$viewPath}{$name}/{$fileName}");
             return;
         }
 
-        $this->error("Could not create views/{$name}/{$fileName}");
+        $this->error("Could not create views/{$viewPath}{$name}/{$fileName}");
     }
 
     /**
