@@ -42,7 +42,7 @@ class MakeFormCommand extends GeneratorCommand
             $viewPath .= '/';
         }
 
-        $targetPath = resource_path("views/{$viewPath}{$name}/")
+        $targetPath = resource_path("views/{$viewPath}{$name}/");
         $fileName = 'form.blade.php';
 
         if( $this->files->exists($targetPath . $fileName) )
