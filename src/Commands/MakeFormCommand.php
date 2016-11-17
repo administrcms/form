@@ -35,7 +35,14 @@ class MakeFormCommand extends GeneratorCommand
         );
 
         $from = __DIR__ . '/stubs/form.blade.stub';
-        $targetPath = resource_path("views/{$name}/");
+
+        $viewPath = config('administr.viewPath');
+
+        if(strlen($viewPath) > 0) {
+            $viewPath .= '/';
+        }
+
+        $targetPath = resource_path("views/{$viewPath}{$name}/")
         $fileName = 'form.blade.php';
 
         if( $this->files->exists($targetPath . $fileName) )
