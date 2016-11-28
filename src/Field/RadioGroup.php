@@ -16,4 +16,13 @@ class RadioGroup extends AbstractType
         $this->radios[] = (new Radio($this->getName(), $label, $options))->setValue($this->getValue());
         return $this;
     }
+
+    public function setValue($value)
+    {
+        foreach($this->radios as $radio) {
+            $radio->setValue($value);
+        }
+
+        return parent::setValue($value);
+    }
 }
