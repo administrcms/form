@@ -318,6 +318,9 @@ abstract class Form implements ValidatesWhenSubmitted
     public function translated()
     {
         $languages = Language::pluck('id');
+
+        $this->form($this->builder);
+
         $languageFields = array_filter($this->fields(), function (AbstractType $field) {
             return $field->isTranslated();
         });
@@ -356,6 +359,10 @@ abstract class Form implements ValidatesWhenSubmitted
     public function setEnctype()
     {
 //        $fields = collect($this->fields());
+
+        if(array_key_exists('enctype', $this->options)) {
+            return $this;
+        }
 
         $hasFile = false;
         $isFile = function($field) {

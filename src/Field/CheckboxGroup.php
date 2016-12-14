@@ -17,4 +17,13 @@ class CheckboxGroup extends AbstractType
 
         return $this;
     }
+
+    public function setValue($value)
+    {
+        foreach($this->checkboxes as $checkbox) {
+            $checkbox->setValue($value);
+        }
+
+        return parent::setValue($value);
+    }
 }

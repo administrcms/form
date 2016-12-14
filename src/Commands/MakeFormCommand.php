@@ -35,12 +35,19 @@ class MakeFormCommand extends GeneratorCommand
         );
 
         $from = __DIR__ . '/stubs/form.blade.stub';
-        $targetPath = resource_path("views/{$name}/");
+
+        $viewPath = config('administr.viewPath');
+
+        if(strlen($viewPath) > 0) {
+            $viewPath .= '/';
+        }
+
+        $targetPath = resource_path("views/{$viewPath}{$name}/");
         $fileName = 'form.blade.php';
 
         if( $this->files->exists($targetPath . $fileName) )
         {
-            $this->error("File views/{$name}/{$fileName} already exists!");
+            $this->error("File views/{$viewPath}{$name}/{$fileName} already exists!");
             return;
         }
 
@@ -51,11 +58,11 @@ class MakeFormCommand extends GeneratorCommand
 
         if( $this->files->copy($from, $targetPath . $fileName) )
         {
-            $this->info("Created views/{$name}/{$fileName}");
+            $this->info("Created views/{$viewPath}{$name}/{$fileName}");
             return;
         }
 
-        $this->error("Could not create views/{$name}/{$fileName}");
+        $this->error("Could not create views/{$viewPath}{$name}/{$fileName}");
     }
 
     /**

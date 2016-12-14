@@ -3,6 +3,7 @@
 namespace Administr\Form;
 
 use Administr\Form\AssetShortcuts\WysiwygShortcut;
+use Administr\Form\Commands\MakeFormCommand;
 use Administr\Form\Contracts\ValidatesWhenSubmitted;
 use Asset;
 use Illuminate\Support\ServiceProvider;
@@ -41,5 +42,8 @@ class FormServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->commands([
+           MakeFormCommand::class,
+        ]);
     }
 }
