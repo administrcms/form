@@ -14,6 +14,6 @@ class Radio extends Text
             $this->options['checked'] = 'checked';
         }
 
-        return parent::render($attributes, $viewData);
+        return parent::render($attributes, $viewData, $value);
     }
 }
