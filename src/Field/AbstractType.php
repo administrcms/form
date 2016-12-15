@@ -47,9 +47,13 @@ abstract class AbstractType
     {
         $this->options = array_merge($this->options, $attributes);
 
-        $value = request($this->name, $this->getOption('value'));
-
-        $this->setValue( old($this->name, $value) );
+        if (func_num_args() == 3) {
+            $value = func_get_arg(2);
+            $this->setValue($value);
+        } else {
+            $value = request($this->name, $this->getOption('value'));
+            $this->setValue( old($this->name, $value) );
+        }
 
         if($this->isSkipped()) {
             return;

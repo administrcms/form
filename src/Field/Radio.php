@@ -14,14 +14,6 @@ class Radio extends Text
             $this->options['checked'] = 'checked';
         }
 
-        $this->setValue($value);
-
-        if($this->isSkipped()) {
-            return;
-        }
-
-        return view($this->getView(), array_merge([
-            'field' => $this
-        ], $viewData));
+        return parent::render($attributes, $viewData, $value);
     }
 }
