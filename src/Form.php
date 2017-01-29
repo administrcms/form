@@ -324,6 +324,11 @@ abstract class Form implements ValidatesWhenSubmitted
         $languageFields = array_filter($this->fields(), function (AbstractType $field) {
             return $field->isTranslated();
         });
+
+        if($translated = array_get($this->fields(), 'translated')) {
+            $languageFields += $translated->builder()->fields();
+        }
+
         $fields = $this->all();
 
         $translated = [];

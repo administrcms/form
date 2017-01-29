@@ -7,9 +7,8 @@ use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Group;
 use Administr\Form\Field\Image;
-use Administr\Form\Field\RadioGroup;
 use Administr\Form\Field\Text;
-use Administr\Localization\Models\Language;
+use Administr\Form\Field\Translated;
 use Administr\Localization\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,6 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method FormBuilder tel($name, $label, array $options = [])
  * @method FormBuilder url($name, $label, array $options = [])
  * @method FormBuilder tabs($name, $label, Closure $definition)
+ * @method FormBuilder translated(Closure $definition)
  *
  */
 class FormBuilder
@@ -62,13 +62,6 @@ class FormBuilder
      * @var null|array|Model|Translatable
      */
     private $dataSource = null;
-
-    /**
-     * Avoid rendering the translation fields twice.
-     *
-     * @var bool
-     */
-    private $translationRendered = false;
 
     /**
      * Add a field to the form.
@@ -96,22 +89,13 @@ class FormBuilder
         $form = '';
 
         $fields = array_filter($this->fields, function (AbstractType $field) {
-            return !in_array($field->getName(), $this->skips) && !$field->isSkipped() && !$field->isTranslated();
+            return !in_array($field->getName(), $this->skips) && !$field->isSkipped();
         });
-
-        $fieldsCount = count($fields);
-        $renderedFieldsCount = 1;
 
         foreach ($fields as $name => $field) {
             $this->setValue($field);
 
-            if ($field->isButton() || $fieldsCount === $renderedFieldsCount && !$this->translationRendered) {
-                $form .= $this->renderTranslated($viewData);
-            }
-
             $form .= $this->renderField($name, [], $viewData);
-
-            $renderedFieldsCount += 1;
         }
 
         return $form;
@@ -122,67 +106,11 @@ class FormBuilder
         $field = $this->get($name);
         $this->setValue($field);
 
-        if($field instanceof Group) {
+        if($field instanceof Group || $field instanceof Translated) {
             $field->builder()->dataSource($this->dataSource);
         }
 
         return $field->render($attributes, $viewData);
-    }
-
-    /**
-     * Render a tabs container with available languages
-     * and the fields that contain translatable data.
-     *
-     * @return string
-     */
-    public function renderTranslated(array $viewData = [])
-    {
-        $this->translationRendered = true;
-
-        $firstTab = true;
-        $tabs = '';
-        $panels = '';
-        $fields = array_filter($this->fields, function (AbstractType $field) {
-            return !in_array($field->getName(), $this->skips) && !$field->isSkipped() && $field->isTranslated();
-        });
-
-        if (count($fields) === 0) {
-            return '';
-        }
-
-        foreach (Language::all() as $language) {
-            $tabs .= '<li role="presentation" class="'.($firstTab ? 'active' : '').'">
-                        <a href="#'.$language->name.'" aria-controls="'.$language->name.'" role="tab" data-toggle="tab">'.$language->name.'</a>
-                      </li>';
-
-            $panels .= '<div role="tabpanel" class="tab-pane '.($firstTab ? 'active' : '').'" id="'.$language->name.'">';
-            foreach ($fields as $name => $field) {
-                $field = clone $field;
-                $field->setName("{$field->getName()}[{$language->id}]");
-
-                if ($value = $this->getValue($name, $language->id)) {
-                    $field->appendOption('value', $value);
-                    $field->setValue($value);
-                }
-
-                $panels .= $field->render($viewData);
-            }
-            $panels .= '</div>';
-
-            $firstTab = false;
-        }
-
-        return '<div>
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-          '.$tabs.'
-          </ul>
-
-          <!-- Tab panes -->
-          <div class="tab-content">
-          '.$panels.'
-          </div>
-        </div>';
     }
 
     /**
