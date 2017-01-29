@@ -249,8 +249,12 @@ class FormBuilder
      * @param null $dataSource
      * @return FormBuilder
      */
-    public function dataSource($dataSource)
+    public function dataSource($dataSource = null)
     {
+        if(is_null($dataSource)) {
+            return $this->dataSource;
+        }
+
         $this->dataSource = $dataSource;
 
         return $this;
