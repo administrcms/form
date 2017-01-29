@@ -315,6 +315,10 @@ class FormBuilder
             $field->setSrc($src);
         }
 
+        if(is_null($value)) {
+            return;
+        }
+
         $field->setValue($value);
         $field->appendOption('value', $value);
     }
