@@ -43,6 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method FormBuilder search($name, $label, array $options = [])
  * @method FormBuilder tel($name, $label, array $options = [])
  * @method FormBuilder url($name, $label, array $options = [])
+ * @method FormBuilder tabs($name, $label, Closure $definition)
  *
  */
 class FormBuilder
