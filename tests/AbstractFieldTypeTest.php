@@ -176,6 +176,22 @@ class AbstractFieldTypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($field->getOption('present'));
     }
+    
+    /** @test */
+    public function it_escapes_empty_array_brackets_in_name()
+    {
+        $field = new Text('test[]', 'Test');
+
+        $this->assertSame('test', $field->getEscapedName());
+    }
+
+    /** @test */
+    public function it_replaces_brackets_in_name_with_dots_when_value_is_present()
+    {
+        $field = new Text('test[with_value]', 'Test');
+
+        $this->assertSame('test.with_value', $field->getEscapedName());
+    }
 }
 
 function make()

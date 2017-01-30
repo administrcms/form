@@ -103,6 +103,16 @@ abstract class AbstractType
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
+    public function getEscapedName()
+    {
+        $withoutEmptyBrackets = str_replace('[]', '', $this->name);
+
+        return str_replace(']', '', str_replace('[', '.', $withoutEmptyBrackets));
+    }
+
     public function setLabel($label)
     {
         $this->label = $label;
