@@ -93,8 +93,6 @@ class FormBuilder
         });
 
         foreach ($fields as $name => $field) {
-            $this->setValue($field);
-
             $form .= $this->renderField($name, [], $viewData);
         }
 
