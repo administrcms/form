@@ -51,7 +51,7 @@ abstract class AbstractType
 
         $this->options = array_merge($this->options, $attributes);
 
-        if(!is_null($this->getValue())) {
+        if(is_null($this->getValue())) {
             $value = request($this->getEscapedName(), $this->getOption('value'));
             $this->setValue(old($this->getEscapedName(), $value));
         }
