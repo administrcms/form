@@ -8,7 +8,7 @@ class Option extends AbstractType
     {
         $this->options = array_merge($this->options, $attributes);
         $this->options['value'] = $this->getName();
-        $this->value = $this->getName();
+        $this->setValue($this->getName());
 
         return parent::render($attributes, $viewData);
     }

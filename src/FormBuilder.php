@@ -239,7 +239,7 @@ class FormBuilder
             return;
         }
 
-        $value = $this->getValue($field->getName());
+        $value = $this->getValue($field->getEscapedName());
 
         if ($field instanceof Image) {
             $src = $this->dataSource instanceof ImageFieldSource
@@ -247,11 +247,6 @@ class FormBuilder
             $field->setSrc($src);
         }
 
-        if(is_null($value)) {
-            return;
-        }
-
-        $field->setValue($value);
         $field->appendOption('value', $value);
     }
 

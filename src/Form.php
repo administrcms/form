@@ -107,6 +107,8 @@ abstract class Form implements ValidatesWhenSubmitted
         $form .= $this->builder()->render($viewData);
         $form .= $this->close();
 
+        session()->forget('administr.form.rendered');
+
         return $form;
     }
 

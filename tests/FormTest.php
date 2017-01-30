@@ -2,6 +2,7 @@
 
 namespace Administr\Form;
 
+use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\AbstractType;
 use Administr\Form\Field\Hidden;
 use Illuminate\Http\Request;
@@ -210,6 +211,27 @@ class FormTest extends \PHPUnit_Framework_TestCase
             array_key_exists('_token', $form->fields())
         );
         $this->assertInstanceOf(Hidden::class, $form->field('_token'));
+    }
+
+    /** @test */
+    public function it_returns_the_form_instance_when_enctype_is_preset()
+    {
+        $form = new TestForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
+        $form->enctype = 'enctype-set';
+
+        $this->assertInstanceOf(Form::class, $form->setEnctype());
+    }
+
+    /**
+     * @test
+     * @expectedException \Administr\Form\Exceptions\InvalidField
+     */
+    public function it_does_not_add_token_when_form_method_is_get()
+    {
+        $form = new TestForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
+        $form->method = 'get';
+
+        $this->assertNotInstanceOf(Hidden::class, $form->builder()->get('_token'));
     }
 }
 

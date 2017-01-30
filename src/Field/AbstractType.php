@@ -57,6 +57,8 @@ abstract class AbstractType
             return;
         }
 
+        $this->renderCountInrement();
+
         return view($this->getView(), array_merge([
             'field' => $this
         ], $viewData));
@@ -101,6 +103,16 @@ abstract class AbstractType
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEscapedName()
+    {
+        $withoutEmptyBrackets = str_replace('[]', '', $this->name);
+
+        return str_replace(']', '', str_replace('[', '.', $withoutEmptyBrackets));
     }
 
     public function setLabel($label)
@@ -330,6 +342,26 @@ abstract class AbstractType
     public function isSkipped()
     {
         return $this->skipIf;
+    }
+
+    /**
+     * Number of times this field has been rendered.
+     *
+     * @codeCoverageIgnore
+     * @return int
+     */
+    public function renderCount()
+    {
+        return session("administr.form.rendered.{$this->getView()}", 0);
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function renderCountInrement()
+    {
+        $sessionKey = "administr.form.rendered.{$this->getView()}";
+        session([$sessionKey => session($sessionKey) + 1]);
     }
 
     /**
