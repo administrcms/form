@@ -306,7 +306,7 @@ class FormBuilder
             return;
         }
 
-        $value = $this->getValue($field->getName());
+        $value = $this->getValue($field->getEscapedName());
 
         if ($field instanceof Image) {
             $src = $this->dataSource instanceof ImageFieldSource
