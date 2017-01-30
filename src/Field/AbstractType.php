@@ -45,16 +45,15 @@ abstract class AbstractType
      */
     public function render(array $attributes = [], array $viewData = [])
     {
+        if($this->isSkipped()) {
+            return;
+        }
+
         $this->options = array_merge($this->options, $attributes);
 
         if(!is_null($this->getValue())) {
-            $value = request($this->name, $this->getOption('value'));
-
-            $this->setValue(old($this->name, $value));
-        }
-
-        if($this->isSkipped()) {
-            return;
+            $value = request($this->getEscapedName(), $this->getOption('value'));
+            $this->setValue(old($this->getEscapedName(), $value));
         }
 
         $this->renderCountInrement();
