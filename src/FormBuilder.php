@@ -314,7 +314,6 @@ class FormBuilder
             $field->setSrc($src);
         }
 
-        $field->setValue($value);
         $field->appendOption('value', $value);
     }
 
