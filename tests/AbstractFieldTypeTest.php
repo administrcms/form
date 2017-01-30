@@ -197,3 +197,8 @@ function request($name)
 {
     return $name;
 }
+
+function session()
+{
+    return;
+}
