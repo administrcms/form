@@ -245,9 +245,7 @@ class FormBuilder
             $field->setSrc($src);
         }
 
-        if(!$field->getOption('value', true)) {
-            $field->appendOption('value', $value);
-        }
+        $field->appendOption('value', $value);
     }
 
     /**
