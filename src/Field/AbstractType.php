@@ -232,7 +232,16 @@ abstract class AbstractType
 
     public function attributes()
     {
-        return $this->renderAttributes($this->options);
+        $options = $this->getOptions();
+
+        if(
+            array_key_exists('value', $options)
+            && (strlen($options['value']) === 0 || is_null($options['value']))
+        ) {
+            unset($options['value']);
+        }
+
+        return $this->renderAttributes($options);
     }
 
     /**
