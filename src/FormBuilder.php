@@ -64,6 +64,13 @@ class FormBuilder
     private $dataSource = null;
 
     /**
+     * Validation rules.
+     *
+     * @var array
+     */
+    protected $rules = [];
+
+    /**
      * Add a field to the form.
      *
      * @param AbstractType $field
@@ -72,6 +79,10 @@ class FormBuilder
      */
     public function add(AbstractType $field)
     {
+        if($this->hasRules($field->getName())) {
+            $field->setOption('data-validation', json_encode($this->getRules($field->getName())));
+        }
+
         $this->fields[$field->getName()] = $field;
 
         return $this;
@@ -268,6 +279,45 @@ class FormBuilder
         $this->skips = $fields;
 
         return $this;
+    }
+
+    /**
+     * Set validation rules.
+     *
+     * @param array $parsedRules
+     * @return $this
+     */
+    public function setValidationRules($parsedRules)
+    {
+        $this->rules = $parsedRules;
+        return $this;
+    }
+
+    /**
+     * Verify if a validation rule for a field exists.
+     *
+     * @param $field
+     * @return bool
+     */
+    public function hasRules($field)
+    {
+        return array_has($this->rules, $field);
+    }
+
+    /**
+     * Get the validation rules for a field.
+     *
+     * @param string $field
+     * @param array $default
+     * @return array
+     */
+    public function getRules($field = null, $default = [])
+    {
+        if(is_null($field)) {
+            return $this->rules;
+        }
+
+        return array_get($this->rules, $field, $default);
     }
 
     /**

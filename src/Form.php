@@ -83,6 +83,9 @@ abstract class Form implements ValidatesWhenSubmitted
         $this->request = $request;
         $this->validator = $validator;
         $this->redirector = $redirector;
+
+        $this->builder()->setValidationRules($this->getParsedRules());
+
 //        $this->form($this->builder);
     }
 
@@ -474,6 +477,35 @@ abstract class Form implements ValidatesWhenSubmitted
         }
 
         return $val;
+    }
+
+    /**
+     * Parse the validation rules into an array,
+     * containing field => rules, where rules is an
+     * array of rule => params.
+     *
+     * @return array
+     */
+    public function getParsedRules()
+    {
+        $transformedRules = $this->validator->make([], $this->rules())->getRules();
+
+        foreach($transformedRules as $field => $rules) {
+            foreach($rules as $key => $rule) {
+                $parameters = [];
+
+                if (strpos($rule, ':') !== false) {
+                    list($rule, $parameter) = explode(':', $rule, 2);
+
+                    $parameters = str_getcsv($parameter);
+                }
+
+                $transformedRules[$field][$rule] = $parameters;
+                unset($transformedRules[$field][$key]);
+            }
+        }
+
+        return $transformedRules;
     }
 
     /**
