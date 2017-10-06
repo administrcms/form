@@ -16,6 +16,8 @@ trait RenderAttributesTrait
                 continue;
             }
 
+            $value = htmlspecialchars($value);
+
             $attributes .= " {$attr}=\"{$value}\"";
         }
 
