@@ -17,7 +17,7 @@ class FormServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->app->afterResolving(function (ValidatesWhenSubmitted $form) {
+        $this->app->afterResolving(ValidatesWhenSubmitted::class, function (ValidatesWhenSubmitted $form) {
             $form->validate();
         });
 
