@@ -107,11 +107,11 @@ abstract class AbstractType
     /**
      * @return string
      */
-    public function getEscapedName()
+    public function getEscapedName($escapeToken = '.')
     {
         $withoutEmptyBrackets = str_replace('[]', '', $this->name);
 
-        return str_replace(']', '', str_replace('[', '.', $withoutEmptyBrackets));
+        return str_replace(']', '', str_replace('[', $escapeToken, $withoutEmptyBrackets));
     }
 
     public function setLabel($label)
