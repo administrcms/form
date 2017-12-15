@@ -24,6 +24,10 @@ class Group extends AbstractType
     {
         $viewData['builder'] = $this->builder();
 
+        foreach($this->builder()->fields() as $field) {
+            $field->setValue(data_get($this->builder()->dataSource(), $field->getEscapedName()));
+        }
+
         return parent::render($attributes, $viewData);
     }
 
