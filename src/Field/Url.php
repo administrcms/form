@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Url extends Text
+class Url extends Field
 {
     public function __construct($name, $label, $options = null)
     {

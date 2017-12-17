@@ -4,7 +4,7 @@ namespace Administr\Form;
 
 use Administr\Form\Contracts\ValidatesWhenSubmitted;
 use Administr\Form\Exceptions\FormValidationException;
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\File;
 use Administr\Form\Field\Group;
 use Administr\Localization\Models\Language;
@@ -168,7 +168,7 @@ abstract class Form implements ValidatesWhenSubmitted
 
     /**
      * @param $name
-     * @return AbstractType
+     * @return Field
      * @codeCoverageIgnore
      */
     public function field($name)
@@ -326,7 +326,7 @@ abstract class Form implements ValidatesWhenSubmitted
 
         $this->form($this->builder);
 
-        $languageFields = array_filter($this->fields(), function (AbstractType $field) {
+        $languageFields = array_filter($this->fields(), function (Field $field) {
             return $field->isTranslated();
         });
 

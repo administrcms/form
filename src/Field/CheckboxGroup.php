@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class CheckboxGroup extends AbstractType
+class CheckboxGroup extends Field
 {
     protected $checkboxes = [];
 

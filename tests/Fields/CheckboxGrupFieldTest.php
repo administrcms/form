@@ -1,6 +1,6 @@
 <?php
 
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\CheckboxGroup;
 
 class CheckboxGroupFieldTest extends PHPUnit_Framework_TestCase
@@ -11,7 +11,7 @@ class CheckboxGroupFieldTest extends PHPUnit_Framework_TestCase
         $field = new CheckboxGroup('test', 'Test');
 
         $this->assertSame('administr/form::checkboxgroup', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
     
     /** @test */

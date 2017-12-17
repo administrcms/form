@@ -4,7 +4,7 @@ namespace Administr\Form\Field;
 
 use Administr\Form\FormBuilder;
 
-class Group extends AbstractType
+class Group extends Field
 {
     /**
      * @var FormBuilder
@@ -41,7 +41,7 @@ class Group extends AbstractType
 
     /**
      * @param $field
-     * @return AbstractType
+     * @return Field
      */
     public function get($field)
     {

@@ -1,6 +1,6 @@
 <?php
 
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\Group;
 use Administr\Form\Field\Text;
 use Administr\Form\FormBuilder;
@@ -14,7 +14,7 @@ class GroupFieldTest extends PHPUnit_Framework_TestCase
         });
 
         $this->assertSame('administr/form::group', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
     
     /** @test */

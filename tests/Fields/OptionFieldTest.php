@@ -12,6 +12,6 @@ class OptionFieldTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('test', $field->getValue());
         $this->assertSame('administr/form::option', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
 }

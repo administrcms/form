@@ -1,6 +1,6 @@
 <?php
 
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\Date;
 
 class DateFieldTest extends PHPUnit_Framework_TestCase
@@ -10,7 +10,8 @@ class DateFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Date('test', 'Test');
 
+        $this->assertSame('date', $field->getOption('type'));
         $this->assertSame('administr/form::text', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
 }

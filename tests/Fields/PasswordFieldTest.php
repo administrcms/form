@@ -11,7 +11,7 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('password', $field->getOption('type'));
         $this->assertSame('administr/form::text', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
 
     /** @test */

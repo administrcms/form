@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Week extends Text
+class Week extends Field
 {
     public function __construct($name, $label, $options = null)
     {

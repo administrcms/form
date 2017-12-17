@@ -2,6 +2,6 @@
 
 namespace Administr\Form\Field;
 
-class Text extends AbstractType
+class Text extends Field
 {
 }

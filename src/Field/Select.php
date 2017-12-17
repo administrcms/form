@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Select extends AbstractType
+class Select extends Field
 {
     protected $selectOptions = [];
 

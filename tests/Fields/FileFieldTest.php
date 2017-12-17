@@ -1,6 +1,6 @@
 <?php
 
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\File;
 
 class FileFieldTest extends PHPUnit_Framework_TestCase
@@ -12,6 +12,6 @@ class FileFieldTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame('file', $field->getOption('type'));
         $this->assertSame('administr/form::text', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
 }

@@ -4,7 +4,7 @@ namespace Administr\Form\Field;
 
 use Administr\Form\FormBuilder;
 
-class Tabs extends AbstractType
+class Tabs extends Field
 {
     protected $tabs = [];
     protected $contents = [];
@@ -60,7 +60,7 @@ class Tabs extends AbstractType
     /**
      * @param $tab
      * @param $field
-     * @return AbstractType
+     * @return Field
      */
     public function get($tab, $field)
     {

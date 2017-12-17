@@ -10,7 +10,7 @@ class TelFieldTest extends \PHPUnit_Framework_TestCase
         $field = new Tel('test', 'Test');
 
         $this->assertSame('administr/form::text', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
-        $this->assertEquals('tel', $field->getOption('type'));
+        $this->assertInstanceOf(Field::class, $field);
+        $this->assertSame('tel', $field->getOption('type'));
     }
 }

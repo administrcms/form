@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Search extends Text
+class Search extends Field
 {
     public function __construct($name, $label, $options = null)
     {

@@ -4,7 +4,7 @@ namespace Administr\Form;
 
 use Administr\Form\Contracts\ImageFieldSource;
 use Administr\Form\Exceptions\InvalidField;
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\Group;
 use Administr\Form\Field\Image;
 use Administr\Form\Field\Text;
@@ -73,11 +73,11 @@ class FormBuilder
     /**
      * Add a field to the form.
      *
-     * @param AbstractType $field
+     * @param Field $field
      *
      * @return $this
      */
-    public function add(AbstractType $field)
+    public function add(Field $field)
     {
         if($this->hasRules($field->getName())) {
             $field->setOption('data-validation', json_encode($this->getRules($field->getName())));
@@ -99,7 +99,7 @@ class FormBuilder
     {
         $form = '';
 
-        $fields = array_filter($this->fields, function (AbstractType $field) {
+        $fields = array_filter($this->fields, function (Field $field) {
             return !in_array($field->getName(), $this->skips) && !$field->isSkipped();
         });
 
@@ -128,10 +128,10 @@ class FormBuilder
      * @param $type
      * @return array
      */
-    public function fieldsOfType($type = AbstractType::class)
+    public function fieldsOfType($type = Field::class)
     {
         return collect($this->fields())
-            ->filter(function(AbstractType $field) use($type) {
+            ->filter(function(Field $field) use($type) {
                 return $field instanceof $type;
             })
             ->toArray();
@@ -154,7 +154,7 @@ class FormBuilder
      *
      * @throws InvalidField
      *
-     * @return AbstractType
+     * @return Field
      */
     public function get($field)
     {
@@ -242,7 +242,7 @@ class FormBuilder
      *
      * @param $field
      */
-    protected function setValue(AbstractType $field)
+    protected function setValue(Field $field)
     {
         if(!$this->dataSource) {
             return;
@@ -327,7 +327,7 @@ class FormBuilder
      *
      * @throws InvalidField
      *
-     * @return AbstractType
+     * @return Field
      */
     public function __get($name)
     {

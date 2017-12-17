@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Time extends AbstractType
+class Time extends Field
 {
     public function __construct($name, $label, $options = null)
     {

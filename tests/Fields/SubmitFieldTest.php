@@ -1,6 +1,6 @@
 <?php
 
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\Submit;
 
 class SubmitFieldTest extends PHPUnit_Framework_TestCase
@@ -13,6 +13,6 @@ class SubmitFieldTest extends PHPUnit_Framework_TestCase
         $this->assertSame('submit', $field->getOption('type'));
         $this->assertSame('administr/form::submit', $field->getView());
         $this->assertSame('Test', $field->getValue());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
 }

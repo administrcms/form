@@ -10,6 +10,6 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         $field = new Text('test', 'Test');
 
         $this->assertSame('administr/form::text', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
 }

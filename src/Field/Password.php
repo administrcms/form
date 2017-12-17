@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Password extends AbstractType
+class Password extends Field
 {
     public function __construct($name, $label, $options = null)
     {

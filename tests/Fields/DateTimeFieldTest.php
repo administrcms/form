@@ -1,6 +1,6 @@
 <?php
 
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\DateTime;
 
 class DateTimeFieldTest extends PHPUnit_Framework_TestCase
@@ -10,7 +10,8 @@ class DateTimeFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new DateTime('test', 'Test');
 
+        $this->assertSame('datetime-local', $field->getOption('type'));
         $this->assertSame('administr/form::text', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
 }

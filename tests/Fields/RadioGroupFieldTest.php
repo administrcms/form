@@ -27,7 +27,7 @@ class RadioGroupFieldTest extends PHPUnit_Framework_TestCase
 
         $radios = $group->radios();
 
-        $this->assertInstanceOf(\Administr\Form\Field\AbstractType::class, $group);
+        $this->assertInstanceOf(\Administr\Form\Field\Field::class, $group);
         $this->assertNull($radios[0]->getOption('checked'));
     }
 }

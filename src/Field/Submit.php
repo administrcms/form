@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Submit extends AbstractType
+class Submit extends Field
 {
     public function __construct($name, $label, $options = null)
     {

@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class AbstractFieldTypeTest extends \PHPUnit_Framework_TestCase
+class FieldTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
     public function it_allows_for_view_override()
@@ -191,6 +191,30 @@ class AbstractFieldTypeTest extends \PHPUnit_Framework_TestCase
         $field = new Text('test[with_value]', 'Test');
 
         $this->assertSame('test.with_value', $field->getEscapedName());
+    }
+
+    /** @test */
+    public function it_checks_filed_type_by_string()
+    {
+        $field = new Text('test', 'test');
+
+        $this->assertTrue($field->is('text'));
+    }
+
+    /** @test */
+    public function it_checks_field_type_by_class()
+    {
+        $field = new Text('test', 'test');
+
+        $this->assertTrue($field->is(Text::class));
+    }
+
+    /** @test */
+    public function it_checks_field_type_array()
+    {
+        $field = new Text('test', 'test');
+
+        $this->assertTrue($field->is(['text', Text::class]));
     }
 }
 

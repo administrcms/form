@@ -3,7 +3,7 @@
 namespace Administr\Form;
 
 use Administr\Form\Exceptions\InvalidField;
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\Hidden;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -187,7 +187,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
         $form->open();
 
-        $this->assertInstanceOf(AbstractType::class, $form->field('test'));
+        $this->assertInstanceOf(Field::class, $form->field('test'));
     }
 
     /** @test */

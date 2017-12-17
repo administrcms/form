@@ -4,7 +4,7 @@ namespace Administr\Form\Field;
 
 use Administr\Form\RenderAttributesTrait;
 
-abstract class AbstractType
+abstract class Field
 {
     use RenderAttributesTrait;
 
@@ -105,6 +105,7 @@ abstract class AbstractType
     }
 
     /**
+     * @param string $escapeToken
      * @return string
      */
     public function getEscapedName($escapeToken = '.')
@@ -114,6 +115,10 @@ abstract class AbstractType
         return str_replace(']', '', str_replace('[', $escapeToken, $withoutEmptyBrackets));
     }
 
+    /**
+     * @param $label
+     * @return $this
+     */
     public function setLabel($label)
     {
         $this->label = $label;
@@ -122,7 +127,7 @@ abstract class AbstractType
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLabel()
     {
@@ -244,48 +249,21 @@ abstract class AbstractType
         return $this->renderAttributes($options);
     }
 
-    /**
-     * Is this field a type of button.
-     *
-     * @return bool
-     * @codeCoverageIgnore
-     */
-    public function isButton()
+    public function is($types)
     {
-        return $this instanceof Submit || $this instanceof Reset;
-    }
+        if(!is_array($types)) {
+            $types = (array)$types;
+        }
 
-    /**
-     * Is this a hidden field.
-     *
-     * @return bool
-     * @codeCoverageIgnore
-     */
-    public function isHidden()
-    {
-        return $this instanceof Hidden;
-    }
+        foreach($types as $type) {
+            $toType = 'Administr\Form\Field\\' . ucfirst($type);
 
-    /**
-     * Is this a checkbox field.
-     *
-     * @return bool
-     * @codeCoverageIgnore
-     */
-    public function isCheckbox()
-    {
-        return $this instanceof Checkbox;
-    }
+            if($this instanceof $type || $this instanceof $toType) {
+                return true;
+            }
+        }
 
-    /**
-     * Is this a radio field.
-     *
-     * @return bool
-     * @codeCoverageIgnore
-     */
-    public function isRadio()
-    {
-        return $this instanceof Radio;
+        return false;
     }
 
     /**
@@ -294,7 +272,6 @@ abstract class AbstractType
      * @param mixed $value
      *
      * @return bool
-     * @codeCoverageIgnore
      */
     public function isChecked($value)
     {
@@ -310,7 +287,7 @@ abstract class AbstractType
      */
     public function type()
     {
-        return strtolower( str_replace( 'Administr\\Form\\Field\\', '', get_called_class() ) );
+        return strtolower( str_replace( 'Administr\Form\Field\\', '', get_called_class() ) );
     }
 
     /**
@@ -337,14 +314,17 @@ abstract class AbstractType
      * Skip field render if given condition is true.
      *
      * @param boolean $condition
+     * @return $this
      */
     public function skipIf($condition)
     {
         if(!is_bool($condition)) {
-            return;
+            return $this;
         }
 
         $this->skipIf = $condition;
+
+        return $this;
     }
 
     public function isSkipped()
@@ -384,7 +364,11 @@ abstract class AbstractType
                 continue;
             }
 
-            call_user_func([$this, $name], $value);
+            if(!is_array($value)) {
+                $value = [$value];
+            }
+
+            call_user_func_array([$this, $name], $value);
             unset($options[$name]);
         }
 

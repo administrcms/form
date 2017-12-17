@@ -1,6 +1,6 @@
 <?php
 
-use Administr\Form\Field\AbstractType;
+use Administr\Form\Field\Field;
 use Administr\Form\Field\Number;
 
 class NumberFieldTest extends PHPUnit_Framework_TestCase
@@ -10,7 +10,8 @@ class NumberFieldTest extends PHPUnit_Framework_TestCase
     {
         $field = new Number('test', 'Test');
 
+        $this->assertSame('number', $field->getOption('type'));
         $this->assertSame('administr/form::text', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
 }

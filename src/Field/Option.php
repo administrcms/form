@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Option extends AbstractType
+class Option extends Field
 {
     public function render(array $attributes = [], array $viewData = [])
     {

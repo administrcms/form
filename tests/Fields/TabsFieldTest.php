@@ -12,7 +12,7 @@ class TabsFieldTest extends \PHPUnit_Framework_TestCase
         $field = new Tabs('test', ['tab 1', 'tab 2']);
 
         $this->assertSame('administr/form::tabs', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
     
     /** @test */

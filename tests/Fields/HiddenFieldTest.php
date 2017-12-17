@@ -9,15 +9,15 @@ class HiddenFieldTest extends \PHPUnit_Framework_TestCase
     {
         $field = new Hidden('test', 'Test');
 
+        $this->assertSame('hidden', $field->getOption('type'));
         $this->assertSame('administr/form::hidden', $field->getView());
-        $this->assertInstanceOf(AbstractType::class, $field);
+        $this->assertInstanceOf(Field::class, $field);
     }
     
     /** @test */
     public function it_passses_the_label_as_value()
     {
         $field = new Hidden('test', 'test');
-        $field->render();
 
         $this->assertSame('test', $field->getValue());
     }

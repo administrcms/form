@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class RadioGroup extends AbstractType
+class RadioGroup extends Field
 {
     protected $radios = [];
 
