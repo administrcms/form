@@ -37,6 +37,14 @@ class FieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_removes_empty_value_attribute()
+    {
+        $field = new Text('test', 'Test', ['value' => '']);
+
+        $this->assertEmpty($field->attributes());
+    }
+
+    /** @test */
     public function it_gets_field_name()
     {
         $field = new Text('test', 'Test');
@@ -102,6 +110,15 @@ class FieldTest extends \PHPUnit_Framework_TestCase
         $field->skipIf(true);
 
         $this->assertTrue($field->isSkipped());
+    }
+
+    /** @test */
+    public function it_skips_field_on_render()
+    {
+        $field = new Text('test', 'Test');
+        $field->skipIf(true);
+
+        $this->assertNull($field->render());
     }
 
     /** @test */
@@ -215,6 +232,14 @@ class FieldTest extends \PHPUnit_Framework_TestCase
         $field = new Text('test', 'test');
 
         $this->assertTrue($field->is(['text', Text::class]));
+    }
+
+    /** @test */
+    public function it_returns_false_for_wrong_field_type()
+    {
+        $field = new Text('test', 'test');
+
+        $this->assertFalse($field->is('notatype'));
     }
 }
 
