@@ -2,7 +2,6 @@
 
 namespace Administr\Form;
 
-use Administr\Form\Exceptions\InvalidField;
 use Administr\Form\Field\Field;
 use Administr\Form\Field\Hidden;
 use Illuminate\Http\Request;
@@ -59,7 +58,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
 //    public function it_renders_the_form()
 //    {
 //        $formBuilder = new FormBuilder();
-//        $formBuilder->presenter = null;
 //
 //        $form = new TestForm(
 //            $formBuilder,
@@ -214,7 +212,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
 //    public function it_converts_the_form_to_string()
 //    {
 //        $formBuilder = new FormBuilder();
-//        $formBuilder->presenter = null;
 //
 //        $form = new TestForm($formBuilder, $this->request, $this->validator, $this->redirector);
 //
@@ -240,7 +237,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
             ->andReturn([]);
 
         $formBuilder = new FormBuilder();
-        $formBuilder->presenter = null;
 
         $form = new TestForm($formBuilder, $this->request, $this->validator, $this->redirector);
 
@@ -266,9 +262,39 @@ class FormTest extends \PHPUnit_Framework_TestCase
             ->andReturn([]);
 
         $formBuilder = new FormBuilder();
-        $formBuilder->presenter = null;
 
         $formBuilder->file('file', 'File');
+
+        $form = new TestForm(
+            $formBuilder,
+            $this->request,
+            $this->validator,
+            $this->redirector
+        );
+
+        $form->open();
+
+        $this->assertContains('multipart/form-data', $form->enctype);
+    }
+
+    /** @test */
+    public function it_sets_correct_enctype_for_form_uploads_when_file_is_in_group()
+    {
+        $this->validator
+            ->shouldReceive('make')
+            ->once()
+            ->andReturn($this->validator);
+
+        $this->validator
+            ->shouldReceive('getRules')
+            ->once()
+            ->andReturn([]);
+
+        $formBuilder = new FormBuilder();
+
+        $formBuilder->group('group', 'Group', function(FormBuilder $builder) {
+            $builder->file('file', 'File');
+        });
 
         $form = new TestForm(
             $formBuilder,
@@ -296,7 +322,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
             ->andReturn([]);
 
         $formBuilder = new FormBuilder();
-        $formBuilder->presenter = null;
 
         $form = new TestForm(
             $formBuilder,
@@ -352,6 +377,72 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $form->method = 'get';
 
         $this->assertNotInstanceOf(Hidden::class, $form->builder()->get('_token'));
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_form_close_tag()
+    {
+        $this->validator
+            ->shouldReceive('make')
+            ->once()
+            ->andReturn($this->validator);
+
+        $this->validator
+            ->shouldReceive('getRules')
+            ->once()
+            ->andReturn([]);
+
+        $form = new TestForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
+
+        $this->assertSame("</form>\n", $form->close());
+    }
+
+    /**
+     * @test
+     */
+    public function it_sanitizes_the_form()
+    {
+        $this->validator
+            ->shouldReceive('make')
+            ->once()
+            ->andReturn($this->validator);
+
+        $this->validator
+            ->shouldReceive('getRules')
+            ->once()
+            ->andReturn([]);
+
+        $form = new TestForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
+
+        $this->assertSame(html_entity_decode('"test"'), $form->removeEntities('"test"'));
+        $this->assertSame([html_entity_decode('"test"')], $form->removeEntities(['"test"']));
+    }
+
+    /**
+     * @test
+     */
+    public function it_parses_rules()
+    {
+        $this->validator
+            ->shouldReceive('make')
+            ->andReturn($this->validator);
+
+        $this->validator
+            ->shouldReceive('getRules')
+            ->andReturn([
+                'field' => ['required', 'min:1']
+            ]);
+
+        $form = new TestForm(new FormBuilder(), $this->request, $this->validator, $this->redirector);
+
+        $this->assertSame([
+            'field' => [
+                'required' => [],
+                'min' => ['1']
+            ]
+        ], $form->getParsedRules());
     }
 }
 
