@@ -5,8 +5,6 @@ namespace Administr\Form;
 use Administr\Form\Contracts\ValidatesWhenSubmitted;
 use Administr\Form\Exceptions\FormValidationException;
 use Administr\Form\Field\Field;
-use Administr\Form\Field\File;
-use Administr\Form\Field\Group;
 use Administr\Localization\Models\Language;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\JsonResponse;
@@ -368,20 +366,18 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function setEnctype()
     {
-//        $fields = collect($this->fields());
-
         if(array_key_exists('enctype', $this->options)) {
             return $this;
         }
 
         $hasFile = false;
-        $isFile = function($field) {
-            return $field instanceof File;
+        $isFile = function(Field $field) {
+            return $field->is('file');
         };
 
         foreach($this->fields() as $field)
         {
-            if($field instanceof Group) {
+            if($field->is('group')) {
                 foreach($field->builder()->fields() as $f)
                 {
                     $hasFile = $isFile($f);
@@ -398,10 +394,6 @@ abstract class Form implements ValidatesWhenSubmitted
 
             $hasFile = $isFile($field);
         }
-
-//        $hasFile = $fields->contains(function ($key, $value) {
-//            return $value instanceof File;
-//        });
 
         $this->options['enctype'] = $hasFile ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
 
