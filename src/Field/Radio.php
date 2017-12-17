@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Radio extends Text
+class Radio extends Field
 {
     public function render(array $attributes = [], array $viewData = [])
     {

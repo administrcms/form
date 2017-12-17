@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class File extends Text
+class File extends Field
 {
     public function __construct($name, $label, $options = null)
     {

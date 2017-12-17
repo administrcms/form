@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class DateTime extends Text
+class DateTime extends Field
 {
     public function __construct($name, $label, $options = null)
     {

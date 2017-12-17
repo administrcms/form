@@ -2,19 +2,17 @@
 
 namespace Administr\Form\Field;
 
-class Hidden extends Text
+class Hidden extends Field
 {
-    public function render(array $attributes = [], array $viewData = [])
+    public function __construct($name, $value, $options = null)
     {
-        $this->options = array_merge($this->options, $attributes);
+        $this->setValue($value);
 
-        // Since the hidden type does not have a label,
-        // we can use its value to pass the value of the hidden
-        if(strlen($this->getOption('value')) === 0) {
-            $this->options['value'] = $this->getLabel();
-            $this->value = $this->getLabel();
-        }
+        $this->setOptions([
+            'value' => $value,
+            'type' => 'hidden',
+        ]);
 
-        return parent::render($attributes, $viewData);
+        parent::__construct($name, null, $options);
     }
 }

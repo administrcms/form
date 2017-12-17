@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Color extends Text
+class Color extends Field
 {
     public function __construct($name, $label, $options = null)
     {

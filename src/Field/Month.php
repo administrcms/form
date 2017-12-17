@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Month extends Text
+class Month extends Field
 {
     public function __construct($name, $label, $options = null)
     {

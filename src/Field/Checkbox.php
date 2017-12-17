@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Checkbox extends Text
+class Checkbox extends Field
 {
     public function render(array $attributes = [], array $viewData = [])
     {

@@ -2,7 +2,7 @@
 
 namespace Administr\Form\Field;
 
-class Number extends Text
+class Number extends Field
 {
     public function __construct($name, $label, $options = null)
     {
