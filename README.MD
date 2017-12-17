@@ -46,6 +46,60 @@ Or you can just create a new class which extends the `Administr\Form\Form` class
 
 By default the form fields are just basic html, without any styling. When you publish the assets which are connected to the package, the views will be exported to `resources/views/vendor/administrcms/form`, where you can modify them to adopt the theme of your application.
 
+# Usage
+
+The form class needs to be resolved through the IoC container. One way to do that is to type hint the class in the method name.
+
+The forms works like the FormRequests in Laravel, meaning that when you have type hinted the form in the method which responds to the post/put action, it will validate the form and if it is successful then it will execute the code in the method. Otherwise it will return the user back with the errors and populate the form with the user input and display the errors.
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Forms\MyForm;
+use App\MyModel;
+
+class MyController extends Controller {
+    public function create(MyForm $form)
+    {
+        $form->method = 'post';
+        $form->action = route('my-form-action');
+        
+        return view('my-view', ['form' => $form]);
+    }
+    
+    public function store(MyForm $form)
+    {
+        MyModel::create($form->request()->all());
+    }
+    
+    public function edit($id, MyForm $form)
+    {
+        $form->method = 'put';
+        $form->action = route('my-form-update', [$id]);
+        
+        // The datasource can be an array, Collection or Model
+        $form->dataSource(MyModel::find($id));
+        
+        return view('my-view', ['form' => $form]);
+    }
+    
+    public function update($id, MyForm $form)
+    {
+        $model = MyModel::find($id);
+        
+        $model->update($form->request()->all());
+    }
+}
+```
+
+then in the view you can simply say:
+
+```
+{!! $form->render() !!}
+```
+
 # Radio groups
 
 ```php
