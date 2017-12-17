@@ -167,20 +167,6 @@ class FormBuilder
 
     /**
      * Set a dataSource when you want the form
-     * to be prefilled with values. If empty value passed,
-     * get the currently set dataSource.
-     *
-     * @param array|Model|Translatable $dataSource
-     * @return FormBuilder
-     * @deprecated
-     */
-    public function setDataSource($dataSource)
-    {
-        return $this->dataSource($dataSource);
-    }
-
-    /**
-     * Set a dataSource when you want the form
      * to be prefilled with values.
      *
      * @param null $dataSource
