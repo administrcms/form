@@ -23,16 +23,16 @@ class Translated extends Tabs
     public function render(array $attributes = [], array $viewData = [])
     {
         $this->define(function(array $builders) {
-            foreach($builders as $language_id => $builder) {
+            foreach($builders as $languageId => $builder) {
                 $dataSource = $this->builder->dataSource();
                 $builder->dataSource($dataSource);
 
                 foreach ($this->builder->fields() as $name => $field) {
                     $field = clone $field;
-                    $field->setName("{$field->getName()}[{$language_id}]");
+                    $field->setName("{$field->getName()}[{$languageId}]");
                     $field->appendOption('translated', true);
 
-                    if ($value = $builder->getValue($name, $language_id)) {
+                    if ($value = $builder->getValue($name, $languageId)) {
                         $field->appendOption('value', $value);
                         $field->setValue($value);
                     }
