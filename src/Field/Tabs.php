@@ -40,7 +40,7 @@ class Tabs extends Field
      * @param array $attributes
      * @param array $viewData
      * @return string
-     * @codeCoverageIngore
+     * @codeCoverageIgnore
      */
     public function render(array $attributes = [], array $viewData = [])
     {
