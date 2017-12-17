@@ -37,4 +37,20 @@ class GroupFieldTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Text::class, $field->get('foo'));
     }
+
+    /** @test */
+    public function it_sets_field_values_from_data_source()
+    {
+        $field = new Group('test', 'Test', function(FormBuilder $builder) {
+            $builder->dataSource(['foo' => 'test']);
+
+            $builder
+                ->text('foo', 'Bar')
+                ;
+        });
+
+        $field->render();
+
+        $this->assertSame('test', $field->get('foo')->getValue());
+    }
 }
