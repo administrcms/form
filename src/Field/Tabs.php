@@ -36,6 +36,12 @@ class Tabs extends Field
         return $this;
     }
 
+    /**
+     * @param array $attributes
+     * @param array $viewData
+     * @return string
+     * @codeCoverageIngore
+     */
     public function render(array $attributes = [], array $viewData = [])
     {
         $viewData['tabs'] = $this->tabs;
