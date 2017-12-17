@@ -49,4 +49,21 @@ class TabsFieldTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Text::class, $field->get(1, 'textfield'));
         $this->assertInstanceOf(Email::class, $field->get(2, 'textfield2'));
     }
+
+    /** @test */
+    public function it_defines_a_field_in_during_construct()
+    {
+        $field = new Tabs('test', [1 => 'tab 1', 2 => 'tab 2'], function(array $builders) {
+            $builders[1]
+                ->text('textfield', 'Text Field')
+            ;
+
+            $builders[2]
+                ->email('textfield2', 'Text Field 2')
+            ;
+        });
+
+        $this->assertInstanceOf(Text::class, $field->get(1, 'textfield'));
+        $this->assertInstanceOf(Email::class, $field->get(2, 'textfield2'));
+    }
 }
