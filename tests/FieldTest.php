@@ -258,9 +258,9 @@ function view($name, $data)
     return;
 }
 
-function request($name)
+function request($name, $default)
 {
-    return $name;
+    return $default;
 }
 
 function session()
