@@ -279,6 +279,17 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_returnes_the_data_source_if_no_param_is_set()
+    {
+        $dataSource = ['name' => 'test'];
+
+        $formBuilder = new FormBuilder();
+        $formBuilder->dataSource($dataSource);
+
+        $this->assertSame($dataSource, $formBuilder->dataSource());
+    }
+
+    /** @test */
     public function it_filters_fields_of_type()
     {
         $builder = new FormBuilder();
@@ -292,5 +303,54 @@ class FormBuilderTest extends PHPUnit_Framework_TestCase
 
         $this->assertCount(2, $builder->fieldsOfType(Field::class));
         $this->assertCount(0, $builder->fieldsOfType(Textarea::class));
+    }
+    
+    /** @test */
+    public function it_accepts_rules_for_fields()
+    {
+        $rules = [
+            'test' => ['required' => true],
+        ];
+
+        $builder = new FormBuilder();
+        $builder
+            ->text('test', 'Test');
+
+        $builder->setValidationRules($rules);
+
+        $this->assertSame($rules, $builder->getRules());
+    }
+
+    /** @test */
+    public function it_returns_rules_for_single_field()
+    {
+        $rules = [
+            'test' => ['required' => true],
+        ];
+
+        $builder = new FormBuilder();
+        $builder
+            ->text('test', 'Test');
+
+        $builder->setValidationRules($rules);
+
+        $this->assertSame($rules['test'], $builder->getRules('test'));
+    }
+
+    /** @test */
+    public function it_adds_rules_as_option_to_feild()
+    {
+        $rules = [
+            'test' => ['required' => true],
+        ];
+
+        $builder = new FormBuilder();
+        $builder->setValidationRules($rules);
+        
+        $builder
+            ->text('test', 'Test');
+
+
+        $this->assertSame(json_encode($rules['test']), $builder->get('test')->getOption('data-validation'));
     }
 }
