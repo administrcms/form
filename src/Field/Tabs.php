@@ -20,7 +20,7 @@ class Tabs extends Field
 
         $this->tabs = $tabs;
 
-        foreach($tabs as $key => $tab) {
+        foreach(array_keys($tabs) as $key) {
             $this->contents[$key] = new FormBuilder();
         }
 
