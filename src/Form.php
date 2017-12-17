@@ -114,26 +114,6 @@ abstract class Form implements ValidatesWhenSubmitted
     }
 
     /**
-     * Should use open()
-     * @return string
-     * @deprecated
-     */
-    public function getFormOpen()
-    {
-        return $this->open();
-    }
-
-    /**
-     * Should use close()
-     * @return string
-     * @deprecated
-     */
-    public function getFormClose()
-    {
-        return $this->close();
-    }
-
-    /**
      * @return string
      */
     public function open()
@@ -251,17 +231,6 @@ abstract class Form implements ValidatesWhenSubmitted
         return $this->redirector->to($this->getRedirectUrl())
             ->withInput($this->request->except($this->dontFlash))
             ->withErrors($errors, $this->errorBag);
-    }
-
-    /**
-     * @param array|Model|Translatable $dataSource
-     * @codeCoverageIgnore
-     * @deprecated
-     * @return Form
-     */
-    public function setDataSource($dataSource)
-    {
-        return $this->dataSource($dataSource);
     }
 
     /**
