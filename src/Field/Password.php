@@ -9,7 +9,7 @@ class Password extends AbstractType
         parent::__construct($name, $label, $options);
 
         $this->setView('administr/form::text');
-        $this->options['type'] = 'password';
+        $this->setOption('type', 'password');
     }
 
     public function getValue()

@@ -9,6 +9,6 @@ class DateTime extends Text
         parent::__construct($name, $label, $options);
 
         $this->setView('administr/form::text');
-        $this->options['type'] = 'datetime';
+        $this->setOption('type', 'datetime-local');
     }
 }

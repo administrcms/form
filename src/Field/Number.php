@@ -9,6 +9,6 @@ class Number extends Text
         parent::__construct($name, $label, $options);
 
         $this->setView('administr/form::text');
-        $this->options['type'] = 'number';
+        $this->setOption('type', 'number');
     }
 }

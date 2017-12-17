@@ -9,7 +9,7 @@ class Submit extends AbstractType
         parent::__construct($name, $label, $options);
 
         $this->setView('administr/form::submit');
-        $this->options['type'] = 'submit';
+        $this->setOption('type', 'submit');
         $this->setValue($label);
     }
 }

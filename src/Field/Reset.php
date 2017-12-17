@@ -9,6 +9,6 @@ class Reset extends Submit
         parent::__construct($name, $label, $options);
 
         $this->setView('administr/form::submit');
-        $this->options['type'] = 'reset';
+        $this->setOption('type', 'reset');
     }
 }

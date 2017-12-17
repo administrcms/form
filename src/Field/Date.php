@@ -9,6 +9,6 @@ class Date extends Text
         parent::__construct($name, $label, $options);
 
         $this->setView('administr/form::text');
-        $this->options['type'] = 'date';
+        $this->setOption('type', 'date');
     }
 }
