@@ -10,7 +10,7 @@ class Select extends Field
     {
         $this->options = array_merge($this->options, $attributes);
 
-        $value = old(str_replace('[]', '', $this->name), $this->getOption('value'));
+        $value = old(str_replace('[]', '', $this->name), $this->getValue());
         unset($this->options['value']);
 
         $this->setSelectOptions($value);
