@@ -24,6 +24,12 @@ class Select extends Field
         return $this;
     }
 
+    public function optionGroup($label, $options)
+    {
+        $this->selectOptions[] = new OptionGroup($label, $options);
+        return $this;
+    }
+
     public function options()
     {
         return $this->selectOptions;
