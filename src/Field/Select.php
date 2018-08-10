@@ -10,10 +10,16 @@ class Select extends Field
     {
         $this->options = array_merge($this->options, $attributes);
 
+        if ($options = $this->getOption('values')) {
+            $this->setSelectOptions($options);
+        }
+
         $value = old(str_replace('[]', '', $this->name), $this->getValue());
         unset($this->options['value']);
 
-        $this->setSelectOptions($value);
+        foreach($this->selectOptions as $option) {
+            $option->setValue($value);
+        }
 
         return parent::render($attributes, $viewData);
     }
@@ -35,22 +41,12 @@ class Select extends Field
         return $this->selectOptions;
     }
 
-    protected function setSelectOptions($value)
+    protected function setSelectOptions($options)
     {
-        if (!$values = $this->getOption('values')) {
-            return;
-        }
-
         $this->selectOptions = [];
 
-        foreach ($values as $optionValue => $display) {
-            $optionAttrs = [];
-
-            if ($optionValue == $value || is_array($value) && in_array($optionValue, $value)) {
-                $optionAttrs['selected'] = 'selected';
-            }
-
-            $this->option($optionValue, $display, $optionAttrs);
+        foreach ($options as $optionValue => $display) {
+            $this->option($optionValue, $display);
         }
     }
 }
