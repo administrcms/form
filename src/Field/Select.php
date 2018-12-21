@@ -14,7 +14,7 @@ class Select extends Field
             $this->setSelectOptions($options);
         }
 
-        $value = old(str_replace('[]', '', $this->name), $this->getValue());
+        $value = old(str_replace('[]', '', $this->getEscapedName()), $this->getValue());
         unset($this->options['value']);
 
         foreach($this->selectOptions as $option) {
