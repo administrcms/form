@@ -10,5 +10,7 @@ class Url extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'url');
+
+        $this->executeOptions($options);
     }
 }

@@ -10,5 +10,7 @@ class Color extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'color');
+
+        $this->executeOptions($options);
     }
 }

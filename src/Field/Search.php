@@ -10,5 +10,7 @@ class Search extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'search');
+
+        $this->executeOptions($options);
     }
 }

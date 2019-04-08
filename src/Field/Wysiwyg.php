@@ -13,5 +13,7 @@ class Wysiwyg extends Textarea
 
         $this->setView('administr/form::textarea');
         $this->setOption('class', $this->getOption('class') . ' administr-wysiwyg');
+
+        $this->executeOptions($options);
     }
 }

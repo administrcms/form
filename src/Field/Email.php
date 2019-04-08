@@ -10,5 +10,7 @@ class Email extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'email');
+
+        $this->executeOptions($options);
     }
 }

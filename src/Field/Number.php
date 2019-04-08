@@ -10,5 +10,7 @@ class Number extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'number');
+
+        $this->executeOptions($options);
     }
 }

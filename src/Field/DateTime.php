@@ -10,5 +10,7 @@ class DateTime extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'datetime-local');
+
+        $this->executeOptions($options);
     }
 }

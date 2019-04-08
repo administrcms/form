@@ -10,5 +10,7 @@ class Time extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'time');
+
+        $this->executeOptions($options);
     }
 }

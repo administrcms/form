@@ -10,5 +10,7 @@ class Range extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'range');
+
+        $this->executeOptions($options);
     }
 }

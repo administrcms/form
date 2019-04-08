@@ -23,16 +23,7 @@ abstract class Field
             ->setLabel($label)
             ->setView("administr/form::{$this->type()}");
 
-        if($options instanceof \Closure)
-        {
-            call_user_func($options, $this);
-        }
-
-        if(is_array($options))
-        {
-            $options = $this->optionsToMethods($options);
-            $this->setOptions($options);
-        }
+        $this->executeOptions($options);
     }
 
     /**
@@ -353,6 +344,14 @@ abstract class Field
     }
 
     /**
+     * @codeCoverageIgnore
+     */
+    public function __toString()
+    {
+        return $this->render();
+    }
+
+    /**
      * @param array $options
      * @return array
      */
@@ -376,10 +375,17 @@ abstract class Field
     }
 
     /**
-     * @codeCoverageIgnore
+     * @param $options
      */
-    public function __toString()
+    protected function executeOptions($options)
     {
-        return $this->render();
+        if ($options instanceof \Closure) {
+            call_user_func($options, $this);
+        }
+
+        if (is_array($options)) {
+            $options = $this->optionsToMethods($options);
+            $this->setOptions($options);
+        }
     }
 }

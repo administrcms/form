@@ -11,5 +11,7 @@ class Submit extends Field
         $this->setView('administr/form::submit');
         $this->setOption('type', 'submit');
         $this->setValue($label);
+
+        $this->executeOptions($options);
     }
 }

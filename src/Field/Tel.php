@@ -10,5 +10,7 @@ class Tel extends Field
 
         $this->setOption('type', 'tel');
         $this->setView('administr/form::text');
+
+        $this->executeOptions($options);
     }
 }

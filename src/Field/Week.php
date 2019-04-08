@@ -10,5 +10,7 @@ class Week extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'week');
+
+        $this->executeOptions($options);
     }
 }

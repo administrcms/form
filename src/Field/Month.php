@@ -10,5 +10,7 @@ class Month extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'month');
+
+        $this->executeOptions($options);
     }
 }

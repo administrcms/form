@@ -10,5 +10,7 @@ class Reset extends Submit
 
         $this->setView('administr/form::submit');
         $this->setOption('type', 'reset');
+
+        $this->executeOptions($options);
     }
 }

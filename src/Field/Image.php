@@ -12,6 +12,8 @@ class Image extends File implements ImageContract
     {
         parent::__construct($name, $label, $options);
         $this->setView('administr/form::image');
+
+        $this->executeOptions($options);
     }
 
     public function setSrc($src)

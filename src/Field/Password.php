@@ -10,6 +10,8 @@ class Password extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'password');
+
+        $this->executeOptions($options);
     }
 
     public function getValue()

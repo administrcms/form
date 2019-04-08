@@ -10,5 +10,7 @@ class Date extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'date');
+
+        $this->executeOptions($options);
     }
 }

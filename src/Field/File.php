@@ -10,5 +10,7 @@ class File extends Field
 
         $this->setView('administr/form::text');
         $this->setOption('type', 'file');
+
+        $this->executeOptions($options);
     }
 }
