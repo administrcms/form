@@ -3,6 +3,7 @@
 namespace Administr\Form\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 
 /**
@@ -30,8 +31,8 @@ class MakeFormCommand extends GeneratorCommand
     {
         parent::fire();
 
-        $name = str_plural(
-            str_replace( '-form', '', snake_case($this->argument('name'), '-') )
+        $name = Str::plural(
+            str_replace( '-form', '', Str::snake($this->argument('name'), '-') )
         );
 
         $from = __DIR__ . '/stubs/form.blade.stub';

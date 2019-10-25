@@ -3,6 +3,7 @@
 namespace Administr\Form\Field;
 
 use Administr\Form\RenderAttributesTrait;
+use Illuminate\Support\Arr;
 
 abstract class Field
 {
@@ -175,7 +176,7 @@ abstract class Field
      */
     public function getOption($option, $default = null)
     {
-        return array_get($this->options, $option, $default);
+        return Arr::get($this->options, $option, $default);
     }
 
     /**

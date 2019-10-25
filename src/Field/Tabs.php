@@ -3,6 +3,7 @@
 namespace Administr\Form\Field;
 
 use Administr\Form\FormBuilder;
+use Illuminate\Support\Arr;
 
 class Tabs extends Field
 {
@@ -56,7 +57,7 @@ class Tabs extends Field
      */
     public function builder($tab = null)
     {
-        if(! array_has($this->contents, $tab)) {
+        if(! Arr::has($this->contents, $tab)) {
             return $this->contents;
         }
 

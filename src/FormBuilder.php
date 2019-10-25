@@ -11,6 +11,7 @@ use Administr\Form\Field\Text;
 use Administr\Form\Field\Translated;
 use Administr\Localization\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 /**
  * Class FormBuilder.
@@ -212,7 +213,7 @@ class FormBuilder
         }
 
         if (is_array($dataSource)) {
-            $val = array_get($dataSource, $field);
+            $val = Arr::get($dataSource, $field);
 
             if (is_string($val)) {
                 return htmlentities($val);
@@ -255,7 +256,7 @@ class FormBuilder
         $fields = func_get_args();
 
         if (is_array($fields)) {
-            $fields = array_flatten($fields);
+            $fields = Arr::flatten($fields);
         }
 
         if (count($fields) == 1 && is_string($fields[0])) {
@@ -287,7 +288,7 @@ class FormBuilder
      */
     public function hasRules($field)
     {
-        return array_has($this->rules, $field);
+        return Arr::has($this->rules, $field);
     }
 
     /**
@@ -303,7 +304,7 @@ class FormBuilder
             return $this->rules;
         }
 
-        return array_get($this->rules, $field, $default);
+        return Arr::get($this->rules, $field, $default);
     }
 
     /**

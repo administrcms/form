@@ -10,6 +10,7 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Arr;
 
 abstract class Form implements ValidatesWhenSubmitted
 {
@@ -127,9 +128,9 @@ abstract class Form implements ValidatesWhenSubmitted
         // To simulate a put requrest with Laravel,
         // we need to add a hidden field for the method
 
-        $this->builder()->hidden('_method', array_get($this->options, 'method'));
+        $this->builder()->hidden('_method', Arr::get($this->options, 'method'));
 
-        if (array_get($this->options, 'method') == 'put') {
+        if (Arr::get($this->options, 'method') == 'put') {
             $this->options['method'] = 'post';
         }
 
@@ -297,7 +298,7 @@ abstract class Form implements ValidatesWhenSubmitted
             return $field->isTranslated();
         });
 
-        if($translated = array_get($this->fields(), 'translated')) {
+        if($translated = Arr::get($this->fields(), 'translated')) {
             $languageFields += $translated->builder()->fields();
         }
 
@@ -374,7 +375,7 @@ abstract class Form implements ValidatesWhenSubmitted
      */
     public function addTokenField()
     {
-        if (array_key_exists('_token', $this->fields()) || array_get($this->options, 'method') == 'get') {
+        if (array_key_exists('_token', $this->fields()) || Arr::get($this->options, 'method') == 'get') {
             return $this;
         }
 
