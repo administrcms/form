@@ -302,19 +302,15 @@ abstract class Form implements ValidatesWhenSubmitted
             $languageFields += $translated->builder()->fields();
         }
 
-        $fields = $this->all();
-
         $translated = [];
 
         foreach ($languages as $language_id) {
             $translated[$language_id] = [];
-            foreach ($fields as $field => $value) {
+            foreach ($languageFields as $field => $value) {
                 if (array_key_exists($field, $languageFields)) {
                     $translated[$language_id][$field] = $value[$language_id];
                     continue;
                 }
-
-                $translated[$language_id][$field] = $value;
             }
         }
 
