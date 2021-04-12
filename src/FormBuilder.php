@@ -12,6 +12,7 @@ use Administr\Form\Field\Translated;
 use Administr\Localization\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 /**
  * Class FormBuilder.
@@ -331,7 +332,7 @@ class FormBuilder
      */
     public function __call($name, array $args)
     {
-        $class = 'Administr\\Form\\Field\\'.studly_case($name);
+        $class = 'Administr\\Form\\Field\\' . Str::studly($name);
 
         if (!class_exists($class)) {
             $class = Text::class;
